@@ -92,11 +92,10 @@ pip install -r requirements.txt
 python -m PyInstaller --noconsole --onefile --add-data "assets;assets" --icon "assets/Pudin.ico" --name "Pudin_Ghost_Cat" main.py
 
 ```
-
----
-
-**Desarrollado con 🐾 por [KaledSML**](https://github.com/KaledSML) *"Menos código aburrido, más gatos que hackean."*
-
-```
-
----
+> [!WARNING]
+> ### 🐾 SYSTEM NOTICE: [KaledSML](https://github.com/KaledSML)
+> 
+> `Status: Stable (barely)`  
+> `Warning: This code works by miracle. Do not touch or Pudin will delete your System32.`
+> 
+> **[> 🛑 ACCEDER AL PANEL DE CONTROL (URGENTE)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)**
