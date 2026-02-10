@@ -1,9 +1,15 @@
 
-
 # 🐱 Pudin: The Ghost Cat RPA
+
+<p align="center">
+  <img src="unnamed.jpg" alt="Pudin Banner" width="100%">
+</p>
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Platform: Windows](https://img.shields.io/badge/Platform-Windows-0078d7.svg)]()
+
+
+
 
 Sinceramente, **Pudin** nació porque quería una mascota de escritorio, pero terminó siendo un agente de automatización con problemas de actitud. Es un gato que vive en tu pantalla, camina sobre tus ventanas y, si te descuidas, te hackea un poquito el día.
 
