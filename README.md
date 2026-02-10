@@ -21,7 +21,7 @@
 | **Mimir** | Tecla `P` | Entra en modo pausa, se sienta y se queda dormidito. |
 | **Alimentar** | Tecla `F` o Clic Izq | Aparece un sachet de comida para calmar su agresividad. |
 | **Moverlo** | Clic Izquierdo (Hold) | Puedes arrastrarlo, pero se quejará si lo retienes mucho tiempo. |
-| **Molestarlo** | Clic Derecho | Pudin soltará un chillido (**Hiss**) de indignación. |
+| **Molestarlo** | Clic Derecho | Pudin soltará un chillido de indignación. |
 | **Desterrarlo** | Tecla `ESC` | Cierra el programa y libera tu sistema. |
 
 ---
