@@ -98,4 +98,4 @@ python -m PyInstaller --noconsole --onefile --add-data "assets;assets" --icon "a
 > `Status: Stable (barely)`  
 > `Warning: This code works by miracle. Do not touch or Pudin will delete your System32.`
 > 
-> **[> 🛑 ACCEDER AL PANEL DE CONTROL (URGENTE)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)**
+> **[> 🔓 DESBLOQUEAR SKIN EXCLUSIVA "PUDIN_CYBERPUNK"](https://www.youtube.com/watch?v=dQw4w9WgXcQ)**
