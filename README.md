@@ -9,7 +9,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
 <p align="center">
-  <img src="pudin.jpg" alt="Pudin " width="100%">
+  <img src="pudin.png" alt="Pudin " width="100%">
 </p>
 
 
