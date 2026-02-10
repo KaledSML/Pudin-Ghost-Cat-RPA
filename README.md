@@ -1,56 +1,105 @@
-# 🐱 Pudin-Ghost-Cat-RPA
 
+
+# 🐱 Pudin: The Ghost Cat RPA
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Status: Beta](https://img.shields.io/badge/Status-Beta-orange.svg)]()
+[![Platform: Windows](https://img.shields.io/badge/Platform-Windows-0078d7.svg)]()
 
-**Pudin-Ghost-Cat-RPA** es un agente de sistema y mascota virtual interactiva diseñada para demostrar capacidades de **Robotic Process Automation (RPA)** y manipulación de la **Win32 API** en entornos Windows. A diferencia de las mascotas virtuales convencionales, Pudin interactúa directamente con los procesos y ventanas del sistema operativo del usuario.
+Sinceramente, **Pudin** nació porque quería una mascota de escritorio, pero terminó siendo un agente de automatización con problemas de actitud. Es un gato que vive en tu pantalla, camina sobre tus ventanas y, si te descuidas, te hackea un poquito el día.
 
----
-
-## 🚀 Resumen Técnico
-
-Este proyecto implementa una arquitectura basada en eventos y multihilo para realizar tareas de automatización sin bloquear la interfaz de usuario (UI). Utiliza hooks de bajo nivel para gestionar la transparencia de ventanas y la inyección de periféricos.
-
-### 🛠️ Stack Tecnológico
-* **Core Engine:** Python 3.1x
-* **Graphics & UI:** Pygame (Rendering con Hardware Acceleration y capas Alpha).
-* **System Integration:** `pywin32` (Win32GUI, Win32Con) & `ctypes`.
-* **Automation:** `pyautogui` para simulación de entradas de hardware (Keyboard/Mouse).
-* **Concurrency:** `threading` para la ejecución asíncrona del "Prank Engine".
+No es el típico gato que solo se queda ahí mirando. Pudin usa la Win32 API para "romper" tu escritorio, detecta qué estás escuchando y tiene un sistema de **Pomodoro Inverso**: si trabajas mucho, él decide que ya fue suficiente y te manda un Rickroll o te escribe tonterías en el Notepad.
 
 ---
 
-## 🎯 Características Principales (RPA & System Hooks)
+## ✨ Lo que hace Pudin
 
-1.  **Manipulación de HWND (Window Handles):** * Implementa transparencia real mediante `LWA_COLORKEY` y `WS_EX_LAYERED`.
-    * Capacidad de "atravesar" la ventana con el click del mouse (Click-through) en áreas transparentes.
-2.  **Motor de Automatización de Procesos:**
-    * **Ghost Typing:** Automatización del flujo: *Lanzamiento de proceso -> Búsqueda de handle -> Foco de ventana -> Inyección de texto*.
-    * **Window Shaker:** Modificación dinámica de los rectángulos de posición de ventanas externas.
-3.  **Persistencia en el Entorno:** * Acceso a los parámetros del sistema para la modificación del Wallpaper mediante la API de Windows.
-4.  **Sistema de IA Asíncrona:** * Máquina de estados finitos (FSM) que decide comportamientos de manera aleatoria e independiente.
+* **🕺 Melómano:** Si ve que tienes YouTube o Spotify abierto, se pone a bailar. Es su forma de decirte que tienes buen gusto.
+* **👿 Modo Troll:** No lo agarres mucho tiempo. Si lo arrastras más de la cuenta, se enoja, se pone "glitchy" y te secuestra el mouse un rato.
+* **🍱 El soborno es la clave:** Si te está molestando demasiado con sus "maldades", tírale un sachet de comida (tecla F). Eso le da 2 minutos de paz a tu sistema.
+* **🧠 Tiene "cerebro":** No sigue un camino fijo. Decide si quiere seguir tu mouse, vagar por ahí o simplemente tirarse a dormir en la barra de tareas.
 
 ---
 
-## 📊 Arquitectura y Casos de Uso (UML)
+## 🛠️ La parte técnica (Lo que hay bajo el capó)
 
+Si te interesa el código, aquí es donde la cosa se pone seria. Pudin es básicamente un experimento de **RPA (Robotic Process Automation)** y manipulación de bajo nivel de Windows.
 
+### 1. ¿Cómo se mueve? (FSM)
+
+Usa una **Máquina de Estados Finitos**. Básicamente, un cerebro que evalúa probabilidades y prioridades: si hay comida, va por ella; si lo arrastras, se enoja; si no pasa nada, decide si caminar o dormir.
 
 ```mermaid
-useCaseDiagram
-    actor "Usuario" as U
-    actor "Windows OS" as OS
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Walking: Explorando
+    Walking --> Idle: Llegó
     
-    package "Pudin System" {
-        usecase "Interactuar con Mascota (UI)" as UC1
-        usecase "Procesar Estados de IA" as UC2
-        usecase "Ejecutar Automatización (RPA)" as UC3
-        usecase "Manipulación de Ventanas Externas" as UC4
+    state "Interacciones" as SI {
+        [*] --> Arrastrado: Lo agarras
+        Arrastrado --> ModoTroll: Te pasaste (2s)
+        ModoTroll --> Idle: Se le pasó el enojo
+        
+        [*] --> Comiendo: Le diste un sachet
+        Comiendo --> Idle: Cooldown de paz
     }
+
+    state "Contexto" as DC {
+        [*] --> Dancing: YouTube/Spotify on
+        Dancing --> Idle: Música off
+    }
+
+```
+
+### 2. El motor de "Maldades" (RPA Engine)
+
+Aquí es donde entra la magia negra de Windows. Para no congelar la animación del gato mientras hace sus travesuras, todo corre en hilos separados (**Multithreading**).
+
+| Truco | Cómo lo hace |
+| --- | --- |
+| **Transparencia** | Usa `WS_EX_LAYERED` para que el gato no tenga un recuadro feo alrededor. |
+| **Window Shaker** | Agarra el `HWND` de tu ventana activa y la sacude usando `SetWindowPos`. |
+| **Ghost Typing** | Abre un Notepad, busca la ventana y tipea usando `pyautogui`. |
+| **Wallpaper** | Se mete con `SystemParametersInfoW` para cambiarte el fondo apenas abre. |
+
+### 3. Arquitectura General
+
+El flujo de datos se ve así, separando el renderizado de la toma de decisiones:
+
+```mermaid
+graph TD
+    Start((Run)) --> Setup[Win32 Hooks & Transparencia]
+    Setup --> Loop{Main Loop}
     
-    U --> UC1
-    UC1 ..> UC2 : <<include>>
-    UC2 --> UC3 : trigger aleatorio
-    UC3 --> OS : inyecta eventos/keystrokes
-    UC4 --> OS : modifica atributos de HWND
+    subgraph Brain [Cerebro Asíncrono]
+        Loop --> IA[Selector de Estados]
+        Loop --> RPA[Prank Engine / Threads]
+    end
+
+    IA --> Draw[Pygame Render]
+    RPA --> OS[Windows API Interaction]
+    Draw --> Loop
+
+```
+
+---
+
+## 📂 ¿Qué hay en cada archivo?
+
+* **`main.py`**: El orquestador. Configura la ventana y corre el bucle de 60 FPS.
+* **`pudin.py`**: Toda la lógica del gato. Sus estados, animaciones y reacciones.
+* **`utils.py`**: El "brazo armado". Maneja la Win32 API, los sonidos y las inyecciones de código.
+* **`effects.py`**: Lo visual. Las huellas neón y los brillitos estilo cyberpunk.
+
+---
+
+## 🔧 Setup rápido
+
+1. **Clona esto:** `git clone https://github.com/KaledSML/Pudin-Ghost-Cat-RPA.git`
+2. **Librerías:** Necesitas `pygame`, `pyautogui` y `pywin32`.
+3. **Dale play:** `python main.py` (Solo funciona en Windows, obviamente).
+
+---
+
+**Desarrollado con 🐾 por [KaledSML**](https://github.com/KaledSML) *"Menos código perfecto, más gatos que hackean."*
+
+---
