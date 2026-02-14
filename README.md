@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="[https://youtu.be/UMO3PvRJNPc?si=m2oqhY35GSnm706P]">
+  <a href="https://youtu.be/UMO3PvRJNPc?si=m2oqhY35GSnm706P">
     <img src="https://img.shields.io/badge/YouTube-Mira%20a%20Pudin%20en%20acci%C3%B3n-red?style=for-the-badge&logo=youtube" alt="YouTube Video">
   </a>
 </p>
