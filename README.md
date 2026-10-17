@@ -1,4 +1,4 @@
-<h1 align="center">🐱 Pudin: The Ghost Cat</h1>
+<h1 align="center">🐱 Pudin: The Ghost Cat RPA</h1>
 
 <p align="center">
   <i>✨ Tu escritorio tiene un nuevo inquilino: pequeño, naranja y muy travieso ✨</i>
