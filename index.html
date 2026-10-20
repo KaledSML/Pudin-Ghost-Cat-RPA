@@ -82,6 +82,33 @@ h2{
 .does b{display:block;font-size:1.05rem}
 .does span.t{color:var(--muted);font-size:.95rem}
 
+
+/* Video */
+.video{
+  position:relative;max-width:760px;margin:0 auto;aspect-ratio:16/9;border-radius:14px;overflow:hidden;
+  background:#07030f;border:2px solid var(--magenta);
+  box-shadow:0 0 40px rgba(255,47,160,.35), 0 0 0 6px rgba(61,232,255,.08);
+}
+.video button{
+  all:unset;cursor:pointer;position:absolute;inset:0;display:block;
+  background:#07030f center/cover no-repeat;
+}
+.video button::after{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 4px);
+}
+.video .play{
+  position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;z-index:2;
+  border-radius:50%;background:var(--magenta);display:grid;place-items:center;
+  box-shadow:0 0 34px rgba(255,47,160,.8);transition:transform .2s;
+}
+.video .play::before{
+  content:"";margin-left:6px;border-style:solid;border-width:15px 0 15px 25px;
+  border-color:transparent transparent transparent #fff;
+}
+.video button:hover .play{transform:scale(1.1)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
 /* Controles */
 .keys{display:flex;flex-wrap:wrap;gap:1.4rem;justify-content:center}
 .key{display:flex;align-items:center;gap:.8rem;max-width:20rem}
@@ -163,6 +190,15 @@ footer a{color:var(--cyan)}
     </div>
   </section>
 
+  <section id="video">
+    <h2>Míralo en acción</h2>
+    <div class="video" id="yt">
+      <button type="button" aria-label="Reproducir el video de Pudin" style="background-image:url('https://img.youtube.com/vi/UMO3PvRJNPc/maxresdefault.jpg')">
+        <span class="play"></span>
+      </button>
+    </div>
+  </section>
+
   <section>
     <h2>Cómo jugar</h2>
     <div class="keys">
@@ -207,6 +243,15 @@ document.querySelectorAll('.copy').forEach(function(btn){
     });
   });
 });
+
+/* Video: carga el reproductor al hacer clic */
+(function(){
+  var box=document.getElementById('yt');
+  if(!box)return;
+  box.querySelector('button').addEventListener('click',function(){
+    box.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/UMO3PvRJNPc?autoplay=1&rel=0" title="Pudin en acción" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+  });
+})();
 
 /* Huellas de neón que siguen al cursor */
 (function(){
