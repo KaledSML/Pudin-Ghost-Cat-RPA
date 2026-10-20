@@ -109,6 +109,18 @@ h2{
 .video button:hover .play{transform:scale(1.1)}
 .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
+
+.thumbs{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;max-width:760px;margin:1.2rem auto 0}
+.thumb{
+  all:unset;cursor:pointer;position:relative;width:calc(25% - .6rem);min-width:120px;aspect-ratio:16/9;
+  border-radius:8px;overflow:hidden;border:2px solid var(--line);background:#07030f center/cover no-repeat;
+  transition:border-color .2s, box-shadow .2s, transform .2s;
+}
+.thumb:hover{border-color:var(--cyan);box-shadow:0 0 18px rgba(61,232,255,.5);transform:translateY(-2px)}
+.thumb.on{border-color:var(--magenta);box-shadow:0 0 18px rgba(255,47,160,.6)}
+.thumb:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.more{text-align:center;margin-top:1.6rem}
+
 /* Controles */
 .keys{display:flex;flex-wrap:wrap;gap:1.4rem;justify-content:center}
 .key{display:flex;align-items:center;gap:.8rem;max-width:20rem}
@@ -174,7 +186,7 @@ footer a{color:var(--cyan)}
   <p class="sub">The Ghost Cat RPA</p>
   <p class="tag">Tu escritorio tiene un nuevo inquilino: pequeño, naranja y muy travieso.</p>
   <div class="actions">
-    <a class="btn main" href="https://youtu.be/UMO3PvRJNPc?si=m2oqhY35GSnm706P">Míralo en acción</a>
+    <a class="btn main" href="#video">Míralo en acción</a>
     <a class="btn" href="https://github.com/KaledSML/Pudin-Ghost-Cat-RPA">Ver en GitHub</a>
   </div>
 </div>
@@ -196,6 +208,15 @@ footer a{color:var(--cyan)}
       <button type="button" aria-label="Reproducir el video de Pudin" style="background-image:url('https://img.youtube.com/vi/UMO3PvRJNPc/maxresdefault.jpg')">
         <span class="play"></span>
       </button>
+    </div>
+    <div class="thumbs" id="thumbs">
+      <button class="thumb on" type="button" data-id="UMO3PvRJNPc" aria-label="Video 1" style="background-image:url('https://img.youtube.com/vi/UMO3PvRJNPc/mqdefault.jpg')"></button>
+      <button class="thumb" type="button" data-id="qB2oQJQuG6k" aria-label="Video 2" style="background-image:url('https://img.youtube.com/vi/qB2oQJQuG6k/mqdefault.jpg')"></button>
+      <button class="thumb" type="button" data-id="iFz_SBGp_ws" aria-label="Video 3" style="background-image:url('https://img.youtube.com/vi/iFz_SBGp_ws/mqdefault.jpg')"></button>
+      <button class="thumb" type="button" data-id="NHto1R9yhVM" aria-label="Video 4" style="background-image:url('https://img.youtube.com/vi/NHto1R9yhVM/mqdefault.jpg')"></button>
+    </div>
+    <div class="more">
+      <a class="btn" href="https://youtube.com/playlist?list=PL6ic-uQzzKmICgM4mTKT97MxOHBTYgjKb">Ver la playlist completa</a>
     </div>
   </section>
 
@@ -244,12 +265,21 @@ document.querySelectorAll('.copy').forEach(function(btn){
   });
 });
 
-/* Video: carga el reproductor al hacer clic */
+/* Video: carga el reproductor al hacer clic y permite cambiar de video */
 (function(){
   var box=document.getElementById('yt');
+  var thumbs=document.querySelectorAll('#thumbs .thumb');
   if(!box)return;
-  box.querySelector('button').addEventListener('click',function(){
-    box.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/UMO3PvRJNPc?autoplay=1&rel=0" title="Pudin en acción" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+  function load(id){
+    box.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0" title="Pudin en acción" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+  }
+  box.querySelector('button').addEventListener('click',function(){load('UMO3PvRJNPc')});
+  thumbs.forEach(function(t){
+    t.addEventListener('click',function(){
+      thumbs.forEach(function(o){o.classList.remove('on')});
+      t.classList.add('on');
+      load(t.getAttribute('data-id'));
+    });
   });
 })();
 
