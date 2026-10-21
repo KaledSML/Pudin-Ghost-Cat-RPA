@@ -1,4 +1,2131 @@
+/* =========================================================
+   PUDIN.EXE // DREAMCORE GLITCH CAT
+   Digital fever dream · neon candy · chaotic little ghost
+   ========================================================= */
 
+:root {
+  color-scheme: dark;
+
+  --void: #10091c;
+  --deep-space: #1b0d2b;
+  --space-blue: #21143b;
+  --nebula-violet: #873eff;
+
+  --neon-cyan: #70fff1;
+  --neon-pink: #ff65c8;
+  --neon-orange: #ffad70;
+  --neon-lime: #d9ff70;
+  --star-white: #fff5ff;
+
+  --text-main: #fff4ff;
+  --text-muted: #c8b6dc;
+
+  --glass: rgba(30, 14, 48, 0.78);
+  --glass-border: rgba(255, 101, 200, 0.32);
+
+  --glow-cyan: 0 0 25px rgba(112, 255, 241, 0.2);
+  --glow-pink: 0 0 30px rgba(255, 101, 200, 0.2);
+
+  --page-width: 1180px;
+  --section-space: clamp(5rem, 10vw, 8rem);
+}
+
+/* ---------------------------------------------------------
+   1. THE VOID IS FULL OF CAT HAIR
+   --------------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--void);
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: clip;
+
+  color: var(--text-main);
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 1.7;
+
+  background:
+    radial-gradient(ellipse at 5% 8%, rgba(255, 101, 200, 0.18), transparent 28rem),
+    radial-gradient(ellipse at 92% 22%, rgba(135, 62, 255, 0.25), transparent 34rem),
+    radial-gradient(ellipse at 75% 66%, rgba(112, 255, 241, 0.08), transparent 30rem),
+    radial-gradient(ellipse at 15% 87%, rgba(255, 173, 112, 0.09), transparent 27rem),
+    linear-gradient(160deg, #10091c 0%, #1b0d2b 46%, #10091c 100%);
+}
+
+/* Star confetti */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(circle, #fff 1px, transparent 1.8px),
+    radial-gradient(circle, var(--neon-pink) 1px, transparent 2px),
+    radial-gradient(circle, var(--neon-cyan) 1px, transparent 2px),
+    radial-gradient(circle, var(--neon-lime) 1px, transparent 2px);
+
+  background-size:
+    97px 113px,
+    173px 191px,
+    227px 163px,
+    311px 271px;
+
+  background-position:
+    13px 21px,
+    49px 77px,
+    101px 37px,
+    19px 131px;
+
+  opacity: 0.35;
+
+  mask-image: linear-gradient(to bottom, #000 0%, #000 65%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 65%, transparent 100%);
+}
+
+body::after {
+  content: none !important;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: rgba(112, 255, 241, 0.6);
+  text-underline-offset: 0.22em;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+::selection {
+  color: var(--void);
+  background: var(--neon-lime);
+}
+
+main,
+.site-header,
+footer {
+  position: relative;
+}
+
+.section-wrap,
+.site-header,
+.footer-inner {
+  width: min(var(--page-width), calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.content-section {
+  position: relative;
+  padding-block: var(--section-space);
+  scroll-margin-top: 70px;
+}
+
+.content-section + .content-section {
+  border-top: 1px dashed rgba(255, 101, 200, 0.22);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+h1,
+h2 {
+  letter-spacing: -0.06em;
+}
+
+h1 {
+  font-size: clamp(3.2rem, 8vw, 6.7rem);
+}
+
+h2 {
+  font-size: clamp(2.5rem, 5vw, 4.4rem);
+}
+
+h3 {
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+}
+
+p {
+  color: var(--text-muted);
+}
+
+/* ---------------------------------------------------------
+   2. HEADER // CAT ADMIN HAS ENTERED THE SERVER
+   --------------------------------------------------------- */
+
+.site-header {
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  padding-block: 22px;
+  border-bottom: 1px dashed rgba(255, 101, 200, 0.3);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  color: var(--text-main);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  text-decoration: none;
+}
+
+.brand-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+
+  border: 1px solid var(--neon-pink);
+  border-radius: 15px 8px 15px 8px;
+  background: var(--deep-space);
+  box-shadow: 4px 4px 0 var(--neon-violet), var(--glow-pink);
+
+  font-size: 1.3rem;
+  transform: rotate(-7deg);
+}
+
+.accent-cyan {
+  color: var(--neon-cyan);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: clamp(12px, 2vw, 26px);
+}
+
+.nav a {
+  position: relative;
+  color: var(--text-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  color: var(--neon-lime);
+  transform: rotate(-2deg);
+}
+
+.nav .nav-cta {
+  padding: 9px 15px;
+  border: 1px solid var(--neon-cyan);
+  border-radius: 6px 13px 6px 13px;
+  color: var(--void);
+  background: var(--neon-cyan);
+  box-shadow: 3px 3px 0 var(--neon-pink);
+}
+
+/* ---------------------------------------------------------
+   3. HERO // WELCOME TO THE CAT DIMENSION
+   --------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(35px, 6vw, 85px);
+
+  width: 100%;
+  max-width: none;
+  min-height: min(790px, calc(100svh - 85px));
+
+  margin-inline: 0;
+  padding: clamp(70px, 9vw, 120px)
+    max(24px, calc((100vw - var(--page-width)) / 2));
+
+  overflow: hidden;
+}
+
+/* Full-width dreamy nebula */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(ellipse at 77% 39%, rgba(135, 62, 255, 0.31), transparent 39%),
+    radial-gradient(ellipse at 13% 22%, rgba(255, 101, 200, 0.17), transparent 36%),
+    radial-gradient(ellipse at 39% 88%, rgba(112, 255, 241, 0.1), transparent 39%),
+    repeating-linear-gradient(135deg, transparent 0 90px, rgba(255, 255, 255, 0.012) 91px 92px);
+
+  opacity: 1;
+}
+
+.hero::after {
+  content: "CAT.EXE HAS LEFT THE BOX";
+  position: absolute;
+  top: 28px;
+  right: 3%;
+  z-index: 2;
+  pointer-events: none;
+
+  color: rgba(255, 101, 200, 0.55);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  transform: rotate(4deg);
+}
+
+/* Existing Matrix canvas */
+#matrix-cosmos {
+  position: absolute !important;
+  inset: 0 auto 0 50% !important;
+
+  display: block;
+  width: 100vw !important;
+  height: 100% !important;
+  max-width: none;
+  transform: translateX(-50%);
+
+  z-index: 1 !important;
+  pointer-events: none;
+  opacity: 0.28;
+  mix-blend-mode: screen;
+
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+}
+
+.hero-copy,
+.hero-art {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+}
+
+.hero-copy {
+  max-width: 610px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 22px;
+  color: var(--neon-lime);
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.7;
+}
+
+.status-dot {
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+  background: var(--neon-lime);
+  box-shadow: 0 0 12px var(--neon-lime);
+
+  animation: status-pulse 2.5s ease-in-out infinite;
+}
+
+.hero h1 {
+  position: relative;
+  margin-bottom: 25px;
+  color: var(--star-white);
+  text-shadow:
+    3px 3px 0 rgba(255, 101, 200, 0.65),
+    -3px -2px 0 rgba(112, 255, 241, 0.28),
+    0 0 38px rgba(135, 62, 255, 0.3);
+}
+
+.hero h1 span {
+  display: inline-block;
+  color: var(--neon-pink);
+  text-shadow:
+    3px 3px 0 var(--nebula-violet),
+    -2px -1px 0 var(--neon-cyan);
+  transform: rotate(-2deg);
+}
+
+.hero-lead {
+  margin-bottom: 14px;
+  color: var(--neon-cyan);
+  font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+  font-weight: 700;
+}
+
+.hero-description {
+  max-width: 510px;
+  margin-bottom: 30px;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  min-height: 48px;
+  padding: 12px 19px;
+
+  border: 1px solid transparent;
+  border-radius: 7px 14px 7px 14px;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+
+  transition:
+    transform 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.button-primary {
+  color: #180c22;
+  border-color: var(--neon-lime);
+  background: var(--neon-lime);
+  box-shadow: 4px 4px 0 var(--neon-pink), 0 0 22px rgba(217, 255, 112, 0.13);
+}
+
+.button-primary:hover {
+  transform: translate(-2px, -3px) rotate(-1deg);
+  box-shadow: 7px 7px 0 var(--neon-pink), 0 0 32px rgba(217, 255, 112, 0.28);
+}
+
+.button-ghost {
+  border-color: var(--neon-pink);
+  color: var(--star-white);
+  background: rgba(30, 14, 48, 0.75);
+  box-shadow: 3px 3px 0 rgba(135, 62, 255, 0.7);
+}
+
+.button-ghost:hover {
+  transform: translate(2px, -3px) rotate(1deg);
+  border-color: var(--neon-cyan);
+  box-shadow: 5px 5px 0 var(--neon-cyan);
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero-tags span {
+  padding: 6px 11px;
+  border: 1px dashed rgba(255, 101, 200, 0.6);
+  border-radius: 5px 12px 5px 12px;
+
+  color: var(--neon-pink);
+  background: rgba(30, 14, 48, 0.68);
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.67rem;
+  letter-spacing: 0.07em;
+  transform: rotate(-1deg);
+}
+
+.hero-tags span:nth-child(2) {
+  color: var(--neon-cyan);
+  border-color: rgba(112, 255, 241, 0.55);
+  transform: rotate(1deg);
+}
+
+.hero-tags span:nth-child(3) {
+  color: var(--neon-lime);
+  border-color: rgba(217, 255, 112, 0.5);
+  transform: rotate(-1.5deg);
+}
+
+/* ---------------------------------------------------------
+   4. PUDIN'S PORTAL
+   --------------------------------------------------------- */
+
+.hero-art {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  perspective: 1100px;
+}
+
+.art-glow {
+  position: absolute;
+  inset: 7% 0;
+  z-index: 0;
+  border-radius: 50%;
+
+  background:
+    radial-gradient(ellipse, rgba(255, 101, 200, 0.26), rgba(135, 62, 255, 0.2) 37%, rgba(112, 255, 241, 0.08) 58%, transparent 74%);
+
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+.art-frame {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  padding: 12px;
+
+  border: 1px solid var(--neon-pink);
+  border-radius: 19px 9px 23px 11px;
+
+  background:
+    linear-gradient(145deg, rgba(45, 20, 69, 0.94), rgba(16, 9, 28, 0.94));
+
+  box-shadow:
+    5px 5px 0 rgba(135, 62, 255, 0.85),
+    -4px -4px 0 rgba(112, 255, 241, 0.3),
+    0 0 38px rgba(255, 101, 200, 0.12),
+    0 28px 75px rgba(0, 0, 0, 0.35);
+
+  backdrop-filter: blur(12px);
+  transform-style: preserve-3d;
+}
+
+.art-frame::before {
+  content: "✦ SPECIAL CAT ✦";
+  position: absolute;
+  top: -16px;
+  left: 22px;
+  z-index: 5;
+
+  padding: 5px 11px;
+  border: 1px solid var(--neon-lime);
+  border-radius: 4px 10px 4px 10px;
+
+  color: var(--void);
+  background: var(--neon-lime);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transform: rotate(-3deg);
+}
+
+.frame-label,
+.art-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 10px 5px;
+  color: #d6c4ec;
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+}
+
+.frame-label {
+  padding-top: 2px;
+  padding-bottom: 12px;
+}
+
+.online {
+  color: var(--neon-lime);
+  white-space: nowrap;
+}
+
+.banner {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1648 / 928;
+  object-fit: cover;
+
+  border: 1px solid rgba(112, 255, 241, 0.45);
+  border-radius: 11px 5px 13px 6px;
+}
+
+.art-caption {
+  padding-bottom: 2px;
+}
+
+.hero-art > .floating-sachet {
+  position: absolute;
+  top: 65px;
+  right: -16px;
+  z-index: 4;
+
+  width: clamp(60px, 9vw, 100px);
+  height: auto;
+
+  filter:
+    drop-shadow(0 0 12px rgba(255, 173, 112, 0.55))
+    drop-shadow(0 0 24px rgba(255, 101, 200, 0.25));
+
+  animation: sachet-float 5s ease-in-out infinite;
+}
+
+.orbit {
+  position: absolute;
+  z-index: 0;
+  border: 1px dashed rgba(112, 255, 241, 0.48);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.orbit-one {
+  width: 112%;
+  height: 82%;
+  transform: rotate(-24deg);
+}
+
+.orbit-two {
+  width: 118%;
+  height: 93%;
+  border-color: rgba(255, 101, 200, 0.42);
+  transform: rotate(28deg);
+}
+
+.coordinate {
+  position: absolute;
+  right: -6px;
+  bottom: -34px;
+  z-index: 3;
+
+  color: rgba(217, 255, 112, 0.8);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.58rem;
+  line-height: 1.8;
+  text-align: right;
+}
+
+/* ---------------------------------------------------------
+   5. TICKER // IMPORTANT CAT NONSENSE
+   --------------------------------------------------------- */
+
+.ticker {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+
+  border-block: 1px dashed rgba(255, 101, 200, 0.5);
+  background: var(--neon-pink);
+  transform: rotate(-0.5deg) scale(1.01);
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  gap: 42px;
+  padding-block: 13px;
+
+  animation: ticker-scroll 35s linear infinite;
+}
+
+.ticker-track span {
+  color: #1b0d2b;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   6. SECTION HEADINGS // MILDLY UNHINGED
+   --------------------------------------------------------- */
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 36px;
+  margin-bottom: 44px;
+}
+
+.section-heading > div {
+  flex: 1 1 auto;
+}
+
+.section-heading .eyebrow {
+  margin-bottom: 16px;
+}
+
+.section-heading h2 {
+  margin-bottom: 0;
+  text-shadow: 3px 3px 0 rgba(135, 62, 255, 0.45);
+}
+
+.section-heading h2::selection {
+  text-shadow: none;
+}
+
+.section-heading > p {
+  max-width: 390px;
+  margin-bottom: 5px;
+  line-height: 1.9;
+}
+
+/* ---------------------------------------------------------
+   7. FEATURE CARDS // SIX FLAVOURS OF CAT CHAOS
+   --------------------------------------------------------- */
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  --card-accent: var(--neon-pink);
+
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  min-height: 235px;
+  padding: 26px;
+
+  overflow: hidden;
+  border: 1px solid rgba(255, 101, 200, 0.32);
+  border-radius: 17px 7px 19px 9px;
+
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 101, 200, 0.13), transparent 55%),
+    linear-gradient(145deg, rgba(45, 20, 69, 0.88), rgba(20, 10, 35, 0.85));
+
+  box-shadow: 5px 5px 0 rgba(135, 62, 255, 0.23);
+  backdrop-filter: blur(10px);
+
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.feature-card:nth-child(3n + 2) {
+  --card-accent: var(--neon-cyan);
+  border-color: rgba(112, 255, 241, 0.3);
+  border-radius: 7px 18px 8px 20px;
+  transform: rotate(0.5deg);
+}
+
+.feature-card:nth-child(3n) {
+  --card-accent: var(--neon-lime);
+  border-color: rgba(217, 255, 112, 0.25);
+  border-radius: 12px 22px 7px 15px;
+  transform: rotate(-0.5deg);
+}
+
+.feature-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    linear-gradient(125deg, transparent 25%, rgba(255, 255, 255, 0.07) 48%, transparent 68%);
+
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 220ms ease, transform 450ms ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-7px) rotate(-1deg);
+  border-color: var(--card-accent);
+  box-shadow: 7px 8px 0 rgba(135, 62, 255, 0.45), 0 0 24px rgba(255, 101, 200, 0.12);
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+  transform: translateX(100%);
+}
+
+.feature-index {
+  display: block;
+  margin-bottom: 22px;
+
+  color: var(--card-accent);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.67rem;
+  letter-spacing: 0.1em;
+}
+
+.feature-icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+
+  margin-bottom: 21px;
+
+  border: 1px solid rgba(112, 255, 241, 0.35);
+  border-radius: 13px 6px 13px 6px;
+
+  color: var(--neon-cyan);
+  background: rgba(112, 255, 241, 0.08);
+  box-shadow: 3px 3px 0 rgba(112, 255, 241, 0.13);
+
+  font-size: 1.35rem;
+}
+
+.feature-icon.pink {
+  border-color: rgba(255, 101, 200, 0.4);
+  color: var(--neon-pink);
+  background: rgba(255, 101, 200, 0.08);
+}
+
+.feature-icon.orange {
+  border-color: rgba(255, 173, 112, 0.4);
+  color: var(--neon-orange);
+  background: rgba(255, 173, 112, 0.08);
+}
+
+.feature-card h3 {
+  margin-bottom: 12px;
+  color: var(--star-white);
+  font-size: 1.22rem;
+}
+
+.feature-card p {
+  margin-bottom: 0;
+  font-size: 0.91rem;
+  line-height: 1.85;
+}
+
+.food-card > img {
+  position: absolute;
+  top: 12px;
+  right: 5px;
+  z-index: -1;
+
+  width: 94px;
+  height: 94px;
+  object-fit: contain;
+
+  opacity: 0.2;
+  transform: rotate(12deg);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------
+   8. CONTROLS // YOUR KEYBOARD IS NOW A CAT TOY
+   --------------------------------------------------------- */
+
+.controls-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: stretch;
+  gap: 20px;
+}
+
+.terminal-panel,
+.warning-panel,
+.install-panel {
+  min-width: 0;
+  border: 1px solid rgba(255, 101, 200, 0.32);
+  border-radius: 15px 7px 17px 9px;
+
+  background:
+    linear-gradient(145deg, rgba(38, 17, 59, 0.9), rgba(18, 9, 31, 0.92));
+
+  box-shadow: 5px 5px 0 rgba(135, 62, 255, 0.25), 0 18px 55px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(12px);
+}
+
+.terminal-top {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  min-height: 51px;
+  padding: 12px 18px;
+
+  border-bottom: 1px dashed rgba(255, 101, 200, 0.3);
+
+  color: #d6c4ec;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+}
+
+.terminal-top > span:nth-of-type(1) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.terminal-top > .online {
+  margin-left: auto;
+}
+
+.window-dots {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 5px;
+}
+
+.window-dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--neon-pink);
+}
+
+.window-dots i:nth-child(2) {
+  background: var(--neon-orange);
+}
+
+.window-dots i:nth-child(3) {
+  background: var(--neon-lime);
+}
+
+.key-row {
+  display: grid;
+  grid-template-columns: minmax(110px, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 17px;
+  padding: 18px 20px;
+  border-bottom: 1px dashed rgba(255, 101, 200, 0.16);
+}
+
+.key-row:last-child {
+  border-bottom: 0;
+}
+
+.key-row kbd {
+  display: inline-block;
+  justify-self: start;
+
+  padding: 7px 10px;
+  border: 1px solid var(--neon-cyan);
+  border-radius: 5px 10px 5px 10px;
+
+  color: var(--neon-cyan);
+  background: rgba(112, 255, 241, 0.07);
+  box-shadow: 2px 2px 0 rgba(112, 255, 241, 0.2);
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+}
+
+.key-row p {
+  margin-bottom: 0;
+  font-size: 0.88rem;
+  line-height: 1.75;
+}
+
+.warning-panel {
+  padding: clamp(24px, 4vw, 37px);
+  border-color: rgba(255, 173, 112, 0.4);
+
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(255, 173, 112, 0.13), transparent 60%),
+    linear-gradient(145deg, rgba(48, 24, 42, 0.92), rgba(24, 12, 35, 0.94));
+}
+
+.warning-panel .eyebrow {
+  color: var(--neon-orange);
+}
+
+.warning-panel h3 {
+  margin-bottom: 17px;
+}
+
+.warning-panel p {
+  font-size: 0.91rem;
+  line-height: 1.9;
+}
+
+.warning-panel strong {
+  color: #ffe0bd;
+}
+
+/* ---------------------------------------------------------
+   9. INSTALLATION // SUMMON THE CAT
+   --------------------------------------------------------- */
+
+.install-panel {
+  overflow: hidden;
+  border-color: rgba(112, 255, 241, 0.35);
+}
+
+.install-panel pre {
+  max-width: 100%;
+  margin: 0;
+  padding: clamp(20px, 4vw, 35px);
+  overflow-x: auto;
+
+  color: var(--neon-cyan);
+  background: rgba(10, 5, 19, 0.7);
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.82rem;
+  line-height: 2;
+  tab-size: 2;
+}
+
+.install-panel code {
+  font-family: inherit;
+}
+
+.comment {
+  color: #a995c4;
+}
+
+.copy-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+
+  padding: 17px 20px;
+  border-top: 1px dashed rgba(112, 255, 241, 0.25);
+}
+
+.copy-button {
+  padding: 11px 16px;
+
+  border: 1px solid var(--neon-lime);
+  border-radius: 6px 12px 6px 12px;
+
+  color: var(--void);
+  background: var(--neon-lime);
+  box-shadow: 3px 3px 0 var(--neon-pink);
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.77rem;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition:
+    background 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.copy-button:hover {
+  transform: translate(-2px, -2px) rotate(-1deg);
+  box-shadow: 5px 5px 0 var(--neon-pink);
+}
+
+#copy-status {
+  color: var(--neon-lime);
+  font-size: 0.83rem;
+}
+
+/* ---------------------------------------------------------
+   10. TRANSMISSIONS FROM THE CAT DIMENSION
+   --------------------------------------------------------- */
+
+.video-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.video-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+
+  min-height: 165px;
+  padding: 24px;
+
+  border: 1px solid rgba(255, 101, 200, 0.32);
+  border-radius: 16px 7px 19px 9px;
+
+  background:
+    radial-gradient(circle at 100% 0%, rgba(135, 62, 255, 0.17), transparent 60%),
+    rgba(30, 14, 48, 0.8);
+
+  text-decoration: none;
+
+  box-shadow: 4px 4px 0 rgba(135, 62, 255, 0.22);
+
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.video-card:nth-child(2) {
+  transform: rotate(0.6deg);
+}
+
+.video-card:nth-child(3) {
+  transform: rotate(-0.6deg);
+}
+
+.video-card:hover {
+  transform: translateY(-6px) rotate(-1deg);
+  border-color: var(--neon-cyan);
+  box-shadow: 6px 7px 0 rgba(112, 255, 241, 0.3), var(--glow-pink);
+}
+
+.video-card > span:first-child {
+  color: var(--neon-cyan);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+}
+
+.video-card strong {
+  max-width: calc(100% - 20px);
+  font-size: 1.12rem;
+}
+
+.video-card .arrow {
+  position: absolute;
+  right: 22px;
+  bottom: 20px;
+
+  color: var(--neon-pink);
+  font-size: 1.2rem;
+}
+
+.extra-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-top: 25px;
+}
+
+.extra-links a {
+  color: var(--text-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  text-decoration: none;
+}
+
+.extra-links a:hover {
+  color: var(--neon-lime);
+}
+
+/* ---------------------------------------------------------
+   11. FOOTER // CAT HAS LEFT THE CHAT
+   --------------------------------------------------------- */
+
+footer {
+  border-top: 1px dashed rgba(255, 101, 200, 0.35);
+  background: rgba(10, 5, 19, 0.7);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-block: 28px;
+}
+
+.footer-inner p {
+  max-width: 430px;
+  margin: 0;
+  font-size: 0.81rem;
+}
+
+.footer-inner > a:last-child {
+  color: var(--neon-cyan);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.79rem;
+  text-decoration: none;
+}
+
+.footer-inner > a:last-child:hover {
+  color: var(--neon-pink);
+}
+
+/* ---------------------------------------------------------
+   12. CRT + NEON PAW PRINTS
+   --------------------------------------------------------- */
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgba(10, 3, 17, 0.15) 4px,
+    transparent 5px
+  );
+
+  opacity: 0.2;
+}
+
+.neon-paw {
+  --paw-color: var(--neon-cyan);
+
+  position: fixed;
+  z-index: 30;
+  width: 25px;
+  height: 27px;
+
+  pointer-events: none;
+  opacity: 0;
+  color: var(--paw-color);
+
+  filter:
+    drop-shadow(0 0 3px var(--paw-color))
+    drop-shadow(0 0 7px var(--paw-color));
+
+  animation: paw-fade 850ms ease-out forwards;
+}
+
+.neon-paw .toe,
+.neon-paw .pad {
+  position: absolute;
+  display: block;
+
+  border: 1.5px solid var(--paw-color);
+  background: rgba(112, 255, 241, 0.12);
+
+  box-shadow:
+    0 0 4px var(--paw-color),
+    inset 0 0 4px rgba(255, 101, 200, 0.12);
+}
+
+.neon-paw .toe {
+  width: 5px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.neon-paw .toe:nth-child(1) {
+  top: 4px;
+  left: 3px;
+  transform: rotate(-25deg);
+}
+
+.neon-paw .toe:nth-child(2) {
+  top: 0;
+  left: 10px;
+}
+
+.neon-paw .toe:nth-child(3) {
+  top: 2px;
+  right: 3px;
+  transform: rotate(25deg);
+}
+
+.neon-paw .toe:nth-child(4) {
+  top: 9px;
+  right: 0;
+  transform: rotate(45deg);
+}
+
+.neon-paw .pad {
+  left: 6px;
+  bottom: 1px;
+  width: 14px;
+  height: 12px;
+  border-radius: 50% 50% 45% 45%;
+}
+
+/* ---------------------------------------------------------
+   13. MOTION AND FLOATING OBJECTS
+   --------------------------------------------------------- */
+
+.hero-art .art-frame,
+.hero-art .art-glow,
+.hero-art .orbit {
+  will-change: transform;
+  transition: transform 240ms ease-out;
+}
+
+.hero-art .art-glow {
+  animation: glow-breathe 7s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 12px var(--neon-lime);
+  }
+
+  50% {
+    opacity: 0.65;
+    box-shadow: 0 0 5px var(--neon-lime);
+  }
+}
+
+@keyframes sachet-float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(3deg);
+  }
+
+  50% {
+    transform: translate3d(0, -9px, 0) rotate(-3deg);
+  }
+}
+
+@keyframes glow-breathe {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.045);
+  }
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-30%);
+  }
+}
+
+@keyframes paw-fade {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(4px);
+  }
+
+  20% {
+    opacity: 0.95;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.7) translateY(-12px);
+  }
+}
+
+/* ---------------------------------------------------------
+   14. RESPONSIVE // TINY CAT, BIG COSMOS
+   --------------------------------------------------------- */
+
+@media (max-width: 980px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: 30px;
+  }
+
+  .hero-art > .floating-sachet {
+    right: -5px;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .section-heading > p {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 700px) {
+  .section-wrap,
+  .site-header,
+  .footer-inner {
+    width: min(calc(100% - 32px), var(--page-width));
+  }
+
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .nav {
+    justify-content: flex-start;
+    gap: 10px 18px;
+  }
+
+  .nav a {
+    font-size: 0.82rem;
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 46px;
+
+    min-height: auto;
+    padding: 76px 16px 90px;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 13vw, 5rem);
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+  }
+
+  .hero::after {
+    top: 17px;
+    right: 16px;
+    font-size: 0.48rem;
+  }
+
+  #matrix-cosmos {
+    opacity: 0.23;
+  }
+
+  .hero-art {
+    width: min(100%, 560px);
+    margin-inline: auto;
+  }
+
+  .hero-art > .floating-sachet {
+    top: 45px;
+    right: -3px;
+    width: 68px;
+  }
+
+  .orbit-one {
+    width: 106%;
+    height: 82%;
+  }
+
+  .orbit-two {
+    width: 112%;
+    height: 91%;
+  }
+
+  .coordinate {
+    right: 0;
+    bottom: -31px;
+  }
+
+  .feature-grid,
+  .controls-layout,
+  .video-links {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .feature-card,
+  .feature-card:nth-child(3n + 2),
+  .feature-card:nth-child(3n) {
+    min-height: 0;
+    transform: none;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .key-row {
+    grid-template-columns: minmax(95px, auto) minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .key-row kbd {
+    font-size: 0.65rem;
+  }
+
+  .install-panel pre {
+    font-size: 0.72rem;
+  }
+
+  .video-card,
+  .video-card:nth-child(2),
+  .video-card:nth-child(3) {
+    min-height: 135px;
+    transform: none;
+  }
+
+  .footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  body::before {
+    opacity: 0.25;
+  }
+
+  .ticker {
+    transform: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav {
+    gap: 10px 13px;
+  }
+
+  .nav a {
+    font-size: 0.77rem;
+  }
+
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .hero-tags {
+    gap: 6px;
+  }
+
+  .hero-tags span {
+    font-size: 0.6rem;
+  }
+
+  .frame-label,
+  .art-caption {
+    font-size: 0.56rem;
+  }
+
+  .key-row {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .terminal-top {
+    padding-inline: 12px;
+    font-size: 0.62rem;
+  }
+
+  .feature-card {
+    padding: 22px;
+  }
+}
+
+/* ---------------------------------------------------------
+   15. ACCESSIBILITY // RESPECT THE HUMAN BEHIND THE SCREEN
+   --------------------------------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--neon-lime);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-art .art-frame,
+  .hero-art .art-glow,
+  .hero-art .orbit {
+    will-change: auto;
+  }
+
+  .ticker-track {
+    animation: none;
+  }
+
+  .neon-paw {
+    display: none;
+  }
+}
+
+
+
+/* ==========================================
+   PUDIN // INSTALLATION RITUAL
+   Full-width terminal + neon step cards
+   ========================================== */
+
+#install .install-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 28px;
+}
+
+#install .install-panel {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+#install .terminal-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#install .terminal-status {
+  margin-left: auto;
+  color: var(--neon-lime);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+#install .install-terminal-label {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 18px 22px 0;
+  font-family: monospace;
+  font-size: 0.8rem;
+}
+
+#install .terminal-path {
+  color: var(--neon-pink);
+}
+
+#install #install-commands {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre;
+  padding: 22px;
+  line-height: 1.9;
+  tab-size: 2;
+  scrollbar-width: thin;
+  scrollbar-color: var(--nebula-violet) transparent;
+}
+
+#install #install-commands code {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+#install .copy-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0 22px 22px;
+}
+
+#install .install-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 22px;
+}
+
+#install .install-step {
+  min-width: 0;
+  height: 100%;
+  padding: 24px;
+}
+
+#install .install-step-symbol {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin: 20px 0 16px;
+  border: 1px solid var(--neon-cyan);
+  border-radius: 14px;
+  color: var(--neon-cyan);
+  background: rgb(112 255 241 / 7%);
+  box-shadow: 0 0 18px rgb(112 255 241 / 10%);
+  font-size: 1.5rem;
+}
+
+#install .install-step:nth-child(2) .install-step-symbol {
+  color: var(--neon-pink);
+  border-color: var(--neon-pink);
+  background: rgb(255 101 200 / 7%);
+  box-shadow: 0 0 18px rgb(255 101 200 / 10%);
+}
+
+#install .install-step:nth-child(3) .install-step-symbol {
+  color: var(--neon-orange);
+  border-color: var(--neon-orange);
+  background: rgb(255 173 112 / 7%);
+  box-shadow: 0 0 18px rgb(255 173 112 / 10%);
+}
+
+#install .install-step h3 {
+  margin-bottom: 10px;
+}
+
+#install .install-step p {
+  margin-bottom: 0;
+  line-height: 1.7;
+}
+
+#install .install-note {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-top: 22px;
+  padding: 16px 20px;
+  border-left: 2px solid var(--neon-cyan);
+  background: rgb(112 255 241 / 4%);
+  border-radius: 0 12px 12px 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+#install .install-note a {
+  color: var(--neon-pink);
+  text-decoration: none;
+}
+
+#install .install-note a:hover {
+  color: var(--neon-cyan);
+}
+
+/* Responsive: los pasos se apilan en pantallas pequeñas */
+
+@media (max-width: 700px) {
+  #install .install-steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #install .install-step {
+    padding: 22px;
+  }
+
+  #install .install-terminal-label {
+    padding-inline: 16px;
+  }
+
+  #install #install-commands {
+    padding: 18px 16px;
+    font-size: 0.82rem;
+  }
+
+  #install .copy-row {
+    padding-inline: 16px;
+  }
+
+  #install .terminal-status {
+    margin-left: 0;
+  }
+}
+
+
+/* =========================================================
+   PUDIN.EXE // ARCHIVE ACCESS
+   Transmission player · recovered files · neon terminal
+   ========================================================= */
+
+/* El encabezado del archivo tiene una estructura diferente
+   a los encabezados que usan dos columnas. */
+
+#transmissions .section-heading {
+  display: block;
+  margin-bottom: 2.5rem;
+}
+
+#transmissions .section-heading .eyebrow {
+  margin-bottom: 1rem;
+}
+
+#transmissions .section-heading h2 {
+  margin-bottom: 1rem;
+}
+
+#transmissions .section-heading > p:last-child {
+  max-width: 620px;
+  margin-top: 0;
+}
+
+/* Terminal que contiene toda la transmisión */
+
+#transmissions .video-archive {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 101, 200, 0.4);
+  border-radius: 18px 8px 20px 10px;
+  background:
+    radial-gradient(
+      ellipse at 85% 0%,
+      rgba(135, 62, 255, 0.14),
+      transparent 45%
+    ),
+    rgba(16, 9, 28, 0.92);
+  box-shadow:
+    0 0 0 1px rgba(135, 62, 255, 0.1),
+    0 18px 55px rgba(0, 0, 0, 0.25),
+    0 0 32px rgba(255, 88, 200, 0.06);
+}
+
+#transmissions .video-archive > .terminal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-height: 52px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255, 101, 200, 0.2);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+}
+
+/* Luces de la ventana */
+
+#transmissions .terminal-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#transmissions .terminal-dots span {
+  display: block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff5d91;
+  box-shadow: 0 0 8px rgba(255, 93, 145, 0.45);
+}
+
+#transmissions .terminal-dots span:nth-child(2) {
+  background: #ffcf70;
+  box-shadow: 0 0 8px rgba(255, 207, 112, 0.4);
+}
+
+#transmissions .terminal-dots span:nth-child(3) {
+  background: #72ffd6;
+  box-shadow: 0 0 8px rgba(114, 255, 214, 0.4);
+}
+
+/* Reproductor adaptable */
+
+#transmissions .video-player-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #080611;
+  border-bottom: 1px solid rgba(112, 255, 241, 0.22);
+}
+
+#transmissions .video-player-frame iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Información de la transmisión */
+
+#transmissions .video-player-info {
+  padding: clamp(20px, 4vw, 36px);
+  border-bottom: 1px solid rgba(255, 101, 200, 0.2);
+}
+
+#transmissions .video-player-info .eyebrow {
+  margin: 0 0 12px;
+  color: var(--neon-cyan);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+#transmissions .video-player-info h3 {
+  margin: 0 0 12px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1.2;
+}
+
+#transmissions .video-player-info > p:last-child {
+  max-width: 760px;
+  margin: 0;
+  color: var(--text-muted, #b8a9c9);
+  line-height: 1.8;
+}
+
+/* Cabecera de los archivos secundarios */
+
+#transmissions .video-archive-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 24px 24px 0;
+}
+
+#transmissions .video-archive-heading .eyebrow {
+  margin: 0;
+}
+
+#transmissions .archive-count {
+  color: var(--neon-cyan);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+}
+
+/* Tarjetas de las tres transmisiones */
+
+#transmissions .video-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  padding: 24px;
+}
+
+#transmissions .video-card {
+  width: 100%;
+  min-width: 0;
+  min-height: 175px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px;
+  color: var(--text-primary, #f4eaff);
+  font: inherit;
+  font-family: "Space Grotesk", sans-serif;
+  text-align: left;
+  cursor: pointer;
+  appearance: none;
+}
+
+#transmissions .video-card:nth-child(2),
+#transmissions .video-card:nth-child(3) {
+  transform: none;
+}
+
+#transmissions .video-card:hover {
+  transform: translateY(-5px);
+}
+
+#transmissions .video-card:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 4px;
+}
+
+#transmissions .video-card.is-active {
+  border-color: var(--neon-cyan);
+  box-shadow:
+    0 0 0 1px rgba(112, 255, 241, 0.18),
+    0 0 22px rgba(112, 255, 241, 0.12);
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(112, 255, 241, 0.13),
+      transparent 65%
+    ),
+    rgba(30, 14, 48, 0.9);
+}
+
+#transmissions .video-card-index {
+  color: var(--neon-cyan);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+#transmissions .video-card strong {
+  font-size: 1.05rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+#transmissions .video-card-action {
+  color: var(--neon-pink, #ff58c8);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+/* Acceso a la playlist completa */
+
+#transmissions .archive-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px;
+  border-top: 1px solid rgba(255, 101, 200, 0.2);
+  background: rgba(8, 6, 17, 0.35);
+}
+
+#transmissions .archive-footer p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+#transmissions .archive-footer p span {
+  color: var(--neon-cyan);
+}
+
+#transmissions .playlist-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 100%;
+  padding: 13px 18px;
+  border: 1px solid rgba(112, 255, 241, 0.5);
+  border-radius: 8px 4px 9px 5px;
+  color: var(--neon-cyan);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition:
+    background 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+#transmissions .playlist-button:hover {
+  transform: translateY(-2px);
+  background: rgba(112, 255, 241, 0.08);
+  box-shadow: 0 0 20px rgba(112, 255, 241, 0.12);
+}
+
+#transmissions .playlist-button:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 4px;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  #transmissions .video-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #transmissions .video-card:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Móvil: sin desbordamientos ni tarjetas gigantes */
+
+@media (max-width: 600px) {
+  #transmissions .video-archive > .terminal-top {
+    padding: 13px 14px;
+    font-size: 0.68rem;
+  }
+
+  #transmissions .video-player-info {
+    padding: 22px 18px;
+  }
+
+  #transmissions .video-archive-heading {
+    padding: 20px 18px 0;
+  }
+
+  #transmissions .video-links {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    padding: 18px;
+  }
+
+  #transmissions .video-card:last-child {
+    grid-column: auto;
+  }
+
+  #transmissions .video-card {
+    min-height: 145px;
+    padding: 20px;
+  }
+
+  #transmissions .archive-footer {
+    align-items: stretch;
+    padding: 20px 18px;
+  }
+
+  #transmissions .playlist-button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #transmissions .video-card,
+  #transmissions .playlist-button {
+    transition: none;
+  }
+
+  #transmissions .video-card:hover,
+  #transmissions .playlist-button:hover {
+    transform: none;
+  }
+}
 /* =========================================================
    PUDIN.EXE // FIXED GLASS NAV
    El menú sigue al humano por todo el cosmos 🐾
