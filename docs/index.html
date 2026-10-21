@@ -5,86 +5,317 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#090713">
   <meta name="description" content="Pudin: The Ghost Cat RPA, un gato pixel-art con automatizaciones, huellas de neón y travesuras para Windows.">
+
   <title>Pudin.exe | The Ghost Cat RPA</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
+
 <body>
+  <!-- Fondo Matrix cósmico. Decorativo y oculto a lectores de pantalla. -->
+  <canvas id="matrix-cosmos" aria-hidden="true"></canvas>
+
+  <!-- Efecto CRT -->
   <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- CABECERA -->
   <header class="site-header">
     <a class="brand" href="#home" aria-label="Pudin.exe, inicio">
-      <span class="brand-icon" aria-hidden="true">✳</span><span>PUDIN<span class="accent-cyan">.exe</span></span>
+      <span class="brand-icon" aria-hidden="true">🐱</span>
+      <span>PUDIN<span class="accent-cyan">.exe</span></span>
     </a>
+
     <nav class="nav" aria-label="Navegación principal">
-      <a href="#abilities">Habilidades</a><a href="#controls">Controles</a><a href="#install">Instalación</a>
-      <a class="nav-cta" href="https://github.com/KaledSML/Pudin-Ghost-Cat-RPA" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <a href="#abilities">Habilidades</a>
+      <a href="#controls">Controles</a>
+      <a href="#install">Instalación</a>
+      <a
+        class="nav-cta"
+        href="https://github.com/KaledSML/Pudin-Ghost-Cat-RPA"
+        target="_blank"
+        rel="noopener noreferrer"
+      >GitHub ↗</a>
     </nav>
   </header>
 
   <main id="home">
+
+    <!-- PORTADA -->
     <section class="hero section-wrap">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="status-dot"></span> PROCESO FANTASMA DETECTADO</p>
+        <p class="eyebrow">
+          <span class="status-dot" aria-hidden="true"></span>
+          PROCESO FANTASMA DETECTADO
+        </p>
+
         <h1>THE GHOST<br><span>CAT RPA</span></h1>
-        <p class="hero-lead">Tu escritorio tiene un nuevo ocupante.</p>
-        <p class="hero-description">Pudin es un gato pixel-art que te sigue, deja huellas de neón y puede convertir una sesión de trabajo tranquila en una pequeña crisis cibernética.</p>
+
+        <p class="hero-lead">
+          Tu escritorio tiene un nuevo ocupante.
+        </p>
+
+        <p class="hero-description">
+          Pudin es un gato pixel-art que te sigue, deja huellas de neón y puede convertir una sesión de trabajo tranquila en una pequeña crisis cibernética.
+        </p>
+
         <div class="hero-actions">
-          <a class="button button-primary" href="#install">Invocar a Pudin <span aria-hidden="true">↗</span></a>
-          <a class="button button-ghost" href="https://github.com/KaledSML/Pudin-Ghost-Cat-RPA" target="_blank" rel="noopener noreferrer">Explorar el código</a>
+          <a class="button button-primary" href="#install">
+            Invocar a Pudin <span aria-hidden="true">↗</span>
+          </a>
+
+          <a
+            class="button button-ghost"
+            href="https://github.com/KaledSML/Pudin-Ghost-Cat-RPA"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Explorar el código</a>
         </div>
-        <div class="hero-tags"><span>WINDOWS</span><span>PYTHON</span><span>CHAOS MODE</span></div>
+
+        <div class="hero-tags">
+          <span>WINDOWS</span>
+          <span>PYTHON</span>
+          <span>CHAOS MODE</span>
+        </div>
       </div>
+
+      <!-- ILUSTRACIÓN PRINCIPAL -->
       <div class="hero-art">
         <div class="art-glow" aria-hidden="true"></div>
+
         <div class="art-frame">
-          <div class="frame-label"><span>LIVE FEED // 001</span><span class="online">● ONLINE</span></div>
-          <img class="banner" src="assets/pudin-banner.png" alt="Pudin, gato naranja pixel-art en una ciudad cyberpunk bajo una galaxia espiral" width="1648" height="928">
-          <div class="art-caption"><span>SUBJECT: PUDIN</span><span>STATUS: UNCONTAINED</span></div>
+          <div class="frame-label">
+            <span>LIVE FEED // 001</span>
+            <span class="online">● ONLINE</span>
+          </div>
+
+          <img
+            class="banner"
+            src="assets/pudin-banner.png"
+            alt="Pudin, gato naranja pixel-art en una ciudad cyberpunk bajo una galaxia espiral"
+            width="1648"
+            height="928"
+          >
+
+          <div class="art-caption">
+            <span>SUBJECT: PUDIN</span>
+            <span>STATUS: UNCONTAINED</span>
+          </div>
         </div>
-        <img class="floating-sachet" src="assets/sachet.png" alt="Saquito de comida para Pudin" width="512" height="512">
-        <span class="orbit orbit-one" aria-hidden="true"></span><span class="orbit orbit-two" aria-hidden="true"></span>
-        <span class="coordinate" aria-hidden="true">35° 41' 22.2&quot; N<br>139° 41' 30.1&quot; E</span>
+
+        <!-- Sachet flotante -->
+        <img
+          class="floating-sachet"
+          src="assets/sachet.png"
+          alt="Saquito de comida para Pudin"
+          width="512"
+          height="512"
+        >
+
+        <!-- Elementos orbitales decorativos -->
+        <span class="orbit orbit-one" aria-hidden="true"></span>
+        <span class="orbit orbit-two" aria-hidden="true"></span>
+
+        <span class="coordinate" aria-hidden="true">
+          35° 41' 22.2&quot; N<br>
+          139° 41' 30.1&quot; E
+        </span>
       </div>
     </section>
 
+    <!-- TRANSMISIÓN -->
     <div class="ticker" aria-label="Características principales">
-      <div class="ticker-track"><span>✳ GATO DE ESCRITORIO</span><span>✳ AUTOMATIZACIÓN CAÓTICA</span><span>✳ CICLOS POMODORO</span><span>✳ CÓDIGO ABIERTO</span><span>✳ GATO DE ESCRITORIO</span><span>✳ AUTOMATIZACIÓN CAÓTICA</span></div>
+      <div class="ticker-track" aria-hidden="true">
+        <span>✳ GATO DE ESCRITORIO</span>
+        <span>✳ AUTOMATIZACIÓN CAÓTICA</span>
+        <span>✳ CICLOS POMODORO</span>
+        <span>✳ CÓDIGO ABIERTO</span>
+        <span>✳ GATO DE ESCRITORIO</span>
+        <span>✳ AUTOMATIZACIÓN CAÓTICA</span>
+      </div>
     </div>
 
-    <section class="section-wrap content-section" id="abilities">
-      <div class="section-heading"><div><p class="eyebrow">01 / SISTEMAS DETECTADOS</p><h2>No es un gato<br>decorativo.</h2></div><p>Un pequeño compañero de escritorio con una lista de actividades que el departamento de IT no ha aprobado.</p></div>
+    <!-- HABILIDADES -->
+    <section
+      class="section-wrap content-section"
+      id="abilities"
+      aria-labelledby="abilities-title"
+    >
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">01 / SISTEMAS DETECTADOS</p>
+          <h2 id="abilities-title">No es un gato<br>decorativo.</h2>
+        </div>
+
+        <p>
+          Un pequeño compañero de escritorio con una lista de actividades que el departamento de IT no ha aprobado.
+        </p>
+      </div>
+
       <div class="feature-grid">
-        <article class="feature-card"><span class="feature-index">SYS_01</span><span class="feature-icon" aria-hidden="true">⌖</span><h3>Seguimiento de cursor</h3><p>Camina hacia el cursor y deambula por la pantalla cuando está en reposo.</p></article>
-        <article class="feature-card"><span class="feature-index">SYS_02</span><span class="feature-icon pink" aria-hidden="true">✣</span><h3>Huellas de neón</h3><p>Deja huellas pixeladas y efectos visuales mientras explora tu escritorio.</p></article>
-        <article class="feature-card"><span class="feature-index">SYS_03</span><span class="feature-icon orange" aria-hidden="true">◷</span><h3>Modo Pomodoro</h3><p>Alterna sesiones de enfoque de 25 minutos con descansos de 5 minutos.</p></article>
-        <article class="feature-card"><span class="feature-index">SYS_04</span><span class="feature-icon pink" aria-hidden="true">♫</span><h3>Detector de música</h3><p>Puede ponerse a bailar cuando el título de la ventana activa menciona YouTube o Spotify.</p></article>
-        <article class="feature-card"><span class="feature-index">SYS_05</span><span class="feature-icon" aria-hidden="true">⚡</span><h3>Travesuras RPA</h3><p>Algunas bromas minimizan o sacuden ventanas, o abren el Bloc de notas para escribir mensajes.</p></article>
-        <article class="feature-card food-card"><img src="assets/sachet.png" alt="" aria-hidden="true" width="512" height="512"><span class="feature-index">SYS_06</span><span class="feature-icon orange" aria-hidden="true">♡</span><h3>Protocolo del snack</h3><p>Deja un saquito de comida. Pudin irá a comer y se tomará un descanso de sus travesuras.</p></article>
+        <article class="feature-card">
+          <span class="feature-index">SYS_01</span>
+          <span class="feature-icon" aria-hidden="true">⌖</span>
+          <h3>Seguimiento de cursor</h3>
+          <p>
+            Camina hacia el cursor y deambula por la pantalla cuando está en reposo.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-index">SYS_02</span>
+          <span class="feature-icon pink" aria-hidden="true">✣</span>
+          <h3>Huellas de neón</h3>
+          <p>
+            Deja huellas pixeladas y efectos visuales mientras explora tu escritorio.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-index">SYS_03</span>
+          <span class="feature-icon orange" aria-hidden="true">◷</span>
+          <h3>Modo Pomodoro</h3>
+          <p>
+            Alterna sesiones de enfoque de 25 minutos con descansos de 5 minutos.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-index">SYS_04</span>
+          <span class="feature-icon pink" aria-hidden="true">♫</span>
+          <h3>Detector de música</h3>
+          <p>
+            Puede ponerse a bailar cuando el título de la ventana activa menciona YouTube o Spotify.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-index">SYS_05</span>
+          <span class="feature-icon" aria-hidden="true">⚡</span>
+          <h3>Travesuras RPA</h3>
+          <p>
+            Algunas bromas minimizan o sacuden ventanas, o abren el Bloc de notas para escribir mensajes.
+          </p>
+        </article>
+
+        <article class="feature-card food-card">
+          <img
+            src="assets/sachet.png"
+            alt=""
+            aria-hidden="true"
+            width="512"
+            height="512"
+          >
+          <span class="feature-index">SYS_06</span>
+          <span class="feature-icon orange" aria-hidden="true">♡</span>
+          <h3>Protocolo del snack</h3>
+          <p>
+            Deja un saquito de comida. Pudin irá a comer y se tomará un descanso de sus travesuras.
+          </p>
+        </article>
       </div>
     </section>
 
-    <section class="section-wrap content-section" id="controls">
-      <div class="section-heading"><div><p class="eyebrow">02 / MANUAL DE SUPERVIVENCIA</p><h2>Controla el caos.</h2></div><p>Aprende los comandos esenciales antes de liberar al felino en tu sistema.</p></div>
+    <!-- CONTROLES -->
+    <section
+      class="section-wrap content-section"
+      id="controls"
+      aria-labelledby="controls-title"
+    >
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">02 / MANUAL DE SUPERVIVENCIA</p>
+          <h2 id="controls-title">Controla el caos.</h2>
+        </div>
+
+        <p>
+          Aprende los comandos esenciales antes de liberar al felino en tu sistema.
+        </p>
+      </div>
+
       <div class="controls-layout">
         <div class="terminal-panel">
-          <div class="terminal-top"><div class="window-dots"><i></i><i></i><i></i></div><span>pudin://input-map</span></div>
-          <div class="key-row"><kbd>P</kbd><p>Pausar o reanudar a Pudin.</p></div>
-          <div class="key-row"><kbd>F</kbd><p>Dejar un saquito de comida.</p></div>
-          <div class="key-row"><kbd>CLIC DERECHO</kbd><p>También deja comida cerca del gato.</p></div>
-          <div class="key-row"><kbd>CLIC IZQ.</kbd><p>Arrastrar a Pudin por el escritorio. Si lo sujetas demasiado, puede activar su modo troll.</p></div>
-          <div class="key-row"><kbd>ESC</kbd><p>Cerrar la aplicación.</p></div>
+          <div class="terminal-top">
+            <div class="window-dots" aria-hidden="true">
+              <i></i><i></i><i></i>
+            </div>
+            <span>pudin://input-map</span>
+          </div>
+
+          <div class="key-row">
+            <kbd>P</kbd>
+            <p>Pausar o reanudar a Pudin.</p>
+          </div>
+
+          <div class="key-row">
+            <kbd>F</kbd>
+            <p>Dejar un saquito de comida.</p>
+          </div>
+
+          <div class="key-row">
+            <kbd>CLIC DERECHO</kbd>
+            <p>También deja comida cerca del gato.</p>
+          </div>
+
+          <div class="key-row">
+            <kbd>CLIC IZQ.</kbd>
+            <p>
+              Arrastrar a Pudin por el escritorio. Si lo sujetas demasiado, puede activar su modo troll.
+            </p>
+          </div>
+
+          <div class="key-row">
+            <kbd>ESC</kbd>
+            <p>Cerrar la aplicación.</p>
+          </div>
         </div>
-        <aside class="warning-panel"><p class="eyebrow">⚠ AVISO DEL SISTEMA</p><h3>Este gato tiene permisos.</h3><p>Pudin puede interactuar con ventanas de Windows y cambiar el fondo de pantalla. Sus travesuras pueden interrumpir tu trabajo.</p><p><strong>Importante:</strong> el fondo de pantalla original no se restaura automáticamente. Ejecuta el proyecto solo si entiendes y aceptas estos comportamientos.</p></aside>
+
+        <aside class="warning-panel">
+          <p class="eyebrow">⚠ AVISO DEL SISTEMA</p>
+          <h3>Este gato tiene permisos.</h3>
+
+          <p>
+            Pudin puede interactuar con ventanas de Windows y cambiar el fondo de pantalla. Sus travesuras pueden interrumpir tu trabajo.
+          </p>
+
+          <p>
+            <strong>Importante:</strong> el fondo de pantalla original no se restaura automáticamente. Ejecuta el proyecto solo si entiendes y aceptas estos comportamientos.
+          </p>
+        </aside>
       </div>
     </section>
 
-    <section class="section-wrap content-section" id="install">
-      <div class="section-heading"><div><p class="eyebrow">03 / PROTOCOLO DE INVOCACIÓN</p><h2>Boot Pudin.exe</h2></div><p>Clona el repositorio, instala las dependencias y lanza el programa desde su carpeta.</p></div>
+    <!-- INSTALACIÓN -->
+    <section
+      class="section-wrap content-section"
+      id="install"
+      aria-labelledby="install-title"
+    >
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">03 / PROTOCOLO DE INVOCACIÓN</p>
+          <h2 id="install-title">Boot Pudin.exe</h2>
+        </div>
+
+        <p>
+          Clona el repositorio, instala las dependencias y lanza el programa desde su carpeta.
+        </p>
+      </div>
+
       <div class="install-panel">
-        <div class="terminal-top"><div class="window-dots"><i></i><i></i><i></i></div><span>TERMINAL // POWERSHELL O CMD</span><span class="online">PYTHON</span></div>
+        <div class="terminal-top">
+          <div class="window-dots" aria-hidden="true">
+            <i></i><i></i><i></i>
+          </div>
+
+          <span>TERMINAL // POWERSHELL O CMD</span>
+          <span class="online">PYTHON</span>
+        </div>
+
         <pre id="install-commands"><code><span class="comment"># 1. Clonar el repositorio</span>
 git clone https://github.com/KaledSML/Pudin-Ghost-Cat-RPA.git
 
@@ -95,20 +326,112 @@ pip install -r requirements.txt
 <span class="comment"># 3. Ejecutar Pudin</span>
 cd pudin_cat
 python main.py</code></pre>
-        <div class="copy-row"><button class="copy-button" id="copy-commands" type="button">▣ Copiar comandos</button><span id="copy-status" role="status" aria-live="polite"></span></div>
+
+        <div class="copy-row">
+          <button
+            class="copy-button"
+            id="copy-commands"
+            type="button"
+          >▣ Copiar comandos</button>
+
+          <span
+            id="copy-status"
+            role="status"
+            aria-live="polite"
+          ></span>
+        </div>
       </div>
     </section>
 
-    <section class="section-wrap content-section transmissions">
-      <div class="section-heading"><div><p class="eyebrow">04 / SEÑAL INTERCEPTADA</p><h2>Pruebas de vida.</h2></div><p>¿Quieres ver más del proyecto? Sigue la transmisión.</p></div>
-      <div class="video-links">
-        <a class="video-card" href="https://youtube.com/playlist?list=PL6ic-uQzzKmICgM4mTKT97MxOHBTYgjKb" target="_blank" rel="noopener noreferrer"><span>PLAYLIST / 001</span><strong>Archivo de vídeos</strong><span class="arrow">↗</span></a>
-        <a class="video-card" href="https://youtu.be/UMO3PvRJNPc" target="_blank" rel="noopener noreferrer"><span>VIDEO / FEATURED</span><strong>Transmisión destacada</strong><span class="arrow">↗</span></a>
-        <a class="video-card" href="https://github.com/KaledSML/Pudin-Ghost-Cat-RPA" target="_blank" rel="noopener noreferrer"><span>SOURCE / OPEN</span><strong>Repositorio en GitHub</strong><span class="arrow">↗</span></a>
+    <!-- VÍDEOS Y ENLACES -->
+    <section
+      class="section-wrap content-section transmissions"
+      aria-labelledby="transmissions-title"
+    >
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">04 / SEÑAL INTERCEPTADA</p>
+          <h2 id="transmissions-title">Pruebas de vida.</h2>
+        </div>
+
+        <p>¿Quieres ver más del proyecto? Sigue la transmisión.</p>
       </div>
-      <div class="extra-links"><a href="https://youtu.be/qB2oQJQuG6k" target="_blank" rel="noopener noreferrer">Registro 02 ↗</a><a href="https://youtu.be/iFz_SBGp_ws" target="_blank" rel="noopener noreferrer">Registro 03 ↗</a><a href="https://youtu.be/NHto1R9yhVM" target="_blank" rel="noopener noreferrer">Registro 04 ↗</a></div>
+
+      <div class="video-links">
+        <a
+          class="video-card"
+          href="https://youtube.com/playlist?list=PL6ic-uQzzKmICgM4mTKT97MxOHBTYgjKb"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>PLAYLIST / 001</span>
+          <strong>Archivo de vídeos</strong>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a
+          class="video-card"
+          href="https://youtu.be/UMO3PvRJNPc"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>VIDEO / FEATURED</span>
+          <strong>Transmisión destacada</strong>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a
+          class="video-card"
+          href="https://github.com/KaledSML/Pudin-Ghost-Cat-RPA"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>SOURCE / OPEN</span>
+          <strong>Repositorio en GitHub</strong>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <div class="extra-links">
+        <a
+          href="https://youtu.be/qB2oQJQuG6k"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Registro 02 ↗</a>
+
+        <a
+          href="https://youtu.be/iFz_SBGp_ws"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Registro 03 ↗</a>
+
+        <a
+          href="https://youtu.be/NHto1R9yhVM"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Registro 04 ↗</a>
+      </div>
     </section>
+
   </main>
-  <footer><div class="footer-inner"><a class="brand" href="#home">PUDIN<span class="accent-cyan">.exe</span></a><p>Hecho con código, píxeles y una cantidad cuestionable de energía felina.</p><a href="https://github.com/KaledSML/Pudin-Ghost-Cat-RPA" target="_blank" rel="noopener noreferrer">Código abierto · Licencia MIT ↗</a></div></footer>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <div class="footer-inner">
+      <a class="brand" href="#home" aria-label="Pudin.exe, volver al inicio">
+        <span>PUDIN<span class="accent-cyan">.exe</span></span>
+      </a>
+
+      <p>
+        Hecho con código, píxeles y una cantidad cuestionable de energía felina.
+      </p>
+
+      <a
+        href="https://github.com/KaledSML/Pudin-Ghost-Cat-RPA"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Código abierto · Licencia MIT ↗</a>
+    </div>
+  </footer>
 </body>
 </html>
