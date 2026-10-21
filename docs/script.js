@@ -38,6 +38,8 @@
       'python main.py'
     ];
 
+    const originalLabel = button.getAttribute('aria-label');
+
     async function copyText(text) {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(text);
@@ -75,6 +77,9 @@
     }
 
     button.addEventListener('click', async () => {
+      button.disabled = true;
+      status.textContent = 'Copiando comandos...';
+
       try {
         await copyText(commands.join('\n'));
 
@@ -85,6 +90,14 @@
           'No se pudo copiar. Selecciona los comandos manualmente.';
 
         console.error('[PUDIN] Error al copiar comandos:', error);
+      } finally {
+        button.disabled = false;
+
+        if (originalLabel) {
+          button.setAttribute('aria-label', originalLabel);
+        } else {
+          button.removeAttribute('aria-label');
+        }
       }
     });
   })();
@@ -103,15 +116,36 @@
       '#ffad70'
     ];
 
+    const maxPaws = 36;
+    const pawLifetime = 1200;
+
     let lastX = null;
     let lastY = null;
     let lastTime = 0;
     let pawIndex = 0;
     let motionEnabled = !reducedMotion.matches;
 
-    const activePaws = new Set();
+    const activePaws = new Map();
+
+    function removePaw(paw) {
+      const timeout = activePaws.get(paw);
+
+      if (timeout !== undefined) {
+        window.clearTimeout(timeout);
+        activePaws.delete(paw);
+      }
+
+      paw.remove();
+    }
 
     function createPaw(x, y) {
+      // Evita acumular demasiados elementos si hay mucho movimiento.
+      if (activePaws.size >= maxPaws) {
+        const oldestPaw = activePaws.keys().next().value;
+
+        if (oldestPaw) removePaw(oldestPaw);
+      }
+
       const paw = document.createElement('span');
 
       paw.className = 'neon-paw';
@@ -147,21 +181,31 @@
       pawIndex++;
 
       document.body.appendChild(paw);
-      activePaws.add(paw);
 
-      const removePaw = () => {
-        paw.remove();
-        activePaws.delete(paw);
-      };
+      const timeout = window.setTimeout(() => {
+        removePaw(paw);
+      }, pawLifetime);
 
-      paw.addEventListener('animationend', removePaw, { once: true });
+      activePaws.set(paw, timeout);
 
-      // Respaldo si la animación no termina normalmente.
-      window.setTimeout(removePaw, 1200);
+      paw.addEventListener('animationend', () => {
+        removePaw(paw);
+      }, { once: true });
+    }
+
+    function clearPaws() {
+      for (const paw of activePaws.keys()) {
+        removePaw(paw);
+      }
+
+      lastX = null;
+      lastY = null;
+      lastTime = 0;
     }
 
     function handlePointerMove(event) {
       if (!motionEnabled || reducedMotion.matches) return;
+      if (document.hidden) return;
       if (event.pointerType === 'touch') return;
 
       const x = event.clientX;
@@ -176,8 +220,9 @@
       }
 
       const distance = Math.hypot(x - lastX, y - lastY);
+      const elapsed = now - lastTime;
 
-      if (distance < 24 || now - lastTime < 35) return;
+      if (distance < 24 || elapsed < 35) return;
 
       createPaw(x, y);
 
@@ -190,15 +235,15 @@
       passive: true
     });
 
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) clearPaws();
+    });
+
     onMotionPreferenceChange((event) => {
       motionEnabled = !event.matches;
-      lastX = null;
-      lastY = null;
-      lastTime = 0;
 
       if (!motionEnabled) {
-        activePaws.forEach((paw) => paw.remove());
-        activePaws.clear();
+        clearPaws();
       }
     });
   })();
@@ -225,6 +270,7 @@
     if (!ctx) return;
 
     const fontSize = 18;
+    const frameInterval = 45;
 
     const colors = [
       '#70fff1',
@@ -254,8 +300,11 @@
     let drops = [];
     let animationFrame = null;
     let lastFrame = 0;
-    let resizeObserver = null;
     let running = false;
+    let heroVisible = true;
+
+    let resizeObserver = null;
+    let intersectionObserver = null;
 
     // ----------------------------------------
     // Tamaño y resolución
@@ -285,12 +334,11 @@
         () => Math.random() * (height / fontSize)
       );
 
-      // Canvas transparente: el CSS pinta la nebulosa.
       ctx.clearRect(0, 0, width, height);
     }
 
     // ----------------------------------------
-    // Estelas transparentes
+    // Desvanecimiento de la Matrix
     // ----------------------------------------
 
     function fadeCanvas() {
@@ -300,9 +348,6 @@
       ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, width, height);
       ctx.restore();
-
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.globalAlpha = 1;
     }
 
     // ----------------------------------------
@@ -310,21 +355,18 @@
     // ----------------------------------------
 
     function drawMatrix(timestamp = 0) {
-      if (!running || reducedMotion.matches) {
-        animationFrame = null;
+      if (!running || reducedMotion.matches || document.hidden) {
+        stopAnimation();
         return;
       }
 
-      // Limita el ritmo para reducir trabajo innecesario.
-      if (timestamp - lastFrame < 45) {
+      if (timestamp - lastFrame < frameInterval) {
         animationFrame = requestAnimationFrame(drawMatrix);
         return;
       }
 
       lastFrame = timestamp;
 
-      // Solo se desvanece la capa Matrix.
-      // No se repinta la rejilla en cada fotograma.
       fadeCanvas();
 
       ctx.textBaseline = 'top';
@@ -332,7 +374,10 @@
       for (let i = 0; i < drops.length; i++) {
         const x = i * fontSize;
         const y = drops[i] * fontSize;
-        const color = colors[Math.floor(Math.random() * colors.length)];
+        const color = colors[
+          Math.floor(Math.random() * colors.length)
+        ];
+
         const showMessage = Math.random() < 0.006;
 
         ctx.save();
@@ -373,7 +418,7 @@
     }
 
     // ----------------------------------------
-    // Inicio y parada de la animación
+    // Inicio y parada
     // ----------------------------------------
 
     function stopAnimation() {
@@ -388,15 +433,49 @@
     function startAnimation() {
       stopAnimation();
 
-      if (reducedMotion.matches) {
-        ctx.clearRect(0, 0, width, height);
+      if (
+        reducedMotion.matches ||
+        document.hidden ||
+        !heroVisible
+      ) {
         return;
       }
 
       running = true;
       lastFrame = 0;
+
       animationFrame = requestAnimationFrame(drawMatrix);
     }
+
+    // ----------------------------------------
+    // Visibilidad de la portada
+    // ----------------------------------------
+
+    if ('IntersectionObserver' in window) {
+      intersectionObserver = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+
+        heroVisible = entry.isIntersecting;
+
+        if (heroVisible) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      }, {
+        threshold: 0
+      });
+
+      intersectionObserver.observe(hero);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopAnimation();
+      } else {
+        startAnimation();
+      }
+    });
 
     // ----------------------------------------
     // Adaptación al tamaño de la portada
