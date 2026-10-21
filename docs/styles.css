@@ -1,37 +1,38 @@
 
 /* =========================================================
-   PUDIN.EXE // NEON COSMOS
-   Deep space · holographic HUD · subtle parallax
+   PUDIN.EXE // DREAMCORE GLITCH CAT
+   Digital fever dream · neon candy · chaotic little ghost
    ========================================================= */
 
 :root {
   color-scheme: dark;
 
-  --void: #080817;
-  --deep-space: #0d1028;
-  --space-blue: #111a38;
-  --nebula-violet: #5c2b92;
+  --void: #10091c;
+  --deep-space: #1b0d2b;
+  --space-blue: #21143b;
+  --nebula-violet: #873eff;
 
-  --neon-cyan: #63f7ff;
-  --neon-pink: #ff58c8;
-  --neon-orange: #ffad66;
-  --star-white: #e8f8ff;
+  --neon-cyan: #70fff1;
+  --neon-pink: #ff65c8;
+  --neon-orange: #ffad70;
+  --neon-lime: #d9ff70;
+  --star-white: #fff5ff;
 
-  --text-main: #edf7ff;
-  --text-muted: #aab8d5;
+  --text-main: #fff4ff;
+  --text-muted: #c8b6dc;
 
-  --glass: rgba(13, 16, 40, 0.72);
-  --glass-border: rgba(130, 171, 255, 0.2);
+  --glass: rgba(30, 14, 48, 0.78);
+  --glass-border: rgba(255, 101, 200, 0.32);
 
-  --glow-cyan: 0 0 24px rgba(99, 247, 255, 0.15);
-  --glow-pink: 0 0 28px rgba(255, 88, 200, 0.12);
+  --glow-cyan: 0 0 25px rgba(112, 255, 241, 0.2);
+  --glow-pink: 0 0 30px rgba(255, 101, 200, 0.2);
 
   --page-width: 1180px;
-  --section-space: clamp(5rem, 10vw, 9rem);
+  --section-space: clamp(5rem, 10vw, 8rem);
 }
 
 /* ---------------------------------------------------------
-   1. BASE Y FONDO ESPACIAL
+   1. THE VOID IS FULL OF CAT HAIR
    --------------------------------------------------------- */
 
 * {
@@ -54,35 +55,18 @@ body {
   overflow-x: clip;
 
   color: var(--text-main);
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 1.7;
 
   background:
-    radial-gradient(
-      ellipse at 78% 7%,
-      rgba(91, 43, 146, 0.25),
-      transparent 34rem
-    ),
-    radial-gradient(
-      ellipse at 8% 29%,
-      rgba(30, 112, 173, 0.13),
-      transparent 34rem
-    ),
-    radial-gradient(
-      ellipse at 88% 61%,
-      rgba(171, 45, 139, 0.08),
-      transparent 32rem
-    ),
-    linear-gradient(
-      180deg,
-      #09091b 0%,
-      #0b1022 48%,
-      #080817 100%
-    );
-
-  font-family: "Space Grotesk", sans-serif;
-  line-height: 1.65;
+    radial-gradient(ellipse at 5% 8%, rgba(255, 101, 200, 0.18), transparent 28rem),
+    radial-gradient(ellipse at 92% 22%, rgba(135, 62, 255, 0.25), transparent 34rem),
+    radial-gradient(ellipse at 75% 66%, rgba(112, 255, 241, 0.08), transparent 30rem),
+    radial-gradient(ellipse at 15% 87%, rgba(255, 173, 112, 0.09), transparent 27rem),
+    linear-gradient(160deg, #10091c 0%, #1b0d2b 46%, #10091c 100%);
 }
 
-/* Estrellas repartidas por la página */
+/* Star confetti */
 body::before {
   content: "";
   position: absolute;
@@ -91,50 +75,29 @@ body::before {
   pointer-events: none;
 
   background-image:
-    radial-gradient(
-      circle,
-      rgba(216, 250, 255, 0.8) 1px,
-      transparent 1.6px
-    ),
-    radial-gradient(
-      circle,
-      rgba(169, 154, 255, 0.65) 1px,
-      transparent 1.7px
-    ),
-    radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.65) 0.7px,
-      transparent 1.4px
-    );
+    radial-gradient(circle, #fff 1px, transparent 1.8px),
+    radial-gradient(circle, var(--neon-pink) 1px, transparent 2px),
+    radial-gradient(circle, var(--neon-cyan) 1px, transparent 2px),
+    radial-gradient(circle, var(--neon-lime) 1px, transparent 2px);
 
   background-size:
-    137px 151px,
-    193px 211px,
-    89px 103px;
+    97px 113px,
+    173px 191px,
+    227px 163px,
+    311px 271px;
 
   background-position:
-    8px 18px,
-    47px 72px,
-    24px 51px;
+    13px 21px,
+    49px 77px,
+    101px 37px,
+    19px 131px;
 
-  opacity: 0.3;
+  opacity: 0.35;
 
-  mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    rgba(0, 0, 0, 0.75) 30%,
-    transparent 95%
-  );
-
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    rgba(0, 0, 0, 0.75) 30%,
-    transparent 95%
-  );
+  mask-image: linear-gradient(to bottom, #000 0%, #000 65%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 65%, transparent 100%);
 }
 
-/* Desactiva una posible cuadrícula global antigua */
 body::after {
   content: none !important;
 }
@@ -146,8 +109,8 @@ img {
 
 a {
   color: inherit;
-  text-decoration-color: rgba(99, 247, 255, 0.45);
-  text-underline-offset: 0.2em;
+  text-decoration-color: rgba(112, 255, 241, 0.6);
+  text-underline-offset: 0.22em;
 }
 
 button,
@@ -160,13 +123,9 @@ button {
 }
 
 ::selection {
-  color: #080817;
-  background: var(--neon-cyan);
+  color: var(--void);
+  background: var(--neon-lime);
 }
-
-/* ---------------------------------------------------------
-   2. ANCHOS Y CAPAS GENERALES
-   --------------------------------------------------------- */
 
 main,
 .site-header,
@@ -182,12 +141,13 @@ footer {
 }
 
 .content-section {
+  position: relative;
   padding-block: var(--section-space);
   scroll-margin-top: 70px;
 }
 
 .content-section + .content-section {
-  border-top: 1px solid rgba(135, 157, 255, 0.09);
+  border-top: 1px dashed rgba(255, 101, 200, 0.22);
 }
 
 h1,
@@ -206,7 +166,7 @@ h3 {
 
 h1,
 h2 {
-  letter-spacing: -0.045em;
+  letter-spacing: -0.06em;
 }
 
 h1 {
@@ -226,7 +186,7 @@ p {
 }
 
 /* ---------------------------------------------------------
-   3. CABECERA FUTURISTA
+   2. HEADER // CAT ADMIN HAS ENTERED THE SERVER
    --------------------------------------------------------- */
 
 .site-header {
@@ -237,7 +197,7 @@ p {
   gap: 24px;
 
   padding-block: 22px;
-  border-bottom: 1px solid rgba(99, 247, 255, 0.12);
+  border-bottom: 1px dashed rgba(255, 101, 200, 0.3);
 }
 
 .brand {
@@ -249,22 +209,23 @@ p {
   font-family: "IBM Plex Mono", monospace;
   font-size: 1.12rem;
   font-weight: 700;
+  letter-spacing: -0.06em;
   text-decoration: none;
-  letter-spacing: -0.04em;
 }
 
 .brand-icon {
   display: grid;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   place-items: center;
 
-  border: 1px solid rgba(99, 247, 255, 0.25);
-  border-radius: 12px;
-  background: rgba(99, 247, 255, 0.06);
-  box-shadow: var(--glow-cyan);
+  border: 1px solid var(--neon-pink);
+  border-radius: 15px 8px 15px 8px;
+  background: var(--deep-space);
+  box-shadow: 4px 4px 0 var(--neon-violet), var(--glow-pink);
 
   font-size: 1.3rem;
+  transform: rotate(-7deg);
 }
 
 .accent-cyan {
@@ -276,31 +237,35 @@ p {
   align-items: center;
   justify-content: flex-end;
   flex-wrap: wrap;
-  gap: clamp(12px, 2vw, 28px);
+  gap: clamp(12px, 2vw, 26px);
 }
 
 .nav a {
+  position: relative;
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.82rem;
   text-decoration: none;
-  transition: color 180ms ease;
+  transition: color 180ms ease, transform 180ms ease;
 }
 
 .nav a:hover,
 .nav a:focus-visible {
-  color: var(--neon-cyan);
+  color: var(--neon-lime);
+  transform: rotate(-2deg);
 }
 
 .nav .nav-cta {
   padding: 9px 15px;
-  border: 1px solid rgba(99, 247, 255, 0.38);
-  border-radius: 8px;
-  color: var(--neon-cyan);
-  background: rgba(99, 247, 255, 0.05);
+  border: 1px solid var(--neon-cyan);
+  border-radius: 6px 13px 6px 13px;
+  color: var(--void);
+  background: var(--neon-cyan);
+  box-shadow: 3px 3px 0 var(--neon-pink);
 }
 
 /* ---------------------------------------------------------
-   4. PORTADA: ESCENARIO PRINCIPAL
+   3. HERO // WELCOME TO THE CAT DIMENSION
    --------------------------------------------------------- */
 
 .hero {
@@ -312,13 +277,18 @@ p {
   align-items: center;
   gap: clamp(35px, 6vw, 85px);
 
+  width: 100%;
+  max-width: none;
   min-height: min(790px, calc(100svh - 85px));
-  padding-block: clamp(70px, 10vw, 130px);
+
+  margin-inline: 0;
+  padding: clamp(70px, 9vw, 120px)
+    max(24px, calc((100vw - var(--page-width)) / 2));
 
   overflow: hidden;
 }
 
-/* Nebulosas locales de la portada */
+/* Full-width dreamy nebula */
 .hero::before {
   content: "";
   position: absolute;
@@ -327,25 +297,30 @@ p {
   pointer-events: none;
 
   background:
-    radial-gradient(
-      ellipse at 75% 42%,
-      rgba(96, 54, 170, 0.2),
-      transparent 42%
-    ),
-    radial-gradient(
-      ellipse at 22% 76%,
-      rgba(42, 178, 205, 0.08),
-      transparent 42%
-    );
+    radial-gradient(ellipse at 77% 39%, rgba(135, 62, 255, 0.31), transparent 39%),
+    radial-gradient(ellipse at 13% 22%, rgba(255, 101, 200, 0.17), transparent 36%),
+    radial-gradient(ellipse at 39% 88%, rgba(112, 255, 241, 0.1), transparent 39%),
+    repeating-linear-gradient(135deg, transparent 0 90px, rgba(255, 255, 255, 0.012) 91px 92px);
 
-  opacity: 0.9;
+  opacity: 1;
 }
 
-/*
-  Matrix se extiende por la portada completa.
-  La transparencia real de sus píxeles se controla en JS.
-*/
+.hero::after {
+  content: "CAT.EXE HAS LEFT THE BOX";
+  position: absolute;
+  top: 28px;
+  right: 3%;
+  z-index: 2;
+  pointer-events: none;
 
+  color: rgba(255, 101, 200, 0.55);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  transform: rotate(4deg);
+}
+
+/* Existing Matrix canvas */
 #matrix-cosmos {
   position: absolute !important;
   inset: 0 auto 0 50% !important;
@@ -358,28 +333,13 @@ p {
 
   z-index: 1 !important;
   pointer-events: none;
-
-  opacity: 0.34;
+  opacity: 0.28;
   mix-blend-mode: screen;
 
-  mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 52%,
-    rgba(0, 0, 0, 0.65) 78%,
-    transparent 100%
-  );
-
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 52%,
-    rgba(0, 0, 0, 0.65) 78%,
-    transparent 100%
-  );
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
 }
 
-/* Contenido de portada por encima de los efectos */
 .hero-copy,
 .hero-art {
   position: relative;
@@ -397,45 +357,51 @@ p {
   gap: 10px;
 
   margin-bottom: 22px;
-  color: var(--neon-cyan);
+  color: var(--neon-lime);
 
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  line-height: 1.6;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.7;
 }
 
 .status-dot {
   flex: 0 0 auto;
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
 
   border-radius: 50%;
-  background: var(--neon-cyan);
-  box-shadow: 0 0 12px var(--neon-cyan);
+  background: var(--neon-lime);
+  box-shadow: 0 0 12px var(--neon-lime);
 
   animation: status-pulse 2.5s ease-in-out infinite;
 }
 
 .hero h1 {
+  position: relative;
   margin-bottom: 25px;
-
-  color: #f1f7ff;
+  color: var(--star-white);
   text-shadow:
-    0 0 22px rgba(99, 247, 255, 0.12),
-    0 0 55px rgba(255, 88, 200, 0.08);
+    3px 3px 0 rgba(255, 101, 200, 0.65),
+    -3px -2px 0 rgba(112, 255, 241, 0.28),
+    0 0 38px rgba(135, 62, 255, 0.3);
 }
 
 .hero h1 span {
-  color: var(--neon-cyan);
+  display: inline-block;
+  color: var(--neon-pink);
+  text-shadow:
+    3px 3px 0 var(--nebula-violet),
+    -2px -1px 0 var(--neon-cyan);
+  transform: rotate(-2deg);
 }
 
 .hero-lead {
   margin-bottom: 14px;
-  color: #fff;
+  color: var(--neon-cyan);
   font-size: clamp(1.2rem, 2.4vw, 1.7rem);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .hero-description {
@@ -448,11 +414,12 @@ p {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 13px;
+  gap: 14px;
   margin-bottom: 30px;
 }
 
 .button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -462,7 +429,7 @@ p {
   padding: 12px 19px;
 
   border: 1px solid transparent;
-  border-radius: 9px;
+  border-radius: 7px 14px 7px 14px;
 
   font-size: 0.9rem;
   font-weight: 700;
@@ -478,51 +445,64 @@ p {
 }
 
 .button-primary {
-  color: #07101c;
-  border-color: var(--neon-cyan);
-  background: var(--neon-cyan);
-  box-shadow: 0 0 22px rgba(99, 247, 255, 0.17);
+  color: #180c22;
+  border-color: var(--neon-lime);
+  background: var(--neon-lime);
+  box-shadow: 4px 4px 0 var(--neon-pink), 0 0 22px rgba(217, 255, 112, 0.13);
 }
 
 .button-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(99, 247, 255, 0.3);
+  transform: translate(-2px, -3px) rotate(-1deg);
+  box-shadow: 7px 7px 0 var(--neon-pink), 0 0 32px rgba(217, 255, 112, 0.28);
 }
 
 .button-ghost {
-  border-color: rgba(167, 177, 224, 0.28);
-  color: var(--text-main);
-  background: rgba(15, 17, 43, 0.45);
+  border-color: var(--neon-pink);
+  color: var(--star-white);
+  background: rgba(30, 14, 48, 0.75);
+  box-shadow: 3px 3px 0 rgba(135, 62, 255, 0.7);
 }
 
 .button-ghost:hover {
-  transform: translateY(-2px);
-  border-color: var(--neon-pink);
-  box-shadow: var(--glow-pink);
+  transform: translate(2px, -3px) rotate(1deg);
+  border-color: var(--neon-cyan);
+  box-shadow: 5px 5px 0 var(--neon-cyan);
 }
 
 .hero-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 9px;
+  gap: 10px;
 }
 
 .hero-tags span {
-  padding: 6px 10px;
+  padding: 6px 11px;
+  border: 1px dashed rgba(255, 101, 200, 0.6);
+  border-radius: 5px 12px 5px 12px;
 
-  border: 1px solid rgba(135, 157, 255, 0.18);
-  border-radius: 5px;
-
-  color: #b8c5e4;
-  background: rgba(13, 16, 40, 0.48);
+  color: var(--neon-pink);
+  background: rgba(30, 14, 48, 0.68);
 
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.67rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
+  transform: rotate(-1deg);
+}
+
+.hero-tags span:nth-child(2) {
+  color: var(--neon-cyan);
+  border-color: rgba(112, 255, 241, 0.55);
+  transform: rotate(1deg);
+}
+
+.hero-tags span:nth-child(3) {
+  color: var(--neon-lime);
+  border-color: rgba(217, 255, 112, 0.5);
+  transform: rotate(-1.5deg);
 }
 
 /* ---------------------------------------------------------
-   5. ARTE DE PUDIN Y CRISTAL HOLOGRÁFICO
+   4. PUDIN'S PORTAL
    --------------------------------------------------------- */
 
 .hero-art {
@@ -534,20 +514,14 @@ p {
 
 .art-glow {
   position: absolute;
-  inset: 9% 3%;
+  inset: 7% 0;
   z-index: 0;
-
   border-radius: 50%;
 
   background:
-    radial-gradient(
-      ellipse,
-      rgba(91, 43, 146, 0.32),
-      rgba(99, 247, 255, 0.08) 38%,
-      transparent 72%
-    );
+    radial-gradient(ellipse, rgba(255, 101, 200, 0.26), rgba(135, 62, 255, 0.2) 37%, rgba(112, 255, 241, 0.08) 58%, transparent 74%);
 
-  filter: blur(24px);
+  filter: blur(28px);
   pointer-events: none;
 }
 
@@ -558,24 +532,40 @@ p {
   width: 100%;
   padding: 12px;
 
-  border: 1px solid rgba(99, 247, 255, 0.4);
-  border-radius: 16px;
+  border: 1px solid var(--neon-pink);
+  border-radius: 19px 9px 23px 11px;
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(17, 24, 53, 0.88),
-      rgba(12, 10, 31, 0.94)
-    );
+    linear-gradient(145deg, rgba(45, 20, 69, 0.94), rgba(16, 9, 28, 0.94));
 
   box-shadow:
-    0 0 0 1px rgba(255, 88, 200, 0.08),
-    0 0 30px rgba(99, 247, 255, 0.09),
-    0 0 65px rgba(116, 58, 193, 0.13),
-    0 30px 80px rgba(0, 0, 0, 0.28);
+    5px 5px 0 rgba(135, 62, 255, 0.85),
+    -4px -4px 0 rgba(112, 255, 241, 0.3),
+    0 0 38px rgba(255, 101, 200, 0.12),
+    0 28px 75px rgba(0, 0, 0, 0.35);
 
   backdrop-filter: blur(12px);
   transform-style: preserve-3d;
+}
+
+.art-frame::before {
+  content: "✦ SPECIAL CAT ✦";
+  position: absolute;
+  top: -16px;
+  left: 22px;
+  z-index: 5;
+
+  padding: 5px 11px;
+  border: 1px solid var(--neon-lime);
+  border-radius: 4px 10px 4px 10px;
+
+  color: var(--void);
+  background: var(--neon-lime);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transform: rotate(-3deg);
 }
 
 .frame-label,
@@ -586,8 +576,8 @@ p {
   gap: 12px;
 
   padding: 10px 5px;
+  color: #d6c4ec;
 
-  color: #9eafcf;
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.65rem;
   letter-spacing: 0.06em;
@@ -599,7 +589,7 @@ p {
 }
 
 .online {
-  color: #8affc3;
+  color: var(--neon-lime);
   white-space: nowrap;
 }
 
@@ -612,15 +602,14 @@ p {
   aspect-ratio: 1648 / 928;
   object-fit: cover;
 
-  border: 1px solid rgba(99, 247, 255, 0.18);
-  border-radius: 8px;
+  border: 1px solid rgba(112, 255, 241, 0.45);
+  border-radius: 11px 5px 13px 6px;
 }
 
 .art-caption {
   padding-bottom: 2px;
 }
 
-/* Sachet flotante */
 .hero-art > .floating-sachet {
   position: absolute;
   top: 65px;
@@ -631,20 +620,17 @@ p {
   height: auto;
 
   filter:
-    drop-shadow(0 0 12px rgba(255, 173, 102, 0.3))
-    drop-shadow(0 0 25px rgba(255, 88, 200, 0.12));
+    drop-shadow(0 0 12px rgba(255, 173, 112, 0.55))
+    drop-shadow(0 0 24px rgba(255, 101, 200, 0.25));
 
   animation: sachet-float 5s ease-in-out infinite;
 }
 
-/* Órbitas decorativas */
 .orbit {
   position: absolute;
   z-index: 0;
-
-  border: 1px solid rgba(99, 247, 255, 0.23);
+  border: 1px dashed rgba(112, 255, 241, 0.48);
   border-radius: 50%;
-
   pointer-events: none;
 }
 
@@ -657,7 +643,7 @@ p {
 .orbit-two {
   width: 118%;
   height: 93%;
-  border-color: rgba(255, 88, 200, 0.17);
+  border-color: rgba(255, 101, 200, 0.42);
   transform: rotate(28deg);
 }
 
@@ -667,7 +653,7 @@ p {
   bottom: -34px;
   z-index: 3;
 
-  color: rgba(166, 189, 226, 0.65);
+  color: rgba(217, 255, 112, 0.8);
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.58rem;
   line-height: 1.8;
@@ -675,40 +661,39 @@ p {
 }
 
 /* ---------------------------------------------------------
-   6. TRANSMISIÓN EN MOVIMIENTO
+   5. TICKER // IMPORTANT CAT NONSENSE
    --------------------------------------------------------- */
 
 .ticker {
   position: relative;
   z-index: 2;
-
   overflow: hidden;
-  border-block: 1px solid rgba(99, 247, 255, 0.17);
 
-  background: rgba(10, 13, 32, 0.85);
+  border-block: 1px dashed rgba(255, 101, 200, 0.5);
+  background: var(--neon-pink);
+  transform: rotate(-0.5deg) scale(1.01);
 }
 
 .ticker-track {
   display: flex;
   width: max-content;
   gap: 42px;
-  padding-block: 15px;
+  padding-block: 13px;
 
   animation: ticker-scroll 35s linear infinite;
 }
 
 .ticker-track span {
-  color: var(--neon-cyan);
-
+  color: #1b0d2b;
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.7rem;
-  font-weight: 600;
+  font-weight: 800;
   letter-spacing: 0.09em;
   white-space: nowrap;
 }
 
 /* ---------------------------------------------------------
-   7. TÍTULOS DE SECCIÓN
+   6. SECTION HEADINGS // MILDLY UNHINGED
    --------------------------------------------------------- */
 
 .section-heading {
@@ -716,7 +701,6 @@ p {
   align-items: end;
   justify-content: space-between;
   gap: 36px;
-
   margin-bottom: 44px;
 }
 
@@ -730,6 +714,11 @@ p {
 
 .section-heading h2 {
   margin-bottom: 0;
+  text-shadow: 3px 3px 0 rgba(135, 62, 255, 0.45);
+}
+
+.section-heading h2::selection {
+  text-shadow: none;
 }
 
 .section-heading > p {
@@ -739,16 +728,18 @@ p {
 }
 
 /* ---------------------------------------------------------
-   8. TARJETAS DE HABILIDADES
+   7. FEATURE CARDS // SIX FLAVOURS OF CAT CHAOS
    --------------------------------------------------------- */
 
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 17px;
+  gap: 20px;
 }
 
 .feature-card {
+  --card-accent: var(--neon-pink);
+
   position: relative;
   isolation: isolate;
   min-width: 0;
@@ -756,25 +747,34 @@ p {
   padding: 26px;
 
   overflow: hidden;
-
-  border: 1px solid var(--glass-border);
-  border-radius: 13px;
+  border: 1px solid rgba(255, 101, 200, 0.32);
+  border-radius: 17px 7px 19px 9px;
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(17, 24, 53, 0.78),
-      rgba(12, 10, 31, 0.7)
-    );
+    radial-gradient(circle at 100% 0%, rgba(255, 101, 200, 0.13), transparent 55%),
+    linear-gradient(145deg, rgba(45, 20, 69, 0.88), rgba(20, 10, 35, 0.85));
 
-  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.13);
-
+  box-shadow: 5px 5px 0 rgba(135, 62, 255, 0.23);
   backdrop-filter: blur(10px);
 
   transition:
     transform 220ms ease,
     border-color 220ms ease,
     box-shadow 220ms ease;
+}
+
+.feature-card:nth-child(3n + 2) {
+  --card-accent: var(--neon-cyan);
+  border-color: rgba(112, 255, 241, 0.3);
+  border-radius: 7px 18px 8px 20px;
+  transform: rotate(0.5deg);
+}
+
+.feature-card:nth-child(3n) {
+  --card-accent: var(--neon-lime);
+  border-color: rgba(217, 255, 112, 0.25);
+  border-radius: 12px 22px 7px 15px;
+  transform: rotate(-0.5deg);
 }
 
 .feature-card::before {
@@ -785,31 +785,29 @@ p {
   pointer-events: none;
 
   background:
-    radial-gradient(
-      circle at 100% 0%,
-      rgba(99, 247, 255, 0.09),
-      transparent 55%
-    );
+    linear-gradient(125deg, transparent 25%, rgba(255, 255, 255, 0.07) 48%, transparent 68%);
 
   opacity: 0;
-  transition: opacity 220ms ease;
+  transform: translateX(-100%);
+  transition: opacity 220ms ease, transform 450ms ease;
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(99, 247, 255, 0.42);
-  box-shadow: var(--glow-cyan);
+  transform: translateY(-7px) rotate(-1deg);
+  border-color: var(--card-accent);
+  box-shadow: 7px 8px 0 rgba(135, 62, 255, 0.45), 0 0 24px rgba(255, 101, 200, 0.12);
 }
 
 .feature-card:hover::before {
   opacity: 1;
+  transform: translateX(100%);
 }
 
 .feature-index {
   display: block;
   margin-bottom: 22px;
 
-  color: #899cbe;
+  color: var(--card-accent);
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.67rem;
   letter-spacing: 0.1em;
@@ -817,35 +815,37 @@ p {
 
 .feature-icon {
   display: grid;
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   place-items: center;
 
   margin-bottom: 21px;
 
-  border: 1px solid rgba(99, 247, 255, 0.23);
-  border-radius: 10px;
+  border: 1px solid rgba(112, 255, 241, 0.35);
+  border-radius: 13px 6px 13px 6px;
 
   color: var(--neon-cyan);
-  background: rgba(99, 247, 255, 0.07);
+  background: rgba(112, 255, 241, 0.08);
+  box-shadow: 3px 3px 0 rgba(112, 255, 241, 0.13);
 
   font-size: 1.35rem;
 }
 
 .feature-icon.pink {
-  border-color: rgba(255, 88, 200, 0.24);
+  border-color: rgba(255, 101, 200, 0.4);
   color: var(--neon-pink);
-  background: rgba(255, 88, 200, 0.07);
+  background: rgba(255, 101, 200, 0.08);
 }
 
 .feature-icon.orange {
-  border-color: rgba(255, 173, 102, 0.25);
+  border-color: rgba(255, 173, 112, 0.4);
   color: var(--neon-orange);
-  background: rgba(255, 173, 102, 0.07);
+  background: rgba(255, 173, 112, 0.08);
 }
 
 .feature-card h3 {
   margin-bottom: 12px;
+  color: var(--star-white);
   font-size: 1.22rem;
 }
 
@@ -865,13 +865,13 @@ p {
   height: 94px;
   object-fit: contain;
 
-  opacity: 0.13;
+  opacity: 0.2;
   transform: rotate(12deg);
   pointer-events: none;
 }
 
 /* ---------------------------------------------------------
-   9. CONTROLES Y TERMINALES
+   8. CONTROLS // YOUR KEYBOARD IS NOW A CAT TOY
    --------------------------------------------------------- */
 
 .controls-layout {
@@ -885,13 +885,13 @@ p {
 .warning-panel,
 .install-panel {
   min-width: 0;
+  border: 1px solid rgba(255, 101, 200, 0.32);
+  border-radius: 15px 7px 17px 9px;
 
-  border: 1px solid var(--glass-border);
-  border-radius: 13px;
+  background:
+    linear-gradient(145deg, rgba(38, 17, 59, 0.9), rgba(18, 9, 31, 0.92));
 
-  background: var(--glass);
-  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.14);
-
+  box-shadow: 5px 5px 0 rgba(135, 62, 255, 0.25), 0 18px 55px rgba(0, 0, 0, 0.16);
   backdrop-filter: blur(12px);
 }
 
@@ -903,9 +903,9 @@ p {
   min-height: 51px;
   padding: 12px 18px;
 
-  border-bottom: 1px solid rgba(135, 157, 255, 0.13);
+  border-bottom: 1px dashed rgba(255, 101, 200, 0.3);
 
-  color: #a8b8d7;
+  color: #d6c4ec;
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.7rem;
 }
@@ -926,18 +926,18 @@ p {
 }
 
 .window-dots i {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  background: #ff6b82;
+  background: var(--neon-pink);
 }
 
 .window-dots i:nth-child(2) {
-  background: #ffca70;
+  background: var(--neon-orange);
 }
 
 .window-dots i:nth-child(3) {
-  background: #74f6b0;
+  background: var(--neon-lime);
 }
 
 .key-row {
@@ -945,10 +945,8 @@ p {
   grid-template-columns: minmax(110px, auto) minmax(0, 1fr);
   align-items: center;
   gap: 17px;
-
   padding: 18px 20px;
-
-  border-bottom: 1px solid rgba(135, 157, 255, 0.09);
+  border-bottom: 1px dashed rgba(255, 101, 200, 0.16);
 }
 
 .key-row:last-child {
@@ -960,12 +958,12 @@ p {
   justify-self: start;
 
   padding: 7px 10px;
-
-  border: 1px solid rgba(99, 247, 255, 0.24);
-  border-radius: 6px;
+  border: 1px solid var(--neon-cyan);
+  border-radius: 5px 10px 5px 10px;
 
   color: var(--neon-cyan);
-  background: rgba(99, 247, 255, 0.055);
+  background: rgba(112, 255, 241, 0.07);
+  box-shadow: 2px 2px 0 rgba(112, 255, 241, 0.2);
 
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.72rem;
@@ -979,16 +977,11 @@ p {
 
 .warning-panel {
   padding: clamp(24px, 4vw, 37px);
-
-  border-color: rgba(255, 173, 102, 0.23);
+  border-color: rgba(255, 173, 112, 0.4);
 
   background:
-    radial-gradient(
-      ellipse at 100% 0%,
-      rgba(255, 173, 102, 0.09),
-      transparent 60%
-    ),
-    rgba(20, 16, 35, 0.78);
+    radial-gradient(ellipse at 100% 0%, rgba(255, 173, 112, 0.13), transparent 60%),
+    linear-gradient(145deg, rgba(48, 24, 42, 0.92), rgba(24, 12, 35, 0.94));
 }
 
 .warning-panel .eyebrow {
@@ -1005,26 +998,26 @@ p {
 }
 
 .warning-panel strong {
-  color: #ffe0b9;
+  color: #ffe0bd;
 }
 
 /* ---------------------------------------------------------
-   10. INSTALACIÓN
+   9. INSTALLATION // SUMMON THE CAT
    --------------------------------------------------------- */
 
 .install-panel {
   overflow: hidden;
+  border-color: rgba(112, 255, 241, 0.35);
 }
 
 .install-panel pre {
   max-width: 100%;
   margin: 0;
   padding: clamp(20px, 4vw, 35px);
-
   overflow-x: auto;
 
-  color: #e0f5ff;
-  background: rgba(4, 7, 19, 0.48);
+  color: var(--neon-cyan);
+  background: rgba(10, 5, 19, 0.7);
 
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.82rem;
@@ -1037,7 +1030,7 @@ p {
 }
 
 .comment {
-  color: #7486a7;
+  color: #a995c4;
 }
 
 .copy-row {
@@ -1047,20 +1040,22 @@ p {
   gap: 14px;
 
   padding: 17px 20px;
-  border-top: 1px solid rgba(135, 157, 255, 0.13);
+  border-top: 1px dashed rgba(112, 255, 241, 0.25);
 }
 
 .copy-button {
   padding: 11px 16px;
 
-  border: 1px solid rgba(99, 247, 255, 0.38);
-  border-radius: 7px;
+  border: 1px solid var(--neon-lime);
+  border-radius: 6px 12px 6px 12px;
 
-  color: var(--neon-cyan);
-  background: rgba(99, 247, 255, 0.07);
+  color: var(--void);
+  background: var(--neon-lime);
+  box-shadow: 3px 3px 0 var(--neon-pink);
 
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.77rem;
+  font-weight: 700;
   cursor: pointer;
 
   transition:
@@ -1070,24 +1065,23 @@ p {
 }
 
 .copy-button:hover {
-  transform: translateY(-2px);
-  background: rgba(99, 247, 255, 0.12);
-  box-shadow: var(--glow-cyan);
+  transform: translate(-2px, -2px) rotate(-1deg);
+  box-shadow: 5px 5px 0 var(--neon-pink);
 }
 
 #copy-status {
-  color: #8affc3;
+  color: var(--neon-lime);
   font-size: 0.83rem;
 }
 
 /* ---------------------------------------------------------
-   11. TRANSMISIONES Y ENLACES
+   10. TRANSMISSIONS FROM THE CAT DIMENSION
    --------------------------------------------------------- */
 
 .video-links {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 18px;
 }
 
 .video-card {
@@ -1100,17 +1094,16 @@ p {
   min-height: 165px;
   padding: 24px;
 
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
+  border: 1px solid rgba(255, 101, 200, 0.32);
+  border-radius: 16px 7px 19px 9px;
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(17, 24, 53, 0.72),
-      rgba(12, 10, 31, 0.7)
-    );
+    radial-gradient(circle at 100% 0%, rgba(135, 62, 255, 0.17), transparent 60%),
+    rgba(30, 14, 48, 0.8);
 
   text-decoration: none;
+
+  box-shadow: 4px 4px 0 rgba(135, 62, 255, 0.22);
 
   transition:
     transform 200ms ease,
@@ -1118,10 +1111,18 @@ p {
     box-shadow 200ms ease;
 }
 
+.video-card:nth-child(2) {
+  transform: rotate(0.6deg);
+}
+
+.video-card:nth-child(3) {
+  transform: rotate(-0.6deg);
+}
+
 .video-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 88, 200, 0.42);
-  box-shadow: var(--glow-pink);
+  transform: translateY(-6px) rotate(-1deg);
+  border-color: var(--neon-cyan);
+  box-shadow: 6px 7px 0 rgba(112, 255, 241, 0.3), var(--glow-pink);
 }
 
 .video-card > span:first-child {
@@ -1149,7 +1150,6 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 12px 24px;
-
   margin-top: 25px;
 }
 
@@ -1161,16 +1161,16 @@ p {
 }
 
 .extra-links a:hover {
-  color: var(--neon-cyan);
+  color: var(--neon-lime);
 }
 
 /* ---------------------------------------------------------
-   12. PIE DE PÁGINA
+   11. FOOTER // CAT HAS LEFT THE CHAT
    --------------------------------------------------------- */
 
 footer {
-  border-top: 1px solid rgba(99, 247, 255, 0.13);
-  background: rgba(5, 6, 18, 0.45);
+  border-top: 1px dashed rgba(255, 101, 200, 0.35);
+  background: rgba(10, 5, 19, 0.7);
 }
 
 .footer-inner {
@@ -1179,7 +1179,6 @@ footer {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
-
   padding-block: 28px;
 }
 
@@ -1190,55 +1189,47 @@ footer {
 }
 
 .footer-inner > a:last-child {
-  color: #9eafcf;
+  color: var(--neon-cyan);
+  font-family: "IBM Plex Mono", monospace;
   font-size: 0.79rem;
   text-decoration: none;
 }
 
 .footer-inner > a:last-child:hover {
-  color: var(--neon-cyan);
+  color: var(--neon-pink);
 }
 
 /* ---------------------------------------------------------
-   13. EFECTO CRT Y HUELLITAS NEÓN
+   12. CRT + NEON PAW PRINTS
    --------------------------------------------------------- */
 
 .scanlines {
   position: fixed;
   inset: 0;
   z-index: 20;
-
   pointer-events: none;
 
   background: repeating-linear-gradient(
     to bottom,
     transparent 0,
     transparent 3px,
-    rgba(1, 3, 13, 0.11) 4px,
+    rgba(10, 3, 17, 0.15) 4px,
     transparent 5px
   );
 
-  opacity: 0.16;
+  opacity: 0.2;
 }
-
-/*
-  Las huellas se dibujan con cinco elementos internos:
-  cuatro dedos y una almohadilla central.
-  JS debe asignar --paw-color y crear esos elementos.
-*/
 
 .neon-paw {
   --paw-color: var(--neon-cyan);
 
   position: fixed;
   z-index: 30;
-
   width: 25px;
   height: 27px;
 
   pointer-events: none;
   opacity: 0;
-
   color: var(--paw-color);
 
   filter:
@@ -1254,11 +1245,11 @@ footer {
   display: block;
 
   border: 1.5px solid var(--paw-color);
-  background: rgba(99, 247, 255, 0.12);
+  background: rgba(112, 255, 241, 0.12);
 
   box-shadow:
     0 0 4px var(--paw-color),
-    inset 0 0 4px rgba(99, 247, 255, 0.12);
+    inset 0 0 4px rgba(255, 101, 200, 0.12);
 }
 
 .neon-paw .toe {
@@ -1293,15 +1284,13 @@ footer {
 .neon-paw .pad {
   left: 6px;
   bottom: 1px;
-
   width: 14px;
   height: 12px;
-
   border-radius: 50% 50% 45% 45%;
 }
 
 /* ---------------------------------------------------------
-   14. PARALLAX: PREPARACIÓN VISUAL
+   13. MOTION AND FLOATING OBJECTS
    --------------------------------------------------------- */
 
 .hero-art .art-frame,
@@ -1315,19 +1304,15 @@ footer {
   animation: glow-breathe 7s ease-in-out infinite;
 }
 
-/* ---------------------------------------------------------
-   15. ANIMACIONES
-   --------------------------------------------------------- */
-
 @keyframes status-pulse {
   0%, 100% {
     opacity: 1;
-    box-shadow: 0 0 12px var(--neon-cyan);
+    box-shadow: 0 0 12px var(--neon-lime);
   }
 
   50% {
-    opacity: 0.6;
-    box-shadow: 0 0 5px var(--neon-cyan);
+    opacity: 0.65;
+    box-shadow: 0 0 5px var(--neon-lime);
   }
 }
 
@@ -1381,7 +1366,7 @@ footer {
 }
 
 /* ---------------------------------------------------------
-   16. RESPONSIVE
+   14. RESPONSIVE // TINY CAT, BIG COSMOS
    --------------------------------------------------------- */
 
 @media (max-width: 980px) {
@@ -1413,7 +1398,7 @@ footer {
   .section-wrap,
   .site-header,
   .footer-inner {
-    width: min(100% - 32px, var(--page-width));
+    width: min(calc(100% - 32px), var(--page-width));
   }
 
   .site-header {
@@ -1436,7 +1421,7 @@ footer {
     gap: 46px;
 
     min-height: auto;
-    padding-block: 76px 90px;
+    padding: 76px 16px 90px;
   }
 
   .hero h1 {
@@ -1447,8 +1432,14 @@ footer {
     font-size: 0.95rem;
   }
 
+  .hero::after {
+    top: 17px;
+    right: 16px;
+    font-size: 0.48rem;
+  }
+
   #matrix-cosmos {
-    opacity: 0.27;
+    opacity: 0.23;
   }
 
   .hero-art {
@@ -1483,8 +1474,15 @@ footer {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .feature-card {
+  .feature-card,
+  .feature-card:nth-child(3n + 2),
+  .feature-card:nth-child(3n) {
     min-height: 0;
+    transform: none;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
   }
 
   .key-row {
@@ -1501,8 +1499,11 @@ footer {
     font-size: 0.72rem;
   }
 
-  .video-card {
+  .video-card,
+  .video-card:nth-child(2),
+  .video-card:nth-child(3) {
     min-height: 135px;
+    transform: none;
   }
 
   .footer-inner {
@@ -1511,7 +1512,11 @@ footer {
   }
 
   body::before {
-    opacity: 0.22;
+    opacity: 0.25;
+  }
+
+  .ticker {
+    transform: none;
   }
 }
 
@@ -1555,14 +1560,18 @@ footer {
     padding-inline: 12px;
     font-size: 0.62rem;
   }
+
+  .feature-card {
+    padding: 22px;
+  }
 }
 
 /* ---------------------------------------------------------
-   17. ACCESIBILIDAD
+   15. ACCESSIBILITY // RESPECT THE HUMAN BEHIND THE SCREEN
    --------------------------------------------------------- */
 
 :focus-visible {
-  outline: 2px solid var(--neon-cyan);
+  outline: 2px solid var(--neon-lime);
   outline-offset: 4px;
 }
 
