@@ -285,50 +285,27 @@ a {
   padding-top: 10px;
 }
 
-/* SACHET: TAMAÑO CORREGIDO */
+/* SACHET */
+
 
 .floating-sachet {
   position: absolute;
   right: 8px;
   bottom: 8px;
-  width: clamp(48px, 7vw, 85px);
-  max-width: 20%;
-  height: auto;
+
+  display: block;
+  width: 76px;
+  height: 76px;
+  max-width: none;
+
   object-fit: contain;
+  object-position: center;
+  aspect-ratio: 1 / 1;
+
   filter: drop-shadow(0 0 10px #ffb34760);
   transform: rotate(8deg);
   animation: float 4s ease-in-out infinite;
   z-index: 2;
-}
-
-.orbit {
-  position: absolute;
-  border: 1px solid #ff3fcb75;
-  border-radius: 50%;
-  width: 90px;
-  height: 90px;
-  right: -12px;
-  top: -7px;
-  z-index: -1;
-}
-
-.orbit-two {
-  width: 130px;
-  height: 130px;
-  right: -30px;
-  top: -25px;
-  border-color: #52f5ff50;
-}
-
-.coordinate {
-  position: absolute;
-  left: -12px;
-  bottom: 10px;
-  font: 500 .54rem/1.6 var(--mono);
-  letter-spacing: .08em;
-  color: #8f87aa;
-  transform: rotate(-90deg);
-  transform-origin: left bottom;
 }
 
 /* BARRA ANIMADA */
