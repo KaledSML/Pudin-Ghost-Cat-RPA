@@ -506,4 +506,61 @@
     });
   })();
 
+
+  // ------------------------------------------
+  // 4. ARCHIVE ACCESS // TRANSMISSION SELECTOR
+  // ------------------------------------------
+
+  (() => {
+    const player = document.querySelector('#pudin-video-player');
+    const title = document.querySelector('#video-player-title');
+    const description = document.querySelector('#video-player-description');
+
+    const buttons = document.querySelectorAll('.video-select');
+
+    if (!player || !title || !description || !buttons.length) {
+      return;
+    }
+
+    const baseUrl = 'https://www.youtube-nocookie.com/embed/';
+
+    function selectTransmission(button) {
+      const videoId = button.dataset.videoId;
+      const videoTitle = button.dataset.videoTitle;
+      const videoDescription = button.dataset.videoDescription;
+
+      if (!videoId || !videoTitle || !videoDescription) {
+        console.warn('[PUDIN] Transmisión incompleta:', button);
+        return;
+      }
+
+      // Cambiar el vídeo solo si es diferente al actual.
+      const nextUrl = `${baseUrl}${videoId}?rel=0`;
+
+      if (player.src !== nextUrl) {
+        player.src = nextUrl;
+      }
+
+      title.textContent = videoTitle;
+      description.textContent = videoDescription;
+
+      // Actualizar el estado visual y accesible de los botones.
+      buttons.forEach((item) => {
+        const isActive = item === button;
+
+        item.classList.toggle('is-active', isActive);
+        item.setAttribute('aria-pressed', String(isActive));
+      });
+
+      console.info('[PUDIN] Transmisión seleccionada:', videoTitle);
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        selectTransmission(button);
+      });
+    });
+  })();
+
+  
 })();
