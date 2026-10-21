@@ -769,5 +769,37 @@ python main.py</code></pre>
     </div>
   </footer>
 
+
+<!-- PUDIN // EVIDENCE VIEWER POPUP -->
+
+<div
+  class="evidence-viewer"
+  id="evidence-viewer"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Visor de evidencias"
+>
+  <button
+    class="evidence-viewer-close"
+    id="evidence-viewer-close"
+    type="button"
+    aria-label="Cerrar imagen"
+  >
+    ×
+  </button>
+
+  <div class="evidence-viewer-content">
+    <p class="eyebrow" id="evidence-viewer-label">
+      CLASSIFIED EVIDENCE
+    </p>
+
+    <img id="evidence-viewer-image" src="" alt="">
+
+    <p id="evidence-viewer-caption"></p>
+  </div>
+</div>
+
+  
 </body>
 </html>
