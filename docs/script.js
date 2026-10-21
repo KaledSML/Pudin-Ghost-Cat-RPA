@@ -570,5 +570,91 @@
       });
     });
   })();
+
+
+
+/* ==========================================
+   PUDIN // EVIDENCE VIEWER
+   ========================================== */
+
+const evidenceViewer = document.querySelector('#evidence-viewer');
+const evidenceImage = document.querySelector('#evidence-viewer-image');
+const evidenceLabel = document.querySelector('#evidence-viewer-label');
+const evidenceCaption = document.querySelector('#evidence-viewer-caption');
+const evidenceClose = document.querySelector('#evidence-viewer-close');
+
+if (
+  evidenceViewer &&
+  evidenceImage &&
+  evidenceLabel &&
+  evidenceCaption &&
+  evidenceClose
+) {
+  const evidenceCards = document.querySelectorAll(
+    '#gallery .feature-card'
+  );
+
+  let previousFocus = null;
+
+  function closeEvidenceViewer() {
+    evidenceViewer.classList.remove('is-open');
+    evidenceViewer.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('evidence-viewer-open');
+
+    evidenceImage.src = '';
+    evidenceImage.alt = '';
+
+    if (previousFocus) {
+      previousFocus.focus();
+      previousFocus = null;
+    }
+  }
+
+  evidenceCards.forEach((card) => {
+    const image = card.querySelector('img');
+    const title = card.querySelector('figcaption h3');
+    const description = card.querySelector('figcaption p');
+    const label = card.querySelector('.feature-index');
+
+    if (!image) return;
+
+    image.addEventListener('click', () => {
+      previousFocus = image;
+
+      evidenceImage.src = image.currentSrc || image.src;
+      evidenceImage.alt = image.alt;
+
+      evidenceLabel.textContent = label
+        ? label.textContent.trim()
+        : 'CLASSIFIED EVIDENCE';
+
+      evidenceCaption.textContent = [
+        title ? title.textContent.trim() : '',
+        description ? description.textContent.trim() : ''
+      ].filter(Boolean).join(' · ');
+
+      evidenceViewer.classList.add('is-open');
+      evidenceViewer.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('evidence-viewer-open');
+      evidenceClose.focus();
+    });
+  });
+
+  evidenceClose.addEventListener('click', closeEvidenceViewer);
+
+  evidenceViewer.addEventListener('click', (event) => {
+    if (event.target === evidenceViewer) {
+      closeEvidenceViewer();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (!evidenceViewer.classList.contains('is-open')) return;
+
+    if (event.key === 'Escape') {
+      closeEvidenceViewer();
+    }
+  });
+}
   
 })();
