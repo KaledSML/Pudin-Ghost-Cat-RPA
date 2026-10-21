@@ -1,27 +1,35 @@
  <div align="center">
 
-<img src="docs/assets/pudin-banner.png" alt="Pudin.exe · The Ghost Cat RPA" width="100%">
+<img src="docs/assets/pudin-banner.png" alt="Pudin.exe · El gato fantasma" width="100%">
 
-# 🐈 PUDIN.EXE
+# 🐈‍⬛ PUDIN.EXE
 
-### `YOUR DESKTOP HAS A NEW PARANORMAL RESIDENT`
+### `NUEVA ENTIDAD PARANORMAL DETECTADA`
 
-*Un gato fantasma naranja con acceso a tu escritorio y cero respeto por tu productividad.*
-
-<img src="docs/assets/pudin_gif.gif" alt="Pudin, el gato fantasma" width="220">
+*Un gato fantasma naranja. Tu escritorio. Cero respeto por tu productividad.*
 
 <br>
 
-<img src="https://img.shields.io/badge/ENTITY-ONLINE-ff75d8?style=for-the-badge" alt="Entity online">
-<img src="https://img.shields.io/badge/CHAOS-UNSTABLE-9b83ff?style=for-the-badge" alt="Chaos unstable">
-<img src="https://img.shields.io/badge/PLATFORM-WINDOWS-65efff?style=for-the-badge&logo=windows&logoColor=black" alt="Windows">
+<a href="https://kaledsml.github.io/Pudin-Ghost-Cat-RPA/">
+  <img src="https://img.shields.io/badge/✦_ENTRAR_AL_UNIVERSO_DE_PUDIN-8B5CF6?style=for-the-badge&logoColor=white" alt="Visitar la landing page de Pudin">
+</a>
 
 <br><br>
 
-[![Watch Pudin](https://img.shields.io/badge/▶_OBSERVE_THE_ENTITY-YouTube-ff426b?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/UMO3PvRJNPc)
-[![MIT License](https://img.shields.io/badge/LICENSE-MIT-bb91ff?style=for-the-badge)](LICENSE)
+<img src="docs/assets/pudin_gif.gif" alt="Pudin, el gato fantasma naranja" width="220">
 
-`BOOT SEQUENCE COMPLETE` · `CAT.exe IS RUNNING`
+<br>
+
+<img src="https://img.shields.io/badge/ENTIDAD-EN_LÍNEA-ff75d8?style=for-the-badge" alt="Entidad en línea">
+<img src="https://img.shields.io/badge/CAOS-INestable-9b83ff?style=for-the-badge" alt="Caos inestable">
+<img src="https://img.shields.io/badge/PLATAFORMA-WINDOWS-65efff?style=for-the-badge&logo=windows&logoColor=black" alt="Windows">
+
+<br><br>
+
+[![Ver a Pudin en acción](https://img.shields.io/badge/▶_OBSERVAR_AL_GATO-YouTube-ff426b?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/UMO3PvRJNPc)
+[![Licencia MIT](https://img.shields.io/badge/LICENCIA-MIT-bb91ff?style=for-the-badge)](LICENSE)
+
+`SECUENCIA DE ARRANQUE COMPLETADA` · `CAT.exe ESTÁ EJECUTÁNDOSE`
 
 </div>
 
@@ -31,9 +39,9 @@
 <tr>
 <td width="58%" valign="top">
 
-## ✦ ENTITY PROFILE
+## ✦ PERFIL DE LA ENTIDAD
 
-Pudin es una pequeña criatura de escritorio creada con **Python, Pygame y herramientas de Windows**.
+Pudin es una pequeña criatura de escritorio desarrollada con **Python, Pygame y herramientas de Windows**.
 
 Vive en una ventana transparente, flota sobre tus aplicaciones, persigue el cursor y deja pequeñas huellas de neón. Cuando detecta YouTube o Spotify, puede ponerse a bailar.
 
@@ -46,26 +54,26 @@ Y cada cierto tiempo...
 
 <img src="docs/assets/pudin_wallpaper.png" alt="El fondo de escritorio de Pudin" width="100%">
 
-<sub>FIG. 001 · DESKTOP POSSESSION</sub>
+<sub>FIG. 001 · POSESIÓN DEL ESCRITORIO</sub>
 
 </td>
 </tr>
 </table>
 
-## ✦ CAPABILITIES UNLOCKED
+## ✦ HABILIDADES DESBLOQUEADAS
 
 <table>
 <tr>
 <td width="50%" valign="top">
 
-### 🐾 NEON PAWS
+### 🐾 Huellas de neón
 
 Sigue el cursor y deja huellas luminosas por el escritorio.
 
 </td>
 <td width="50%" valign="top">
 
-### 🎵 DANCE PROTOCOL
+### 🪩 Protocolo de baile
 
 Detecta títulos de ventanas relacionados con YouTube o Spotify y se pone a bailar.
 
@@ -74,32 +82,32 @@ Detecta títulos de ventanas relacionados con YouTube o Spotify y se pone a bail
 <tr>
 <td width="50%" valign="top">
 
-### 👻 CHAOS ENGINE
+### 👻 Motor del caos
 
 Cada 30 a 90 segundos puede ejecutar una broma en la ventana activa.
 
 </td>
 <td width="50%" valign="top">
 
-### 🍅 POMODORO CAT
+### 🍅 Pomodoro gatuno
 
-Alterna 25 minutos de trabajo con 5 minutos de descanso y abre un vídeo de YouTube al finalizar el bloque de trabajo.
+Alterna 25 minutos de trabajo con 5 minutos de descanso y abre un vídeo de YouTube al finalizar la sesión de trabajo.
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-### 🍣 SNACK PROTOCOL
+### 🍣 Protocolo del sachet
 
-Déjale un sachet. Si se lo come, tendrás dos minutos de inmunidad frente a sus bromas.
+Déjale comida. Si se la come, tendrás dos minutos de inmunidad frente a sus bromas.
 
 </td>
 <td width="50%" valign="top">
 
-### 😾 ANGER MODE
+### 😾 Modo furioso
 
-Si lo arrastras durante más de dos segundos, puede enfadarse y secuestrar el control del cursor brevemente.
+Si lo arrastras durante más de dos segundos, puede enfadarse y secuestrar el control del cursor durante unos instantes.
 
 </td>
 </tr>
@@ -109,54 +117,56 @@ Si lo arrastras durante más de dos segundos, puede enfadarse y secuestrar el co
 
 <div align="center">
 
-## ✦ SUMMON YOUR CAT
+## ✦ INVOCAR AL GATO
 
-`INSTALLATION PROTOCOL // WINDOWS`
+`PROTOCOLO DE INSTALACIÓN // WINDOWS`
 
 </div>
 
-**01 · Clone the repository**
+**01 · Clona el repositorio**
 
 ```bash
 git clone https://github.com/KaledSML/Pudin-Ghost-Cat-RPA.git
 ```
 
-**02 · Enter the lair**
+**02 · Entra en su guarida**
 
 ```bash
 cd Pudin-Ghost-Cat-RPA/pudin_cat
 ```
 
-**03 · Install dependencies and awaken Pudin**
+**03 · Instala las dependencias y despiértalo**
 
 ```bash
 pip install -r ../requirements.txt
 python main.py
 ```
 
-<details>
-<summary><b>📦 Compile Pudin into an executable (.exe)</b></summary>
+Necesitas **Windows y Python 3**.
 
-From the `pudin_cat` directory, run:
+<details>
+<summary><b>📦 Convertir a un ejecutable (.exe)</b></summary>
+
+Desde la carpeta `pudin_cat`, ejecuta:
 
 ```powershell
 python -m PyInstaller --noconsole --onefile --add-data "assets;assets" --icon "assets/Pudin.ico" --name "Pudin_Ghost_Cat" main.py
 ```
 
-The executable should be generated inside the `dist` directory if the build completes successfully.
+Si la compilación termina correctamente, el ejecutable se generará dentro de la carpeta `dist`.
 
 </details>
 
 <details>
-<summary><b>🧪 Open the Chaos Laboratory</b></summary>
+<summary><b>🧪 Abrir el laboratorio de maldades</b></summary>
 
-Run the test script from the directory containing `test_maldades.py`:
+Ejecuta el script desde la carpeta que contiene `test_maldades.py`:
 
 ```bash
 python test_maldades.py
 ```
 
-Press `1` to trigger a random prank. Keep another application window open to observe the result.
+Presiona `1` para activar una broma aleatoria. Deja otra aplicación abierta para observar el resultado.
 
 </details>
 
@@ -164,114 +174,114 @@ Press `1` to trigger a random prank. Keep another application window open to obs
 
 <div align="center">
 
-## ✦ SURVIVAL GUIDE
+## ✦ MANUAL DE SUPERVIVENCIA
 
-`KNOW YOUR ENTITY BEFORE INTERACTING`
+`CONOCE A LA ENTIDAD ANTES DE INTERACTUAR`
 
 </div>
 
 <table>
 <tr>
-<th align="center">INPUT</th>
-<th align="left">ACTION</th>
+<th align="center">ENTRADA</th>
+<th align="left">EFECTO</th>
 </tr>
 <tr>
-<td align="center"><code>F</code> / Right-click</td>
-<td>Place a sachet near your cursor. If Pudin eats it, enjoy <b>2 minutes without pranks</b>.</td>
+<td align="center"><code>F</code> / clic derecho</td>
+<td>Deja un sachet junto al cursor. Si Pudin se lo come, obtienes <b>2 minutos sin bromas</b>.</td>
 </tr>
 <tr>
-<td align="center">Left-click + drag</td>
-<td>Pick up and move Pudin around the desktop.</td>
+<td align="center">Clic izquierdo + arrastrar</td>
+<td>Permite levantar y mover a Pudin por el escritorio.</td>
 </tr>
 <tr>
-<td align="center">Hold for over 2 seconds</td>
-<td>Anger him, and he may hijack your mouse for 3 to 5 seconds.</td>
+<td align="center">Arrastrarlo más de 2 segundos</td>
+<td>Se enfada y puede secuestrar el cursor durante 3 a 5 segundos.</td>
 </tr>
 <tr>
 <td align="center"><code>P</code></td>
-<td>Pause or resume Pudin's activities.</td>
+<td>Pausa o reanuda sus actividades.</td>
 </tr>
 <tr>
 <td align="center"><code>ESC</code></td>
-<td>Close the application.</td>
+<td>Cierra la aplicación.</td>
 </tr>
 </table>
 
 <div align="center">
 
-<img src="docs/assets/sachet.png" alt="Pudin's snack item" width="120">
+<img src="docs/assets/sachet.png" alt="El sachet de Pudin" width="120">
 
-<sub>THE SACRED SNACK · PEACE IS TEMPORARY</sub>
+<sub>EL SACHET SAGRADO · LA PAZ ES TEMPORAL</sub>
 
 </div>
 
 ---
 
-## ✦ INCIDENT REPORTS
+## ✦ INFORMES DE INCIDENTES
 
 <details>
-<summary><b>01 · Window manipulation</b></summary>
+<summary><b>01 · Manipulación de ventanas</b></summary>
 
-Pudin can perform three types of pranks on the active window:
+Pudin puede ejecutar tres tipos de bromas en la ventana activa:
 
-- **Window vanish:** minimizes the active window.
-- **Desktop earthquake:** shakes the window 20 times by up to ±25 pixels, then restores its position.
-- **Ghostwriter:** opens Notepad, clicks and types a phrase automatically.
+- **Desaparición:** minimiza la ventana.
+- **Terremoto de escritorio:** sacude la ventana 20 veces, hasta ±25 píxeles, y después restaura su posición.
+- **Escritor fantasma:** abre el Bloc de notas, hace clic y escribe una frase automáticamente.
 
-The pranks run in separate threads and avoid Pudin's own window.
+Las bromas se ejecutan en hilos separados para evitar congelar a Pudin y no actúan sobre su propia ventana.
 
 </details>
 
 <details>
-<summary><b>02 · Wallpaper alteration</b></summary>
+<summary><b>02 · Alteración del fondo de pantalla</b></summary>
 
-**Important:** Pudin changes your desktop wallpaper when the application starts and does not restore the original when it closes.
+**Importante:** Pudin cambia el fondo de pantalla al iniciar y no restaura el original al cerrar.
 
-Save a copy of your current wallpaper before launching him.
-
-</details>
-
-<details>
-<summary><b>03 · Unsolicited typing and browser launches</b></summary>
-
-Pudin can type in Notepad and open YouTube when a work session ends. If you switch applications during a prank, text could be entered in a different window.
-
-Save your work before experimenting.
+Guarda una copia del fondo que estés usando antes de invocarlo.
 
 </details>
 
 <details>
-<summary><b>04 · Internal state machine</b></summary>
+<summary><b>03 · Escritura involuntaria y aperturas del navegador</b></summary>
 
-Pudin has individual states and animations. When multiple actions overlap, troll mode takes priority, followed by dragging, pausing and eating. When nothing is happening, he periodically chooses to follow you, wander or remain idle.
+Pudin puede escribir en el Bloc de notas y abrir YouTube cuando termina una sesión de trabajo. Si cambias de aplicación durante una broma, el texto podría introducirse en otra ventana.
+
+Guarda tu trabajo antes de experimentar.
+
+</details>
+
+<details>
+<summary><b>04 · Máquina de estados interna</b></summary>
+
+Pudin tiene estados y animaciones propios. Cuando coinciden varias acciones, el modo troll tiene prioridad, seguido del arrastre, la pausa y la comida. Si no ocurre nada, periódicamente decide si seguirte, vagar o quedarse quieto.
 
 ```mermaid
 stateDiagram-v2
     [*] --> Idle
-    Idle --> Walk: Follow or wander
+    Idle --> Walk: Seguir o vagar
     Walk --> Idle
-    Idle --> Dance: YouTube or Spotify
+    Idle --> Dance: YouTube o Spotify
     Dance --> Idle
-    Idle --> Sit: Press P
-    Sit --> Idle: Press P
+    Idle --> Sit: Tecla P
+    Sit --> Idle: Tecla P
     Idle --> Eat: Sachet
-    Eat --> Idle: 3 seconds
-    Idle --> Angry: Dragged over 2 seconds
+    Eat --> Idle: 3 segundos
+    Idle --> Angry: Arrastrado más de 2 s
     Angry --> Idle
 ```
 
 </details>
 
 <details>
-<summary><b>05 · Source code directory</b></summary>
+<summary><b>05 · Directorio del código fuente</b></summary>
 
-| FILE | PURPOSE |
+| ARCHIVO | FUNCIÓN |
 |:--|:--|
-| `main.py` | Window, main loop and controls |
-| `pudin.py` | States, behavior, Pomodoro and troll mode |
-| `effects.py` | Neon pawprints and particles |
-| `utils.py` | Sounds, sprites, wallpaper and pranks |
-| `test_maldades.py` | Prank testing laboratory |
+| `main.py` | Ventana, bucle principal y controles |
+| `pudin.py` | Estados, comportamiento, Pomodoro y modo troll |
+| `effects.py` | Huellas de neón y partículas |
+| `utils.py` | Sonidos, sprites, fondo de pantalla y bromas |
+| `test_maldades.py` | Laboratorio de pruebas |
 
 </details>
 
@@ -279,25 +289,25 @@ stateDiagram-v2
 
 <div align="center">
 
-## ✦ TRANSMISSIONS FROM THE VOID
+## ✦ TRANSMISIONES DESDE EL VACÍO
 
-[![Featured transmission](https://img.shields.io/badge/▶_FEATURED_VIDEO-Watch_on_YouTube-ff426b?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/UMO3PvRJNPc)
+[![Vídeo destacado](https://img.shields.io/badge/▶_VÍDEO_DESTACADO-Ver_en_YouTube-ff426b?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/UMO3PvRJNPc)
 
-[Open the transmission archive](https://youtube.com/playlist?list=PL6ic-uQzzKmICgM4mTKT97MxOHBTYgjKb)
+[📡 Explorar el archivo de transmisiones](https://youtube.com/playlist?list=PL6ic-uQzzKmICgM4mTKT97MxOHBTYgjKb)
 
 <br>
 
-<img src="docs/assets/Pudin.ico" alt="Pudin icon" width="64">
+<img src="docs/assets/Pudin.ico" alt="Icono de Pudin" width="64">
 
-### `END OF FILE`
+### `FIN DEL ARCHIVO`
 
-**Created by [KaledSML](https://github.com/KaledSML)**
+**Creado por [KaledSML](https://github.com/KaledSML)**
 
-Made with Python, pixels and questionable feline decisions.
+Hecho con Python, píxeles y decisiones gatunas cuestionables.
 
-[Repository](https://github.com/KaledSML/Pudin-Ghost-Cat-RPA) · [MIT License](LICENSE) · [Report an issue](https://github.com/KaledSML/Pudin-Ghost-Cat-RPA/issues)
+[Repositorio](https://github.com/KaledSML/Pudin-Ghost-Cat-RPA) · [Licencia MIT](LICENSE) · [Reportar un problema](https://github.com/KaledSML/Pudin-Ghost-Cat-RPA/issues)
 
-*If Pudin made your day stranger, leave him a ⭐.*
+*Si Pudin te hizo el día más extraño, regálale una ⭐.*
 
 🐾 · 💜 · 👻
 
