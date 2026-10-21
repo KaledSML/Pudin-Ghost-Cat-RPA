@@ -286,16 +286,25 @@ stateDiagram-v2
 </details>
 
 ---
-
-<div align="center">
+ <div align="center">
 
 ## ✦ TRANSMISIONES DESDE EL VACÍO
 
-[![Vídeo destacado](https://img.shields.io/badge/▶_VÍDEO_DESTACADO-Ver_en_YouTube-ff426b?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/UMO3PvRJNPc)
+`ARCHIVO MULTIMEDIA // SEÑAL DETECTADA`
 
-[📡 Explorar el archivo de transmisiones](https://youtube.com/playlist?list=PL6ic-uQzzKmICgM4mTKT97MxOHBTYgjKb)
+<a href="https://youtu.be/UMO3PvRJNPc">
+  <img src="https://img.youtube.com/vi/UMO3PvRJNPc/maxresdefault.jpg" alt="▶ Reproducir el vídeo destacado de Pudin en YouTube" width="720">
+</a>
 
-<br>
+<sub>▶ HAZ CLIC EN LA MINIATURA PARA VER A PUDIN EN ACCIÓN</sub>
+
+<br><br>
+
+<a href="https://youtube.com/playlist?list=PL6ic-uQzzKmICgM4mTKT97MxOHBTYgjKb">
+  <img src="https://img.shields.io/badge/📡_EXPLORAR_ARCHIVO_DE_TRANSMISIONES-8B5CF6?style=for-the-badge&logo=youtube&logoColor=white" alt="Explorar el archivo de transmisiones">
+</a>
+
+<br><br>
 
 <img src="docs/assets/Pudin.ico" alt="Icono de Pudin" width="64">
 
