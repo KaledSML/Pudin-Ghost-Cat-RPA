@@ -1,122 +1,75 @@
-# 🐈 PUDIN.EXE // THE GHOST CAT RPA
+ <div align="center">
 
-<p align="center">
-  <img src="docs/assets/pudin_gif.gif" alt="Pudin escribiendo código sospechoso e instalando ronroneos.exe" width="360">
-</p>
+# 🐈‍⬛ PUDIN.EXE
 
-<p align="center">
-  <strong>AN UNAUTHORIZED FELINE HAS ENTERED YOUR DESKTOP.</strong>
-  <br>
-  <sub>Entidad naranja detectada · Nivel de amenaza: adorablemente inestable</sub>
-</p>
+### `UNAUTHORIZED DESKTOP ENTITY DETECTED`
 
-<p align="center">
-  <a href="https://youtu.be/UMO3PvRJNPc">
-    <img src="https://img.shields.io/badge/▶_OBSERVAR_AL_SOSPECHOSO-FF4FCB?style=for-the-badge&logo=youtube&logoColor=white" alt="Observar a Pudin en acción">
-  </a>
-  <a href="https://github.com/KaledSML/Pudin-Ghost-Cat-RPA">
-    <img src="https://img.shields.io/badge/SOURCE_CODE-70FFF1?style=for-the-badge&logo=github&logoColor=10091C" alt="Código fuente">
-  </a>
-</p>
+*Un pequeño gato fantasma naranja. Una computadora. Cero respeto por tu productividad.*
 
-<p align="center">
-  <img src="https://img.shields.io/badge/PYTHON-3.x-70FFF1?style=flat-square&logo=python&logoColor=white" alt="Python 3">
-  <img src="https://img.shields.io/badge/PLATFORM-WINDOWS-8A5CFF?style=flat-square&logo=windows&logoColor=white" alt="Windows">
-  <img src="https://img.shields.io/badge/PROJECT-CHAOTIC_GOOD-FF65C8?style=flat-square" alt="Proyecto de ocio">
-  <img src="https://img.shields.io/badge/LICENSE-MIT-FFE66D?style=flat-square" alt="Licencia MIT">
-</p>
+<img src="docs/assets/pudin_gif.gif" alt="Pudin, el gato fantasma naranja" width="340">
 
-<p align="center">
-  <code>INITIALIZING PURRWARE...</code>
-  <br>
-  <code>ENTITY STATUS: ACTIVE</code>
-  <br>
-  <code>HUMAN PRODUCTIVITY: COMPROMISED</code>
-</p>
+**`STATUS:`** 🟢 ALIVE & PURRING  
+**`THREAT LEVEL:`** 🟣 QUESTIONABLE  
+**`SPECIES:`** 👻 DESKTOP GHOST CAT
+
+[![Ver a Pudin en acción](https://img.shields.io/badge/▶_OBSERVAR_ENTIDAD-YouTube-ff3b67?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/UMO3PvRJNPc)
+
+[![Python](https://img.shields.io/badge/Python-3.x-9b8cff?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![Windows](https://img.shields.io/badge/PLATFORM-Windows-62e9ff?style=flat-square&logo=windows&logoColor=black)](#)
+[![License](https://img.shields.io/badge/LICENSE-MIT-ff76d9?style=flat-square)](LICENSE)
+
+`BOOT SEQUENCE COMPLETE` · `CAT.exe IS RUNNING`
+
+</div>
 
 ---
 
-## `00 // SYSTEM INDEX`
+> [!CAUTION]
+> **ANOMALÍA DETECTADA**
+>
+> Pudin ha entrado en tu escritorio. Sigue el cursor, deja huellas de neón, baila frente a YouTube y Spotify y, cada cierto tiempo, decide que necesitas un pequeño incidente informático.
+>
+> No es un asistente virtual. No es productivo. Es naranja.
 
-- [01. Identificación](#01--identificación-del-sujeto)
-- [02. Capacidades](#02--capacidades-detectadas)
-- [03. Instalación](#03--despliegue-de-la-entidad)
-- [04. Controles](#04--interfaz-humano--felino)
-- [05. Advertencias](#05--advertencias-de-seguridad)
-- [06. Arquitectura](#06--anatomía-del-caos)
-- [07. Archivos](#07--mapa-del-sistema)
-- [08. Créditos](#08--fin-de-la-transmisión)
+## ◈ ¿QUÉ ACABAS DE INSTALAR?
 
----
+Pudin es una pequeña criatura de escritorio desarrollada con **Python, Pygame y herramientas de Windows**. Vive en una ventana transparente, permanece por encima de las demás y hace prácticamente lo que le da la gana.
 
-## `01 // IDENTIFICACIÓN DEL SUJETO`
+| 🐾 CAPACIDAD | `SYSTEM REPORT` |
+|:--|:--|
+| Neon paws | Persigue tu cursor y deja huellas luminosas. |
+| Dance protocol | Detecta títulos de ventanas relacionados con YouTube o Spotify y se pone a bailar. |
+| Chaos engine | Cada 30 a 90 segundos puede ejecutar una broma sobre la ventana activa. |
+| Pomodoro.exe | Alterna 25 minutos de trabajo con 5 minutos de descanso. |
+| Snack protocol | Puedes dejarle un sachet para conseguir dos minutos de paz. |
+| Ghost mode | Se queda flotando sobre tu escritorio, observándolo todo. |
 
-**Nombre:** Pudin  
-**Especie:** Fantasma felino naranja  
-**Clasificación:** RPA no convencional  
-**Ubicación:** Tu escritorio de Windows  
-**Motivación:** Desconocida. Probablemente comida.
+<details>
+<summary><b>👁️ ¿Qué significa exactamente «Chaos engine»?</b></summary>
 
-Pudin es un pequeño gato de escritorio desarrollado con **Python, Pygame y la API de Windows**. Habita en una ventana transparente que permanece siempre encima de las demás y actúa según sus propios impulsos felinos.
+Pudin tiene tres bromas principales:
 
-No es un asistente virtual convencional. No optimiza tus tareas ni promete revolucionar tu productividad.
+- **Window vanish:** minimiza la ventana activa.
+- **Desktop earthquake:** sacude la ventana 20 veces, hasta ±25 píxeles, y luego la devuelve a su posición.
+- **Ghostwriter:** abre el Bloc de notas, hace clic y escribe una frase automáticamente.
 
-Pudin prefiere observarte, perseguir tu cursor y sabotear tu concentración con una sonrisa invisible.
+Las bromas se ejecutan en hilos separados para evitar congelar a Pudin y excluyen su propia ventana.
 
-> **SYSTEM MESSAGE:** La entidad no reconoce la autoridad del usuario.
-
-## `02 // CAPACIDADES DETECTADAS`
-
-<table>
-  <tr>
-    <td width="50%">
-      <strong>🐾 NEON TRACKING</strong><br>
-      Persigue el cursor y deja huellas de neón a su paso.
-    </td>
-    <td width="50%">
-      <strong>🕺 AUDIO DETECTION</strong><br>
-      Se pone a bailar cuando detecta YouTube o Spotify en el título de la ventana activa.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <strong>👻 WINDOW INTERFERENCE</strong><br>
-      Ejecuta travesuras cada 30 a 90 segundos sobre la ventana activa.
-    </td>
-    <td>
-      <strong>🍅 POMODORO PROTOCOL</strong><br>
-      Alterna 25 minutos de trabajo y 5 de descanso. Al terminar el bloque de trabajo, abre un vídeo de YouTube.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <strong>🍘 EDIBLE NEGOTIATION</strong><br>
-      Acepta un sachet para suspender sus travesuras durante dos minutos.
-    </td>
-    <td>
-      <strong>😾 MOUSE HIJACK</strong><br>
-      Si lo arrastras durante más de dos segundos, puede enfadarse y tomar el control del mouse durante 3 a 5 segundos.
-    </td>
-  </tr>
-</table>
-
-<p align="center">
-  <sub>DESARROLLADO POR CURIOSIDAD · MANTENIDO POR RONRONEOS</sub>
-</p>
+</details>
 
 ---
 
-## `03 // DESPLIEGUE DE LA ENTIDAD`
+## ◈ SUMMON THE CAT
 
-### Requisitos
+<div align="center">
 
-- Windows
-- Python 3
-- Git
+`INSTALLATION PROTOCOL // 01`
 
-### Instalación
+**Invocar a Pudin requiere Python 3 y Windows.**
 
-Clona el repositorio y ejecuta a Pudin desde su directorio de trabajo:
+</div>
+
+Clona el repositorio, instala las dependencias y ejecuta al pequeño sospechoso.
 
 ```bash
 git clone https://github.com/KaledSML/Pudin-Ghost-Cat-RPA.git
@@ -125,12 +78,8 @@ pip install -r ../requirements.txt
 python main.py
 ```
 
-**Importante:** ejecuta `main.py` desde la carpeta `pudin_cat` para que la aplicación encuentre correctamente los recursos de `assets/`.
-
 <details>
-<summary><strong>📦 COMPILAR // GENERAR EJECUTABLE .EXE</strong></summary>
-
-<br>
+<summary><b>📦 Compilar una versión ejecutable (.exe)</b></summary>
 
 Desde la carpeta `pudin_cat`, ejecuta:
 
@@ -138,173 +87,139 @@ Desde la carpeta `pudin_cat`, ejecuta:
 python -m PyInstaller --noconsole --onefile --add-data "assets;assets" --icon "assets/Pudin.ico" --name "Pudin_Ghost_Cat" main.py
 ```
 
-Esto genera un ejecutable con PyInstaller. Asegúrate de tener instalado el paquete correspondiente y de que los recursos indicados existan.
+El ejecutable se generará en la carpeta `dist`, siempre que la compilación termine correctamente.
 
 </details>
 
 <details>
-<summary><strong>🧪 LABORATORIO // PROBAR LAS MALDADES</strong></summary>
+<summary><b>🧪 Ejecutar el laboratorio de maldades</b></summary>
 
-<br>
-
-Ejecuta el script de pruebas desde la carpeta `pudin_cat`:
+Desde la carpeta donde está `test_maldades.py`:
 
 ```bash
 python test_maldades.py
 ```
 
-Pulsa `1` para lanzar una travesura aleatoria. Deja otra ventana abierta para observar el resultado.
-
-**Consejo:** guarda tus documentos antes de iniciar los experimentos.
+Presiona `1` para lanzar una broma aleatoria. Deja otra ventana abierta para observar el resultado.
 
 </details>
 
 ---
 
-## `04 // INTERFAZ HUMANO ↔ FELINO`
+## ◈ HOW TO HANDLE YOUR ENTITY
 
-| Entrada | Protocolo ejecutado |
-|:---:|---|
-| `F` o clic derecho | Deja un sachet junto al cursor. Si Pudin se lo come, suspende las travesuras durante **2 minutos**. 🍘 |
-| Clic izquierdo + arrastrar | Permite mover a Pudin. Si lo retienes más de 2 segundos, puede enfadarse y secuestrar el mouse durante **3 a 5 segundos**. 😾 |
-| `P` | Pausa o reanuda a Pudin. Mientras está pausado, no ejecuta travesuras. 💤 |
-| `ESC` | Cierra la aplicación. 👋 |
+`USER MANUAL // INTERACTION LAYER`
 
-<p align="center">
-  <code>INPUT RECEIVED // HUMAN AUTHORITY NOT GUARANTEED</code>
-</p>
+| INPUT | EFECTO |
+|:--:|:--|
+| `F` o clic derecho | Deja un sachet junto al cursor. Si Pudin se lo come, obtienes **2 minutos sin bromas**. 🍣 |
+| Clic izquierdo + arrastrar | Puedes moverlo por el escritorio. |
+| Arrastrarlo durante más de 2 segundos | Se enfada y secuestra el control del mouse durante 3 a 5 segundos. 😾 |
+| `P` | Pausa o reanuda sus actividades. |
+| `ESC` | Cierra la aplicación. |
+
+<div align="center">
+
+`TIP: NEVER NEGLECT THE SNACK PROTOCOL`
+
+*La diplomacia felina funciona mejor cuando hay comida de por medio.*
+
+</div>
 
 ---
 
-## `05 // ADVERTENCIAS DE SEGURIDAD`
+## ◈ KNOWN ANOMALIES
 
 > [!WARNING]
-> **Pudin no es un virus, pero sí puede interferir con tu escritorio.**
->
-> Este proyecto es experimental y algunas de sus funciones interactúan directamente con Windows. Utilízalo sabiendo lo que hace.
+> **LEE ESTO ANTES DE LIBERAR AL GATO.**
 
-### Efectos secundarios conocidos
+- 🖼️ **Wallpaper alteration:** Pudin cambia el fondo de pantalla al iniciar y no lo restaura al cerrar. Guarda una copia del fondo original.
+- ⌨️ **Unsolicited typing:** puede escribir en el Bloc de notas. Si cambias de ventana durante una broma, podrías terminar escribiendo en otra aplicación.
+- 🌐 **Browser launch:** al terminar una sesión de trabajo del Pomodoro, abre un vídeo de YouTube.
+- 🖱️ **Mouse hijacking:** si lo retienes demasiado tiempo, puede tomar el control del cursor brevemente.
 
-- **🖼️ Alteración del wallpaper:** Pudin cambia el fondo de pantalla al abrirse y no lo restaura automáticamente al cerrarse. Guarda una copia de tu fondo original.
-- **⌨️ Escritura autónoma:** puede abrir el Bloc de notas, hacer clic y escribir una frase. Si cambias de ventana durante la acción, el texto podría terminar en otro lugar.
-- **🌐 Apertura del navegador:** al terminar cada bloque de trabajo, abre un vídeo de YouTube.
-- **🫨 Interferencia con ventanas:** puede minimizar la ventana activa o sacudirla temporalmente.
-
-Las travesuras se ejecutan en hilos separados y están diseñadas para evitar la ventana de Pudin.
-
-**No ejecutes la aplicación mientras trabajas con información sensible o tareas que no puedas interrumpir.**
-
-<details>
-<summary><strong>👁️ AVISO DEL SISTEMA // LEER BAJO TU RESPONSABILIDAD</strong></summary>
-
-<br>
-
-```text
-┌──────────────────────────────────────────┐
-│          PUDIN.EXE SECURITY LOG          │
-├──────────────────────────────────────────┤
-│ Entity ............ ORANGE_GHOST_CAT     │
-│ Process ........... PURRWARE.EXE         │
-│ Status ............ ACTIVE               │
-│ Threat level ...... ADORABLE             │
-│ Human control ..... QUESTIONABLE         │
-└──────────────────────────────────────────┘
-```
-
-El chiste de `System32` es solo una broma. Pudin no está diseñado para borrarlo.
-
-**No confundas la estética de caos con una garantía de seguridad.** Revisa el código antes de ejecutar proyectos que interactúan con tu sistema.
-
-</details>
+Pudin está diseñado para bromear, no para borrar archivos. Aun así, ejecútalo bajo tu propia responsabilidad y guarda tu trabajo antes de experimentar.
 
 ---
 
-## `06 // ANATOMÍA DEL CAOS`
+## ◈ INTERNAL FILE SYSTEM
 
-### Máquina de estados
+`ACCESS LEVEL: CURIOUS HUMANS`
 
-Pudin utiliza una máquina de estados para gestionar sus animaciones y comportamientos. Cuando coinciden varios eventos, las prioridades determinan qué comportamiento se ejecuta.
+<details>
+<summary><b>🧠 Máquina de estados de Pudin</b></summary>
 
-El modo troll tiene prioridad sobre el arrastre, seguido por la pausa y la comida. En ausencia de eventos, Pudin puede seguirte, vagar o quedarse quieto.
+Pudin tiene estados y animaciones propias. Cuando coinciden varias acciones, el modo troll tiene prioridad sobre el arrastre, la pausa y la comida. En ausencia de eventos, decide si seguirte, vagar o quedarse quieto.
 
 ```mermaid
 stateDiagram-v2
     [*] --> Idle
-    Idle --> Walk: Seguir / vagar
+    Idle --> Walk: Seguir o vagar
     Walk --> Idle
     Idle --> Dance: YouTube o Spotify
     Dance --> Idle
     Idle --> Sit: Tecla P
     Sit --> Idle: Tecla P
     Idle --> Eat: Sachet
-    Eat --> Idle: 3 s
+    Eat --> Idle: 3 segundos
     Idle --> Angry: Arrastrado > 2 s
     Angry --> Idle
 ```
 
-### Módulos de travesuras
+</details>
 
-| Módulo | Comportamiento |
-|---|---|
-| 🫥 **Minimizar** | Oculta temporalmente la ventana activa. |
-| 🫨 **Sacudir** | Mueve la ventana 20 veces, hasta ±25 píxeles, y después intenta devolverla a su posición original. |
-| 👻 **Notepad fantasma** | Abre el Bloc de notas, hace clic y escribe una frase automáticamente. |
+<details>
+<summary><b>🗂️ Directorio de módulos</b></summary>
 
-### Ventana transparente
-
-Pudin utiliza una ventana sin bordes del tamaño del monitor, configurada para permanecer siempre encima de las demás.
-
-La transparencia se consigue mediante un color clave (`255, 0, 128`) junto con los estilos de ventana de Windows `WS_EX_LAYERED` y las funciones correspondientes de la API.
-
-El seguimiento del cursor utiliza `pyautogui`, mientras que la identificación de la ventana activa utiliza `win32gui`.
-
----
-
-## `07 // MAPA DEL SISTEMA`
-
-| Archivo | Responsabilidad |
-|---|---|
+| ARCHIVO | FUNCIÓN |
+|:--|:--|
 | `main.py` | Ventana, bucle principal y controles. |
-| `pudin.py` | Estados, lógica de comportamiento, Pomodoro y modo troll. |
+| `pudin.py` | Estados, comportamiento, Pomodoro y modo troll. |
 | `effects.py` | Huellas de neón y partículas. |
-| `utils.py` | Sonidos, sprites, wallpaper y travesuras. |
-| `test_maldades.py` | Laboratorio de pruebas de las travesuras. |
+| `utils.py` | Sonidos, sprites, fondo de pantalla y bromas. |
+| `test_maldades.py` | Laboratorio para probar las bromas. |
 
-### Tecnologías detectadas
+</details>
 
-<p>
-  <img src="https://img.shields.io/badge/Python-Logic-70FFF1?style=flat-square&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/Pygame-Animation-8A5CFF?style=flat-square" alt="Pygame">
-  <img src="https://img.shields.io/badge/WinAPI-Desktop-FF65C8?style=flat-square&logo=windows&logoColor=white" alt="Windows API">
-  <img src="https://img.shields.io/badge/PyAutoGUI-Input-FFE66D?style=flat-square" alt="PyAutoGUI">
-</p>
+<details>
+<summary><b>🪟 ¿Cómo funciona la transparencia?</b></summary>
+
+Pudin utiliza una ventana sin bordes del tamaño del monitor y una clave de color (`255, 0, 128`) que Windows trata como transparente. La ventana se mantiene al frente mediante los estilos de ventana correspondientes. El cursor se consulta con `pyautogui` y la ventana activa con `win32gui`.
+
+</details>
 
 ---
 
-## `08 // FIN DE LA TRANSMISIÓN`
+## ◈ TRANSMISSIONS FROM THE VOID
 
-<p align="center">
-  <strong>CREATED BY</strong>
-  <br>
-  <a href="https://github.com/KaledSML">
-    <img src="https://img.shields.io/badge/KaledSML-GITHUB-70FFF1?style=for-the-badge&logo=github&logoColor=10091C" alt="GitHub de KaledSML">
-  </a>
-</p>
+<div align="center">
 
-<p align="center">
-  <a href="https://github.com/KaledSML/Pudin-Ghost-Cat-RPA">SOURCE CODE</a>
-  ·
-  <a href="LICENSE">MIT LICENSE</a>
-  ·
-  <a href="https://youtu.be/UMO3PvRJNPc">WATCH THE ENTITY</a>
-</p>
+**¿Quieres más pruebas de que este gato existe?**
 
-<p align="center">
-  Si Pudin te cae bien, regálale una ⭐ en GitHub.
-  <br>
-  <sub>Hecho con Python, curiosidad y una cantidad cuestionable de caos gatuno.</sub>
-</p>
+[▶ Vídeo destacado](https://youtu.be/UMO3PvRJNPc) · [📡 Archivo de transmisiones](https://youtube.com/playlist?list=PL6ic-uQzzKmICgM4mTKT97MxOHBTYgjKb)
 
-<p align="center">
-  <code>END OF TRANSMISSION ♡ PUDIN IS STILL WATCHING.</code>
-</p>
+</div>
+
+---
+
+## ◈ CREDITS & SURVIVAL NOTES
+
+**Creado por [KaledSML](https://github.com/KaledSML)**
+
+Hecho con Python, experimentos de escritorio y una cantidad cuestionable de cariño gatuno.
+
+- [Repositorio del proyecto](https://github.com/KaledSML/Pudin-Ghost-Cat-RPA)
+- [Licencia MIT](LICENSE)
+- [Reportar un problema](https://github.com/KaledSML/Pudin-Ghost-Cat-RPA/issues)
+
+<div align="center">
+
+### `END OF FILE`
+
+`PUDIN.EXE // STILL WATCHING YOU`
+
+*Si Pudin te cae bien, déjale una ⭐ en GitHub.*
+
+🐾 💜 🐈‍⬛
+
+</div>
