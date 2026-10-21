@@ -507,15 +507,16 @@
   })();
 
 
+
   // ------------------------------------------
-  // 4. ARCHIVE ACCESS // TRANSMISSION SELECTOR
+  // 4. ARCHIVE ACCESS // VIDEO TRANSMISSIONS
   // ------------------------------------------
 
   (() => {
     const player = document.querySelector('#pudin-video-player');
     const title = document.querySelector('#video-player-title');
     const description = document.querySelector('#video-player-description');
-
+    const label = document.querySelector('#video-player-label');
     const buttons = document.querySelectorAll('.video-select');
 
     if (!player || !title || !description || !buttons.length) {
@@ -524,43 +525,35 @@
 
     const baseUrl = 'https://www.youtube-nocookie.com/embed/';
 
-    function selectTransmission(button) {
-      const videoId = button.dataset.videoId;
-      const videoTitle = button.dataset.videoTitle;
-      const videoDescription = button.dataset.videoDescription;
-
-      if (!videoId || !videoTitle || !videoDescription) {
-        console.warn('[PUDIN] Transmisión incompleta:', button);
-        return;
-      }
-
-      // Cambiar el vídeo solo si es diferente al actual.
-      const nextUrl = `${baseUrl}${videoId}?rel=0`;
-
-      if (player.src !== nextUrl) {
-        player.src = nextUrl;
-      }
-
-      title.textContent = videoTitle;
-      description.textContent = videoDescription;
-
-      // Actualizar el estado visual y accesible de los botones.
-      buttons.forEach((item) => {
-        const isActive = item === button;
-
-        item.classList.toggle('is-active', isActive);
-        item.setAttribute('aria-pressed', String(isActive));
-      });
-
-      console.info('[PUDIN] Transmisión seleccionada:', videoTitle);
-    }
-
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
-        selectTransmission(button);
+        const videoId = button.dataset.videoId;
+        const videoTitle = button.dataset.videoTitle;
+        const videoDescription = button.dataset.videoDescription;
+        const videoLabel = button.dataset.videoLabel;
+
+        if (!videoId || !videoTitle || !videoDescription) {
+          return;
+        }
+
+        player.src = `${baseUrl}${videoId}?rel=0`;
+        player.title = videoTitle;
+
+        title.textContent = videoTitle;
+        description.textContent = videoDescription;
+
+        if (label && videoLabel) {
+          label.textContent = videoLabel;
+        }
+
+        buttons.forEach((item) => {
+          const isActive = item === button;
+
+          item.classList.toggle('is-active', isActive);
+          item.setAttribute('aria-pressed', String(isActive));
+        });
       });
     });
   })();
-
   
 })();
