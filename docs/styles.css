@@ -896,4 +896,91 @@ footer {
   .video-card:hover {
     transform: none;
   }
+
+
+/* 🐾 HUELLITAS NEÓN DE PUDIN */
+
+.neon-paw {
+  --paw-color: #52f5ff;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 25px;
+  height: 27px;
+  z-index: 19;
+  pointer-events: none;
+
+  animation: paw-fade 850ms ease-out forwards;
+  filter:
+    drop-shadow(0 0 3px var(--paw-color))
+    drop-shadow(0 0 7px var(--paw-color));
+}
+
+.neon-paw span {
+  position: absolute;
+  display: block;
+  background: var(--paw-color);
+}
+
+/* Cuatro deditos */
+.neon-paw .toe {
+  width: 6px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.neon-paw .toe:nth-child(1) {
+  left: 2px;
+  top: 7px;
+}
+
+.neon-paw .toe:nth-child(2) {
+  left: 8px;
+  top: 2px;
+}
+
+.neon-paw .toe:nth-child(3) {
+  left: 15px;
+  top: 2px;
+}
+
+.neon-paw .toe:nth-child(4) {
+  left: 20px;
+  top: 8px;
+}
+
+/* Almohadilla central */
+.neon-paw .pad {
+  width: 13px;
+  height: 11px;
+  left: 6px;
+  top: 12px;
+  border-radius: 45% 45% 55% 55%;
+}
+
+@keyframes paw-fade {
+  0% {
+    opacity: 0;
+    scale: .55;
+  }
+
+  15% {
+    opacity: 1;
+    scale: 1;
+  }
+
+  100% {
+    opacity: 0;
+    scale: .8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neon-paw {
+    display: none !important;
+    animation: none !important;
+  }
+}
+
 }
