@@ -1,6 +1,10 @@
+/* =========================================================
+   PUDIN.EXE | COSMIC MATRIX
+   ========================================================= */
+
 :root {
   color-scheme: dark;
-  --bg: #090713;
+  --bg: #070611;
   --panel: #100e1c;
   --text: #f8f5ff;
   --muted: #aaa4c0;
@@ -23,13 +27,62 @@ html {
 }
 
 body {
+  position: relative;
+  isolation: isolate;
   margin: 0;
-  background:
-    radial-gradient(ellipse at 75% 8%, #35124c45, transparent 38%),
-    var(--bg);
   color: var(--text);
   font: 500 16px/1.65 var(--sans);
-  overflow-x: hidden;
+  overflow-x: clip;
+  background:
+    radial-gradient(ellipse at 75% 5%, #5d167b35, transparent 40%),
+    radial-gradient(ellipse at 12% 35%, #003e5d30, transparent 42%),
+    radial-gradient(ellipse at 85% 75%, #6a124b25, transparent 38%),
+    linear-gradient(180deg, #090713 0%, #070611 50%, #0b0718 100%);
+}
+
+/* MATRIX CÓSMICO: ESTRELLAS, REJILLA Y NEBULOSA */
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+body::before {
+  z-index: -2;
+  opacity: .36;
+  background-image:
+    radial-gradient(1px 1px at 8% 14%, #fff, transparent),
+    radial-gradient(2px 2px at 18% 75%, var(--cyan), transparent),
+    radial-gradient(1px 1px at 35% 28%, #fff, transparent),
+    radial-gradient(2px 2px at 53% 83%, var(--pink), transparent),
+    radial-gradient(1px 1px at 67% 12%, #fff, transparent),
+    radial-gradient(2px 2px at 82% 47%, var(--cyan), transparent),
+    radial-gradient(1px 1px at 94% 72%, #fff, transparent),
+    radial-gradient(1px 1px at 44% 58%, #fff, transparent),
+    radial-gradient(2px 2px at 4% 92%, var(--pink), transparent);
+  background-size: 310px 280px;
+  animation: cosmic-drift 65s linear infinite;
+}
+
+body::after {
+  z-index: -1;
+  opacity: .17;
+  background:
+    linear-gradient(#52f5ff12 1px, transparent 1px),
+    linear-gradient(90deg, #52f5ff12 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 15%,
+    black 80%,
+    transparent 100%
+  );
+  transform-origin: center;
+  animation: grid-pulse 8s ease-in-out infinite alternate;
 }
 
 a {
@@ -51,7 +104,7 @@ a {
   inset: 0;
   z-index: 20;
   pointer-events: none;
-  opacity: .10;
+  opacity: .08;
   background: repeating-linear-gradient(
     to bottom,
     transparent 0 3px,
@@ -73,6 +126,7 @@ a {
   background: #090713df;
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
+  box-shadow: 0 4px 28px #0003;
 }
 
 .brand {
@@ -87,12 +141,19 @@ a {
 .brand-icon {
   display: grid;
   place-items: center;
+  flex: 0 0 34px;
   width: 34px;
   height: 34px;
   border: 1px solid var(--pink);
   color: var(--orange);
-  box-shadow: 3px 3px 0 var(--pink);
+  box-shadow: 3px 3px 0 var(--pink), 0 0 18px #ff3fcb25;
   font-size: 1.25rem;
+  transition: box-shadow .25s, transform .25s;
+}
+
+.brand:hover .brand-icon {
+  transform: rotate(-8deg) scale(1.08);
+  box-shadow: 3px 3px 0 var(--cyan), 0 0 22px #52f5ff55;
 }
 
 .accent-cyan {
@@ -110,6 +171,7 @@ a {
   color: var(--muted);
   text-decoration: none;
   text-transform: uppercase;
+  transition: color .2s;
 }
 
 .nav a:hover {
@@ -121,6 +183,7 @@ a {
   background: var(--cyan);
   border: 1px solid var(--cyan);
   color: var(--bg);
+  box-shadow: 0 0 18px #52f5ff20;
 }
 
 /* ESTRUCTURA */
@@ -164,11 +227,12 @@ a {
   font: 700 clamp(3rem, 6.6vw, 6.1rem)/.95 var(--mono);
   letter-spacing: -.09em;
   margin: 0 0 22px;
+  text-shadow: 0 0 35px #52f5ff0b;
 }
 
 .hero h1 span {
   color: var(--orange);
-  text-shadow: 4px 4px 0 #ff3fcb;
+  text-shadow: 4px 4px 0 var(--pink);
 }
 
 .hero-lead {
@@ -208,7 +272,7 @@ a {
 .button-primary {
   background: var(--pink);
   border-color: var(--pink);
-  box-shadow: 4px 4px 0 var(--cyan);
+  box-shadow: 4px 4px 0 var(--cyan), 0 0 22px #ff3fcb20;
 }
 
 .button-ghost {
@@ -226,6 +290,7 @@ a {
 .hero-tags span {
   padding: 5px 8px;
   border: 1px solid var(--line);
+  background: #ffffff04;
   font: 500 .61rem var(--mono);
   color: var(--muted);
 }
@@ -246,6 +311,7 @@ a {
   filter: blur(90px);
   opacity: .17;
   z-index: -1;
+  animation: glow-breathe 7s ease-in-out infinite alternate;
 }
 
 .art-frame {
@@ -253,8 +319,11 @@ a {
   min-width: 0;
   border: 1px solid #52f5ff80;
   padding: 8px;
-  background: #080711;
-  box-shadow: 10px 10px 0 #ff3fcb25, 0 0 55px #52f5ff12;
+  background: #080711eF;
+  box-shadow:
+    10px 10px 0 #ff3fcb25,
+    0 0 55px #52f5ff12,
+    inset 0 0 25px #52f5ff08;
   transform: rotate(.7deg);
 }
 
@@ -284,27 +353,24 @@ a {
   padding-top: 10px;
 }
 
-/* SACHET DE LA PORTADA */
+/* SACHET: PEQUEÑO Y FUERA DE LA ZONA STATUS */
 
 .hero-art > .floating-sachet {
   position: absolute;
-  right: 12px;
-  bottom: 12px;
-
+  top: 15px;
+  right: 15px;
+  bottom: auto;
   display: block;
-  width: 76px;
-  height: 76px;
+  width: 54px;
+  height: 54px;
   max-width: none;
   min-width: 0;
-
   object-fit: contain;
   object-position: center;
   aspect-ratio: 1 / 1;
-
-  filter: drop-shadow(0 0 10px #ffb34760);
-  transform: rotate(8deg);
+  filter: drop-shadow(0 0 8px #ffb34770);
   animation: float 4s ease-in-out infinite;
-  z-index: 2;
+  z-index: 3;
   pointer-events: none;
 }
 
@@ -409,13 +475,15 @@ a {
   overflow: hidden;
   padding: 22px;
   border: 1px solid var(--line);
-  background: linear-gradient(145deg, #171426, #0d0b17);
-  transition: transform .22s, border-color .22s;
+  background: linear-gradient(145deg, #171426eF, #0d0b17f2);
+  box-shadow: inset 0 0 30px #52f5ff04;
+  transition: transform .22s, border-color .22s, box-shadow .22s;
 }
 
 .feature-card:hover {
   transform: translateY(-5px);
   border-color: #52f5ff80;
+  box-shadow: 0 8px 35px #52f5ff0c;
 }
 
 .feature-index {
@@ -454,7 +522,7 @@ a {
   max-width: 320px;
 }
 
-/* SACHET DECORATIVO DE LA TARJETA */
+/* SACHET DECORATIVO */
 
 .food-card img {
   position: absolute;
@@ -491,7 +559,7 @@ a {
 .warning-panel,
 .install-panel {
   border: 1px solid var(--line);
-  background: var(--panel);
+  background: #100e1cf2;
   padding: 22px;
 }
 
@@ -566,7 +634,7 @@ kbd {
 
 .warning-panel {
   border-color: #ffb34760;
-  background: linear-gradient(145deg, #ffb3470c, var(--panel));
+  background: linear-gradient(145deg, #ffb3470c, #100e1cf5);
 }
 
 .warning-panel .eyebrow {
@@ -590,7 +658,7 @@ kbd {
 /* INSTALACIÓN */
 
 .install-panel {
-  background: #080711;
+  background: #080711f5;
   border-color: #52f5ff60;
 }
 
@@ -621,10 +689,12 @@ kbd {
   font: 600 .69rem var(--mono);
   text-transform: uppercase;
   cursor: pointer;
+  transition: background .2s, box-shadow .2s;
 }
 
 .copy-button:hover {
   background: #52f5ff12;
+  box-shadow: 0 0 18px #52f5ff15;
 }
 
 #copy-status {
@@ -649,14 +719,15 @@ kbd {
   gap: 15px;
   padding: 18px;
   border: 1px solid var(--line);
-  background: linear-gradient(145deg, #171426, #0d0b17);
+  background: linear-gradient(145deg, #171426eF, #0d0b17f2);
   text-decoration: none;
-  transition: border-color .2s, transform .2s;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
 }
 
 .video-card:hover {
   border-color: var(--pink);
   transform: translateY(-4px);
+  box-shadow: 0 8px 28px #ff3fcb0d;
 }
 
 .video-card > span:first-child {
@@ -695,6 +766,7 @@ kbd {
 footer {
   border-top: 1px solid var(--line);
   padding: 25px 24px 34px;
+  background: #09071380;
 }
 
 .footer-inner {
@@ -730,15 +802,45 @@ footer {
   0%, 100% {
     transform: translateY(0) rotate(8deg);
   }
-
   50% {
-    transform: translateY(-8px) rotate(4deg);
+    transform: translateY(-6px) rotate(4deg);
   }
 }
 
 @keyframes ticker {
   to {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes cosmic-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 310px 280px;
+  }
+}
+
+@keyframes grid-pulse {
+  from {
+    opacity: .10;
+    background-position: 0 0;
+  }
+  to {
+    opacity: .23;
+    background-position: 0 24px;
+  }
+}
+
+@keyframes glow-breathe {
+  from {
+    opacity: .12;
+    transform: scale(.94);
+  }
+  to {
+    opacity: .25;
+    transform: scale(1.04);
   }
 }
 
@@ -783,8 +885,8 @@ footer {
   }
 
   .hero-art > .floating-sachet {
-    width: 64px;
-    height: 64px;
+    width: 50px;
+    height: 50px;
   }
 }
 
@@ -867,43 +969,24 @@ footer {
   }
 
   .hero-art > .floating-sachet {
-    width: 48px;
-    height: 48px;
-    right: 5px;
-    bottom: 5px;
+    width: 42px;
+    height: 42px;
+    top: 7px;
+    right: 7px;
   }
 
   .food-card img {
     width: 72px;
     height: 72px;
   }
-}
 
-
-/* ACCESIBILIDAD */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  .button:hover,
-  .feature-card:hover,
-  .video-card:hover {
-    transform: none;
-  }
-
-  .neon-paw {
-    display: none !important;
-    animation: none !important;
+  body::after {
+    background-size: 32px 32px;
   }
 }
 
-/* 🐾 HUELLITAS NEÓN DE PUDIN */
+/* HUELLITAS NEÓN */
+
 .neon-paw {
   --paw-color: #52f5ff;
   position: fixed;
@@ -911,7 +994,7 @@ footer {
   top: 0;
   width: 25px;
   height: 27px;
-  z-index: 9999;
+  z-index: 19;
   pointer-events: none;
   animation: paw-fade 850ms ease-out forwards;
   filter:
@@ -931,10 +1014,25 @@ footer {
   border-radius: 50%;
 }
 
-.neon-paw .toe:nth-child(1) { left: 2px; top: 7px; }
-.neon-paw .toe:nth-child(2) { left: 8px; top: 2px; }
-.neon-paw .toe:nth-child(3) { left: 15px; top: 2px; }
-.neon-paw .toe:nth-child(4) { left: 20px; top: 8px; }
+.neon-paw .toe:nth-child(1) {
+  left: 2px;
+  top: 7px;
+}
+
+.neon-paw .toe:nth-child(2) {
+  left: 8px;
+  top: 2px;
+}
+
+.neon-paw .toe:nth-child(3) {
+  left: 15px;
+  top: 2px;
+}
+
+.neon-paw .toe:nth-child(4) {
+  left: 20px;
+  top: 8px;
+}
 
 .neon-paw .pad {
   width: 13px;
@@ -945,39 +1043,40 @@ footer {
 }
 
 @keyframes paw-fade {
-  0% { opacity: 0; transform: scale(0.55); }
-  15% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(0.8); }
-}
-
-/* 🥫 SACHET PEQUEÑO, SIN TAPAR EL STATUS */
-.hero-art > .floating-sachet {
-  top: 12px;
-  right: 12px;
-  bottom: auto;
-  width: 58px;
-  height: 58px;
-  max-width: none;
-  object-fit: contain;
-  object-position: center;
-  z-index: 2;
-  pointer-events: none;
-  filter: drop-shadow(0 0 8px #ffb34780);
-  animation: float 4s ease-in-out infinite;
-}
-
-@media (max-width: 850px) {
-  .hero-art > .floating-sachet {
-    width: 52px;
-    height: 52px;
+  0% {
+    opacity: 0;
+    transform: scale(.55);
+  }
+  15% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(.8);
   }
 }
 
-@media (max-width: 560px) {
-  .hero-art > .floating-sachet {
-    width: 42px;
-    height: 42px;
-    top: 6px;
-    right: 6px;
+/* ACCESIBILIDAD */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+
+  .button:hover,
+  .feature-card:hover,
+  .video-card:hover {
+    transform: none;
+  }
+
+  .neon-paw {
+    display: none !important;
+    animation: none !important;
   }
 }
