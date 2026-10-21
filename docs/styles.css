@@ -2499,3 +2499,180 @@ body.evidence-viewer-open {
     transition: none;
   }
 }
+
+
+
+/* =========================================================
+   PUDIN.EXE // FINAL TRANSMISSION
+   A tiny signature in a very chaotic universe 🐾
+   ========================================================= */
+
+.site-footer {
+  position: relative;
+  margin-top: 50px;
+  padding: 36px 0 24px;
+  border-top: 1px solid rgba(255, 101, 200, 0.25);
+  background:
+    radial-gradient(
+      ellipse at 15% 0%,
+      rgba(135, 62, 255, 0.12),
+      transparent 55%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(16, 9, 28, 0.65),
+      rgba(8, 5, 16, 0.96)
+    );
+}
+
+.site-footer .footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.footer-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.footer-lore {
+  max-width: 390px;
+  margin: 0;
+  color: var(--text-muted, #bdb2ce);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-align: right;
+}
+
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(112, 255, 241, 0.3),
+    rgba(255, 101, 200, 0.3),
+    transparent
+  );
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-credit {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.footer-label {
+  color: var(--neon-cyan, #70fff1);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.footer-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #f6eaff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: color 180ms ease, text-shadow 180ms ease;
+}
+
+.github-icon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+}
+
+.footer-external {
+  color: var(--neon-pink, #ff65c8);
+  transition: transform 180ms ease;
+}
+
+.footer-github:hover {
+  color: var(--neon-cyan, #70fff1);
+  text-shadow: 0 0 16px rgba(112, 255, 241, 0.3);
+}
+
+.footer-github:hover .footer-external {
+  transform: translate(2px, -2px);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+}
+
+.footer-links a {
+  color: var(--text-muted, #bdb2ce);
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.footer-links a:hover {
+  color: var(--neon-pink, #ff65c8);
+}
+
+.footer-signoff {
+  margin: 0;
+  color: rgba(189, 178, 206, 0.6);
+  font-size: 0.65rem;
+  letter-spacing: 0.13em;
+  text-align: center;
+}
+
+.footer-signoff span {
+  padding-inline: 5px;
+  color: var(--neon-pink, #ff65c8);
+}
+
+@media (max-width: 650px) {
+  .site-footer {
+    padding-top: 28px;
+  }
+
+  .footer-main {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-lore {
+    text-align: left;
+  }
+
+  .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
+    gap: 14px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-github,
+  .footer-external,
+  .footer-links a {
+    transition: none;
+  }
+}
