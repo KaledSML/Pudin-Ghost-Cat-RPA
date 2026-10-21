@@ -3,15 +3,14 @@
   'use strict';
 
   // ==========================================
-  // PUDIN // GHOST CAT RPA
-  // Copy system + Neon Paws + Matrix Cosmos
+  // PUDIN.EXE // DREAMCORE GLITCH CAT
+  // Clipboard · Neon Paws · Matrix Cosmos
   // ==========================================
 
   const reducedMotion = window.matchMedia(
     '(prefers-reduced-motion: reduce)'
   );
 
-  // Compatibilidad con navegadores antiguos.
   function onMotionPreferenceChange(callback) {
     if (typeof reducedMotion.addEventListener === 'function') {
       reducedMotion.addEventListener('change', callback);
@@ -51,10 +50,12 @@
       textarea.setAttribute('readonly', '');
       textarea.setAttribute('aria-hidden', 'true');
 
-      textarea.style.position = 'fixed';
-      textarea.style.left = '-9999px';
-      textarea.style.top = '0';
-      textarea.style.opacity = '0';
+      Object.assign(textarea.style, {
+        position: 'fixed',
+        left: '-9999px',
+        top: '0',
+        opacity: '0'
+      });
 
       document.body.appendChild(textarea);
       textarea.select();
@@ -74,10 +75,8 @@
     }
 
     button.addEventListener('click', async () => {
-      const text = commands.join('\n');
-
       try {
-        await copyText(text);
+        await copyText(commands.join('\n'));
 
         status.textContent = '✓ Copiado al portapapeles';
         button.setAttribute('aria-label', 'Comandos copiados');
@@ -97,15 +96,20 @@
 
   (() => {
     const pawColors = [
-      '#52f5ff',
-      '#ff3fcb',
-      '#ffb347'
+      '#ff65c8',
+      '#70fff1',
+      '#d9ff70',
+      '#b58aff',
+      '#ffad70'
     ];
 
-    let lastX = 0;
-    let lastY = 0;
+    let lastX = null;
+    let lastY = null;
     let lastTime = 0;
     let pawIndex = 0;
+    let motionEnabled = !reducedMotion.matches;
+
+    const activePaws = new Set();
 
     function createPaw(x, y) {
       const paw = document.createElement('span');
@@ -113,17 +117,22 @@
       paw.className = 'neon-paw';
       paw.setAttribute('aria-hidden', 'true');
 
-      // Formas propias, no un emoji del sistema operativo.
-      paw.innerHTML = `
-        <i class="toe"></i>
-        <i class="toe"></i>
-        <i class="toe"></i>
-        <i class="toe"></i>
-        <b class="pad"></b>
-      `;
+      const toes = document.createDocumentFragment();
 
-      paw.style.left = `${x}px`;
-      paw.style.top = `${y}px`;
+      for (let i = 0; i < 4; i++) {
+        const toe = document.createElement('i');
+        toe.className = 'toe';
+        toes.appendChild(toe);
+      }
+
+      const pad = document.createElement('b');
+      pad.className = 'pad';
+      toes.appendChild(pad);
+
+      paw.appendChild(toes);
+
+      paw.style.left = `${x - 12}px`;
+      paw.style.top = `${y - 13}px`;
 
       paw.style.setProperty(
         '--paw-color',
@@ -132,64 +141,71 @@
 
       paw.style.setProperty(
         '--paw-rotation',
-        `${Math.random() * 30 - 15}deg`
+        `${Math.random() * 36 - 18}deg`
       );
 
       pawIndex++;
 
       document.body.appendChild(paw);
+      activePaws.add(paw);
 
-      paw.addEventListener('animationend', () => {
+      const removePaw = () => {
         paw.remove();
-      }, { once: true });
+        activePaws.delete(paw);
+      };
 
-      // Respaldo por si la animación CSS no se ejecuta.
-      window.setTimeout(() => {
-        paw.remove();
-      }, 1800);
+      paw.addEventListener('animationend', removePaw, { once: true });
+
+      // Respaldo si la animación no termina normalmente.
+      window.setTimeout(removePaw, 1200);
     }
 
     function handlePointerMove(event) {
-      if (reducedMotion.matches) return;
-
-      // No generar huellas al tocar pantallas táctiles.
+      if (!motionEnabled || reducedMotion.matches) return;
       if (event.pointerType === 'touch') return;
 
+      const x = event.clientX;
+      const y = event.clientY;
       const now = performance.now();
-      const dx = event.clientX - lastX;
-      const dy = event.clientY - lastY;
-      const distance = Math.hypot(dx, dy);
 
-      // Evita llenar la pantalla de huellas en movimientos pequeños.
-      if (distance < 28 || now - lastTime < 32) return;
+      if (lastX === null || lastY === null) {
+        lastX = x;
+        lastY = y;
+        lastTime = now;
+        return;
+      }
 
-      createPaw(event.clientX, event.clientY);
+      const distance = Math.hypot(x - lastX, y - lastY);
 
-      lastX = event.clientX;
-      lastY = event.clientY;
+      if (distance < 24 || now - lastTime < 35) return;
+
+      createPaw(x, y);
+
+      lastX = x;
+      lastY = y;
       lastTime = now;
     }
 
-    if (!reducedMotion.matches) {
-      window.addEventListener(
-        'pointermove',
-        handlePointerMove,
-        { passive: true }
-      );
-    }
+    window.addEventListener('pointermove', handlePointerMove, {
+      passive: true
+    });
 
     onMotionPreferenceChange((event) => {
-      if (event.matches) {
-        document.querySelectorAll('.neon-paw').forEach((paw) => {
-          paw.remove();
-        });
+      motionEnabled = !event.matches;
+      lastX = null;
+      lastY = null;
+      lastTime = 0;
+
+      if (!motionEnabled) {
+        activePaws.forEach((paw) => paw.remove());
+        activePaws.clear();
       }
     });
   })();
 
 
   // ------------------------------------------
-  // 3. MATRIX COSMOS: SOLO DENTRO DE .HERO
+  // 3. MATRIX COSMOS // DIGITAL DREAM
   // ------------------------------------------
 
   (() => {
@@ -200,9 +216,7 @@
     const hero = canvas.closest('.hero');
 
     if (!hero) {
-      console.warn(
-        '[PUDIN] Coloca #matrix-cosmos dentro de .hero.'
-      );
+      console.warn('[PUDIN] #matrix-cosmos debe estar dentro de .hero.');
       return;
     }
 
@@ -213,10 +227,11 @@
     const fontSize = 18;
 
     const colors = [
-      '#52f5ff',
-      '#43ff9a',
-      '#ff3fcb',
-      '#ffb347'
+      '#70fff1',
+      '#ff65c8',
+      '#d9ff70',
+      '#b58aff',
+      '#ffad70'
     ];
 
     const characters =
@@ -240,9 +255,10 @@
     let animationFrame = null;
     let lastFrame = 0;
     let resizeObserver = null;
+    let running = false;
 
     // ----------------------------------------
-    // Tamaño y resolución del canvas
+    // Tamaño y resolución
     // ----------------------------------------
 
     function resizeCanvas() {
@@ -255,9 +271,6 @@
 
       canvas.width = Math.round(width * pixelRatio);
       canvas.height = Math.round(height * pixelRatio);
-
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
 
       ctx.setTransform(
         pixelRatio, 0,
@@ -272,128 +285,37 @@
         () => Math.random() * (height / fontSize)
       );
 
-      drawStaticBackground();
-    }
-
-    // ----------------------------------------
-    // Resplandor espacial transparente
-    // ----------------------------------------
-
-    function drawSpaceGlow() {
-      const glow = ctx.createRadialGradient(
-        width * 0.5,
-        height * 0.2,
-        0,
-        width * 0.5,
-        height * 0.2,
-        Math.max(width, height) * 0.8
-      );
-
-      glow.addColorStop(0, 'rgba(92, 43, 146, 0.18)');
-      glow.addColorStop(0.55, 'rgba(20, 35, 75, 0.08)');
-      glow.addColorStop(1, 'rgba(8, 8, 23, 0)');
-
-      // El degradado tiene transparencia real.
-      // No se pinta un fondo oscuro rectangular.
-      ctx.save();
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.globalAlpha = 1;
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, width, height);
-      ctx.restore();
-    }
-
-    // ----------------------------------------
-    // Rejilla cyberpunk de perspectiva
-    // ----------------------------------------
-
-    function drawGridOverlay() {
-      const horizon = height * 0.58;
-
-      ctx.save();
-
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.globalAlpha = 1;
-      ctx.lineWidth = 0.7;
-      ctx.strokeStyle = 'rgba(82, 245, 255, 0.15)';
-
-      // Líneas horizontales.
-      for (let i = 0; i < 12; i++) {
-        const progress = i / 11;
-
-        const y =
-          horizon +
-          Math.pow(progress, 1.65) * (height - horizon);
-
-        ctx.globalAlpha = 0.12 + progress * 0.32;
-
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-        ctx.stroke();
-      }
-
-      // Líneas que convergen en el horizonte.
-      ctx.globalAlpha = 0.22;
-
-      for (let i = -10; i <= 10; i++) {
-        ctx.beginPath();
-
-        ctx.moveTo(
-          width / 2 + i * 3,
-          horizon
-        );
-
-        ctx.lineTo(
-          width / 2 + i * width * 0.09,
-          height
-        );
-
-        ctx.stroke();
-      }
-
-      ctx.restore();
-    }
-
-    function drawStaticBackground() {
+      // Canvas transparente: el CSS pinta la nebulosa.
       ctx.clearRect(0, 0, width, height);
-
-      drawSpaceGlow();
-      drawGridOverlay();
     }
 
     // ----------------------------------------
-    // Desvanecimiento SIN rectángulo oscuro
+    // Estelas transparentes
     // ----------------------------------------
 
     function fadeCanvas() {
       ctx.save();
-
-      // Reduce la opacidad de los píxeles existentes.
-      // Las zonas transparentes siguen siendo transparentes.
       ctx.globalCompositeOperation = 'destination-out';
-      ctx.globalAlpha = 1;
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.10)';
+      ctx.globalAlpha = 0.12;
+      ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, width, height);
-
       ctx.restore();
 
-      // Restaurar explícitamente el modo normal de dibujo.
       ctx.globalCompositeOperation = 'source-over';
       ctx.globalAlpha = 1;
     }
 
     // ----------------------------------------
-    // Animación Matrix
+    // Dibujar caracteres y mensajes secretos
     // ----------------------------------------
 
     function drawMatrix(timestamp = 0) {
-      if (reducedMotion.matches) {
+      if (!running || reducedMotion.matches) {
         animationFrame = null;
         return;
       }
 
-      // Limitar la frecuencia para mantener el efecto ligero.
+      // Limita el ritmo para reducir trabajo innecesario.
       if (timestamp - lastFrame < 45) {
         animationFrame = requestAnimationFrame(drawMatrix);
         return;
@@ -401,60 +323,44 @@
 
       lastFrame = timestamp;
 
-      // La estela se desvanece sin pintar una capa opaca.
+      // Solo se desvanece la capa Matrix.
+      // No se repinta la rejilla en cada fotograma.
       fadeCanvas();
-
-      // Mantener el ambiente espacial y la rejilla visibles.
-      drawSpaceGlow();
-      drawGridOverlay();
 
       ctx.textBaseline = 'top';
 
       for (let i = 0; i < drops.length; i++) {
         const x = i * fontSize;
         const y = drops[i] * fontSize;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const showMessage = Math.random() < 0.006;
 
-        const color =
-          colors[Math.floor(Math.random() * colors.length)];
-
-        const showMessage = Math.random() < 0.009;
+        ctx.save();
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = color;
 
         if (showMessage) {
-          const message =
-            secretMessages[
-              Math.floor(Math.random() * secretMessages.length)
-            ];
+          const message = secretMessages[
+            Math.floor(Math.random() * secretMessages.length)
+          ];
 
-          ctx.save();
-
-          ctx.globalCompositeOperation = 'source-over';
           ctx.font = 'bold 12px monospace';
-          ctx.fillStyle = color;
           ctx.globalAlpha = 0.85;
           ctx.shadowBlur = 9;
           ctx.shadowColor = color;
-
           ctx.fillText(message, x, y);
-
-          ctx.restore();
         } else {
-          const character =
-            characters[
-              Math.floor(Math.random() * characters.length)
-            ];
+          const character = characters[
+            Math.floor(Math.random() * characters.length)
+          ];
 
-          ctx.save();
-
-          ctx.globalCompositeOperation = 'source-over';
           ctx.font = `${fontSize}px monospace`;
-          ctx.fillStyle = color;
-          ctx.globalAlpha = Math.random() * 0.45 + 0.2;
-          ctx.shadowBlur = 0;
-
+          ctx.globalAlpha = Math.random() * 0.4 + 0.2;
           ctx.fillText(character, x, y);
-
-          ctx.restore();
         }
+
+        ctx.restore();
 
         if (y > height && Math.random() > 0.975) {
           drops[i] = 0;
@@ -467,21 +373,29 @@
     }
 
     // ----------------------------------------
-    // Inicio y preferencias de movimiento
+    // Inicio y parada de la animación
     // ----------------------------------------
 
-    function startAnimation() {
+    function stopAnimation() {
+      running = false;
+
       if (animationFrame !== null) {
         cancelAnimationFrame(animationFrame);
         animationFrame = null;
       }
+    }
 
-      drawStaticBackground();
+    function startAnimation() {
+      stopAnimation();
 
-      if (!reducedMotion.matches) {
-        lastFrame = 0;
-        animationFrame = requestAnimationFrame(drawMatrix);
+      if (reducedMotion.matches) {
+        ctx.clearRect(0, 0, width, height);
+        return;
       }
+
+      running = true;
+      lastFrame = 0;
+      animationFrame = requestAnimationFrame(drawMatrix);
     }
 
     // ----------------------------------------
@@ -503,7 +417,14 @@
     resizeCanvas();
     startAnimation();
 
-    onMotionPreferenceChange(startAnimation);
+    onMotionPreferenceChange((event) => {
+      if (event.matches) {
+        stopAnimation();
+        ctx.clearRect(0, 0, width, height);
+      } else {
+        startAnimation();
+      }
+    });
   })();
 
 })();
