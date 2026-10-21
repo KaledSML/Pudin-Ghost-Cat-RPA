@@ -419,109 +419,124 @@ python main.py</code></pre>
 
     <!-- 05. ARCHIVO FELINO -->
 
-    <section class="content-section section-wrap" id="transmissions">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">04 // ARCHIVE ACCESS GRANTED</p>
-          <h2>ARCHIVO<br><span class="accent-cyan">FELINO.</span></h2>
-        </div>
+```html
+<section class="section archive-section" id="transmissions">
+  <div class="section-heading">
+    <p class="eyebrow">// 04 — ARCHIVE ACCESS GRANTED</p>
+    <h2>ARCHIVO <span class="glitch" data-text="FELINO">FELINO</span></h2>
+    <p>Registros audiovisuales recuperados del escritorio de Pudin.</p>
+  </div>
 
-        <p>
-          Evidencias audiovisuales de un gato que definitivamente
-          no debería tener tantos permisos.
-        </p>
+  <div class="video-archive">
+
+    <!-- TERMINAL HEADER -->
+    <div class="terminal-top">
+      <div class="terminal-dots" aria-hidden="true">
+        <span></span><span></span><span></span>
       </div>
+      <span>pudin_transmission.exe</span>
+      <span class="online">● SIGNAL ACTIVE</span>
+    </div>
 
-      <div class="video-archive">
-        <div class="terminal-top">
-          <div class="window-dots" aria-hidden="true">
-            <i></i><i></i><i></i>
-          </div>
-          <span>transmission_player.exe</span>
-          <span class="online">● LIVE FEED</span>
-        </div>
+    <!-- MAIN VIDEO -->
+    <div class="video-player-frame">
+      <iframe
+        id="pudin-video-player"
+        src="https://www.youtube-nocookie.com/embed/UMO3PvRJNPc?rel=0"
+        title="Pudin Ghost Cat RPA: presentación del proyecto"
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
 
-        <div class="video-player-frame">
-          <iframe
-            id="pudin-video-player"
-            src="https://www.youtube-nocookie.com/embed/UMO3PvRJNPc?rel=0"
-            title="Pudin en acción"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
-        </div>
+    <!-- VIDEO INFORMATION -->
+    <div class="video-player-info">
+      <p class="eyebrow" id="video-player-label">
+        NOW TRANSMITTING // 001
+      </p>
 
-        <div class="video-player-info">
-          <p class="eyebrow">NOW TRANSMITTING // 001</p>
-          <h3 id="video-player-title">Pudin en acción</h3>
-          <p id="video-player-description">
-            Registro principal de las actividades del fantasma naranja.
-          </p>
-        </div>
+      <h3 id="video-player-title">
+        Pudin.exe: el gato que hackea tu PC
+      </h3>
 
-        <div class="video-links" aria-label="Seleccionar video">
+      <p id="video-player-description">
+        La presentación oficial del fantasma naranja. Un pequeño gato de escritorio
+        con poderes RPA y demasiada libertad sobre tu Windows.
+      </p>
+    </div>
 
-          <button
-            class="video-card video-select is-active"
-            type="button"
-            data-video-id="UMO3PvRJNPc"
-            data-video-title="Pudin en acción"
-            data-video-description="Registro principal de las actividades del fantasma naranja."
-            aria-pressed="true"
-          >
-            <span>TRANSMISSION_001</span>
-            <strong>Transmisión principal</strong>
-            <span class="arrow" aria-hidden="true">↗</span>
-          </button>
+    <!-- VIDEO ARCHIVE -->
+    <div class="video-archive-heading">
+      <span class="eyebrow">// OTHER RECOVERED FILES</span>
+      <span class="archive-count">03 EXTRA TRANSMISSIONS</span>
+    </div>
 
-          <button
-            class="video-card video-select"
-            type="button"
-            data-video-id="qB2oQJQuG6k"
-            data-video-title="Archivo de Pudin 02"
-            data-video-description="Otra transmisión del universo de Pudin."
-            aria-pressed="false"
-          >
-            <span>TRANSMISSION_002</span>
-            <strong>Archivo 02</strong>
-            <span class="arrow" aria-hidden="true">↗</span>
-          </button>
+    <div class="video-links" aria-label="Otros videos de Pudin">
 
-          <button
-            class="video-card video-select"
-            type="button"
-            data-video-id="iFz_SBGp_ws"
-            data-video-title="Archivo de Pudin 03"
-            data-video-description="Una transmisión más desde el escritorio felino."
-            aria-pressed="false"
-          >
-            <span>TRANSMISSION_003</span>
-            <strong>Archivo 03</strong>
-            <span class="arrow" aria-hidden="true">↗</span>
-          </button>
+      <button
+        class="video-card video-select"
+        type="button"
+        data-video-id="qB2oQJQuG6k"
+        data-video-title="Pudin: transmisión recuperada"
+        data-video-description="Otro registro audiovisual del caos de Pudin."
+        data-video-label="NOW TRANSMITTING // 002"
+        aria-pressed="false">
+        <span class="video-card-index">FILE_002</span>
+        <strong>Registro recuperado</strong>
+        <span class="video-card-action">▶ REPRODUCIR</span>
+      </button>
 
-          <button
-            class="video-card video-select"
-            type="button"
-            data-video-id="NHto1R9yhVM"
-            data-video-title="Archivo de Pudin 04"
-            data-video-description="Otro registro del universo de Pudin."
-            aria-pressed="false"
-          >
-            <span>TRANSMISSION_004</span>
-            <strong>Archivo 04</strong>
-            <span class="arrow" aria-hidden="true">↗</span>
-          </button>
+      <button
+        class="video-card video-select"
+        type="button"
+        data-video-id="iFz_SBGp_ws"
+        data-video-title="Pudin RPA Report"
+        data-video-description="¿Sobrevivirá mi PC a mi propia creación? Un informe desde el frente de batalla."
+        data-video-label="NOW TRANSMITTING // 003"
+        aria-pressed="false">
+        <span class="video-card-index">FILE_003</span>
+        <strong>RPA Report: ¿sobrevivirá mi PC?</strong>
+        <span class="video-card-action">▶ REPRODUCIR</span>
+      </button>
 
-        </div>
+      <button
+        class="video-card video-select"
+        type="button"
+        data-video-id="NHto1R9yhVM"
+        data-video-title="Pudin Sandbox"
+        data-video-description="Testeando el arsenal de travesuras de Pudin en el laboratorio."
+        data-video-label="NOW TRANSMITTING // 004"
+        aria-pressed="false">
+        <span class="video-card-index">FILE_004</span>
+        <strong>Sandbox: laboratorio de travesuras</strong>
+        <span class="video-card-action">▶ REPRODUCIR</span>
+      </button>
 
-        <p class="extra-links">
-          <a href="https://youtube.com/playlist?list=PL6ic-uQzzKmICgM4mTKT97MxOHBTYgjKb" target="_blank" rel="noopener noreferrer">▶ Ver playlist completa</a>
-          <a href="https://github.com/KaledSML/Pudin-Ghost-Cat-RPA" target="_blank" rel="noopener noreferrer">⌘ Código fuente</a>
-        </p>
-      </div>
+    </div>
+
+    <!-- PLAYLIST LINK -->
+    <div class="archive-footer">
+      <p>
+        <span aria-hidden="true">✦</span>
+        ¿Quieres ver todos los experimentos?
+      </p>
+
+      <a
+        class="playlist-button"
+        href="https://youtube.com/playlist?list=PL6ic-uQzzKmICgM4mTKT97MxOHBTYgjKb"
+        target="_blank"
+        rel="noopener noreferrer">
+        <span aria-hidden="true">▶</span>
+        ABRIR ARCHIVO COMPLETO EN YOUTUBE
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+```
 
       <!-- GALERÍA -->
 
