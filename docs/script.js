@@ -11,6 +11,15 @@
     '(prefers-reduced-motion: reduce)'
   );
 
+  // Compatibilidad con navegadores antiguos.
+  function onMotionPreferenceChange(callback) {
+    if (typeof reducedMotion.addEventListener === 'function') {
+      reducedMotion.addEventListener('change', callback);
+    } else if (typeof reducedMotion.addListener === 'function') {
+      reducedMotion.addListener(callback);
+    }
+  }
+
   // ------------------------------------------
   // 1. COPIAR COMANDOS DE INSTALACIÓN
   // ------------------------------------------
@@ -33,19 +42,23 @@
     async function copyText(text) {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(text);
-        return true;
+        return;
       }
 
       const textarea = document.createElement('textarea');
 
       textarea.value = text;
       textarea.setAttribute('readonly', '');
+      textarea.setAttribute('aria-hidden', 'true');
+
       textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      textarea.style.top = '0';
       textarea.style.opacity = '0';
-      textarea.style.pointerEvents = 'none';
 
       document.body.appendChild(textarea);
       textarea.select();
+      textarea.setSelectionRange(0, textarea.value.length);
 
       let success = false;
 
@@ -58,8 +71,6 @@
       if (!success) {
         throw new Error('No se pudo copiar el texto.');
       }
-
-      return true;
     }
 
     button.addEventListener('click', async () => {
@@ -101,11 +112,24 @@
 
       paw.className = 'neon-paw';
       paw.setAttribute('aria-hidden', 'true');
-      paw.textContent = '🐾';
+
+      // Formas propias, no un emoji del sistema operativo.
+      paw.innerHTML = `
+        <i class="toe"></i>
+        <i class="toe"></i>
+        <i class="toe"></i>
+        <i class="toe"></i>
+        <b class="pad"></b>
+      `;
 
       paw.style.left = `${x}px`;
       paw.style.top = `${y}px`;
-      paw.style.color = pawColors[pawIndex % pawColors.length];
+
+      paw.style.setProperty(
+        '--paw-color',
+        pawColors[pawIndex % pawColors.length]
+      );
+
       paw.style.setProperty(
         '--paw-rotation',
         `${Math.random() * 30 - 15}deg`
@@ -127,6 +151,8 @@
 
     function handlePointerMove(event) {
       if (reducedMotion.matches) return;
+
+      // No generar huellas al tocar pantallas táctiles.
       if (event.pointerType === 'touch') return;
 
       const now = performance.now();
@@ -134,6 +160,7 @@
       const dy = event.clientY - lastY;
       const distance = Math.hypot(dx, dy);
 
+      // Evita llenar la pantalla de huellas en movimientos pequeños.
       if (distance < 28 || now - lastTime < 32) return;
 
       createPaw(event.clientX, event.clientY);
@@ -151,7 +178,7 @@
       );
     }
 
-    reducedMotion.addEventListener('change', (event) => {
+    onMotionPreferenceChange((event) => {
       if (event.matches) {
         document.querySelectorAll('.neon-paw').forEach((paw) => {
           paw.remove();
@@ -184,6 +211,7 @@
     if (!ctx) return;
 
     const fontSize = 18;
+
     const colors = [
       '#52f5ff',
       '#43ff9a',
@@ -213,6 +241,10 @@
     let lastFrame = 0;
     let resizeObserver = null;
 
+    // ----------------------------------------
+    // Tamaño y resolución del canvas
+    // ----------------------------------------
+
     function resizeCanvas() {
       const bounds = hero.getBoundingClientRect();
 
@@ -224,7 +256,6 @@
       canvas.width = Math.round(width * pixelRatio);
       canvas.height = Math.round(height * pixelRatio);
 
-      // El CSS mantiene el canvas dentro de la portada.
       canvas.style.width = '100%';
       canvas.style.height = '100%';
 
@@ -244,10 +275,11 @@
       drawStaticBackground();
     }
 
-    function drawStaticBackground() {
-      ctx.clearRect(0, 0, width, height);
+    // ----------------------------------------
+    // Resplandor espacial transparente
+    // ----------------------------------------
 
-      // Resplandor espacial en la zona superior.
+    function drawSpaceGlow() {
       const glow = ctx.createRadialGradient(
         width * 0.5,
         height * 0.2,
@@ -261,46 +293,99 @@
       glow.addColorStop(0.55, 'rgba(20, 35, 75, 0.08)');
       glow.addColorStop(1, 'rgba(8, 8, 23, 0)');
 
+      // El degradado tiene transparencia real.
+      // No se pinta un fondo oscuro rectangular.
+      ctx.save();
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 1;
       ctx.fillStyle = glow;
       ctx.fillRect(0, 0, width, height);
-
-      drawGridOverlay();
+      ctx.restore();
     }
+
+    // ----------------------------------------
+    // Rejilla cyberpunk de perspectiva
+    // ----------------------------------------
 
     function drawGridOverlay() {
       const horizon = height * 0.58;
 
       ctx.save();
 
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 1;
       ctx.lineWidth = 0.7;
       ctx.strokeStyle = 'rgba(82, 245, 255, 0.15)';
 
-      // Líneas horizontales de perspectiva.
+      // Líneas horizontales.
       for (let i = 0; i < 12; i++) {
         const progress = i / 11;
+
         const y =
           horizon +
           Math.pow(progress, 1.65) * (height - horizon);
 
         ctx.globalAlpha = 0.12 + progress * 0.32;
+
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(width, y);
         ctx.stroke();
       }
 
-      // Líneas que convergen hacia el horizonte.
+      // Líneas que convergen en el horizonte.
       ctx.globalAlpha = 0.22;
 
       for (let i = -10; i <= 10; i++) {
         ctx.beginPath();
-        ctx.moveTo(width / 2 + i * 3, horizon);
-        ctx.lineTo(width / 2 + i * width * 0.09, height);
+
+        ctx.moveTo(
+          width / 2 + i * 3,
+          horizon
+        );
+
+        ctx.lineTo(
+          width / 2 + i * width * 0.09,
+          height
+        );
+
         ctx.stroke();
       }
 
       ctx.restore();
     }
+
+    function drawStaticBackground() {
+      ctx.clearRect(0, 0, width, height);
+
+      drawSpaceGlow();
+      drawGridOverlay();
+    }
+
+    // ----------------------------------------
+    // Desvanecimiento SIN rectángulo oscuro
+    // ----------------------------------------
+
+    function fadeCanvas() {
+      ctx.save();
+
+      // Reduce la opacidad de los píxeles existentes.
+      // Las zonas transparentes siguen siendo transparentes.
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.10)';
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.restore();
+
+      // Restaurar explícitamente el modo normal de dibujo.
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 1;
+    }
+
+    // ----------------------------------------
+    // Animación Matrix
+    // ----------------------------------------
 
     function drawMatrix(timestamp = 0) {
       if (reducedMotion.matches) {
@@ -308,7 +393,7 @@
         return;
       }
 
-      // Limita la frecuencia para mantener el efecto ligero.
+      // Limitar la frecuencia para mantener el efecto ligero.
       if (timestamp - lastFrame < 45) {
         animationFrame = requestAnimationFrame(drawMatrix);
         return;
@@ -316,10 +401,11 @@
 
       lastFrame = timestamp;
 
-      // Estela suave de los caracteres.
-      ctx.fillStyle = 'rgba(7, 6, 17, 0.16)';
-      ctx.fillRect(0, 0, width, height);
+      // La estela se desvanece sin pintar una capa opaca.
+      fadeCanvas();
 
+      // Mantener el ambiente espacial y la rejilla visibles.
+      drawSpaceGlow();
       drawGridOverlay();
 
       ctx.textBaseline = 'top';
@@ -331,7 +417,6 @@
         const color =
           colors[Math.floor(Math.random() * colors.length)];
 
-        // Mensajes secretos ocasionales entre los caracteres.
         const showMessage = Math.random() < 0.009;
 
         if (showMessage) {
@@ -340,32 +425,38 @@
               Math.floor(Math.random() * secretMessages.length)
             ];
 
+          ctx.save();
+
+          ctx.globalCompositeOperation = 'source-over';
           ctx.font = 'bold 12px monospace';
           ctx.fillStyle = color;
           ctx.globalAlpha = 0.85;
           ctx.shadowBlur = 9;
           ctx.shadowColor = color;
+
           ctx.fillText(message, x, y);
+
+          ctx.restore();
         } else {
           const character =
             characters[
               Math.floor(Math.random() * characters.length)
             ];
 
+          ctx.save();
+
+          ctx.globalCompositeOperation = 'source-over';
           ctx.font = `${fontSize}px monospace`;
           ctx.fillStyle = color;
           ctx.globalAlpha = Math.random() * 0.45 + 0.2;
           ctx.shadowBlur = 0;
+
           ctx.fillText(character, x, y);
+
+          ctx.restore();
         }
 
-        ctx.globalAlpha = 1;
-        ctx.shadowBlur = 0;
-
-        if (
-          y > height &&
-          Math.random() > 0.975
-        ) {
+        if (y > height && Math.random() > 0.975) {
           drops[i] = 0;
         } else {
           drops[i] += 0.45 + Math.random() * 0.4;
@@ -374,6 +465,10 @@
 
       animationFrame = requestAnimationFrame(drawMatrix);
     }
+
+    // ----------------------------------------
+    // Inicio y preferencias de movimiento
+    // ----------------------------------------
 
     function startAnimation() {
       if (animationFrame !== null) {
@@ -389,7 +484,10 @@
       }
     }
 
-    // Ajustar el canvas cuando cambie el tamaño de la portada.
+    // ----------------------------------------
+    // Adaptación al tamaño de la portada
+    // ----------------------------------------
+
     if ('ResizeObserver' in window) {
       resizeObserver = new ResizeObserver(() => {
         resizeCanvas();
@@ -405,7 +503,7 @@
     resizeCanvas();
     startAnimation();
 
-    reducedMotion.addEventListener('change', startAnimation);
+    onMotionPreferenceChange(startAnimation);
   })();
 
 })();
