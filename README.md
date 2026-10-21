@@ -1,4 +1,4 @@
-# 🐈‍⬛ PUDIN.EXE // THE GHOST CAT RPA
+# 🐈 PUDIN.EXE // THE GHOST CAT RPA
 
 <p align="center">
   <img src="docs/assets/pudin_gif.gif" alt="Pudin escribiendo código sospechoso e instalando ronroneos.exe" width="360">
