@@ -879,16 +879,16 @@ footer {
   }
 }
 
-/* ACCESIBILIDAD */
 
+/* ACCESIBILIDAD */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     scroll-behavior: auto !important;
-    animation-duration: .01ms !important;
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
+    transition-duration: 0.01ms !important;
   }
 
   .button:hover,
@@ -897,20 +897,22 @@ footer {
     transform: none;
   }
 
+  .neon-paw {
+    display: none !important;
+    animation: none !important;
+  }
+}
 
 /* 🐾 HUELLITAS NEÓN DE PUDIN */
-
 .neon-paw {
   --paw-color: #52f5ff;
-
   position: fixed;
   left: 0;
   top: 0;
   width: 25px;
   height: 27px;
-  z-index: 19;
+  z-index: 9999;
   pointer-events: none;
-
   animation: paw-fade 850ms ease-out forwards;
   filter:
     drop-shadow(0 0 3px var(--paw-color))
@@ -923,34 +925,17 @@ footer {
   background: var(--paw-color);
 }
 
-/* Cuatro deditos */
 .neon-paw .toe {
   width: 6px;
   height: 7px;
   border-radius: 50%;
 }
 
-.neon-paw .toe:nth-child(1) {
-  left: 2px;
-  top: 7px;
-}
+.neon-paw .toe:nth-child(1) { left: 2px; top: 7px; }
+.neon-paw .toe:nth-child(2) { left: 8px; top: 2px; }
+.neon-paw .toe:nth-child(3) { left: 15px; top: 2px; }
+.neon-paw .toe:nth-child(4) { left: 20px; top: 8px; }
 
-.neon-paw .toe:nth-child(2) {
-  left: 8px;
-  top: 2px;
-}
-
-.neon-paw .toe:nth-child(3) {
-  left: 15px;
-  top: 2px;
-}
-
-.neon-paw .toe:nth-child(4) {
-  left: 20px;
-  top: 8px;
-}
-
-/* Almohadilla central */
 .neon-paw .pad {
   width: 13px;
   height: 11px;
@@ -960,27 +945,39 @@ footer {
 }
 
 @keyframes paw-fade {
-  0% {
-    opacity: 0;
-    scale: .55;
-  }
+  0% { opacity: 0; transform: scale(0.55); }
+  15% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.8); }
+}
 
-  15% {
-    opacity: 1;
-    scale: 1;
-  }
+/* 🥫 SACHET PEQUEÑO, SIN TAPAR EL STATUS */
+.hero-art > .floating-sachet {
+  top: 12px;
+  right: 12px;
+  bottom: auto;
+  width: 58px;
+  height: 58px;
+  max-width: none;
+  object-fit: contain;
+  object-position: center;
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 0 8px #ffb34780);
+  animation: float 4s ease-in-out infinite;
+}
 
-  100% {
-    opacity: 0;
-    scale: .8;
+@media (max-width: 850px) {
+  .hero-art > .floating-sachet {
+    width: 52px;
+    height: 52px;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .neon-paw {
-    display: none !important;
-    animation: none !important;
+@media (max-width: 560px) {
+  .hero-art > .floating-sachet {
+    width: 42px;
+    height: 42px;
+    top: 6px;
+    right: 6px;
   }
-}
-
 }
