@@ -348,12 +348,13 @@ p {
 
 #matrix-cosmos {
   position: absolute !important;
-  inset: 0 !important;
+  inset: 0 auto 0 50% !important;
 
   display: block;
-  width: 100% !important;
+  width: 100vw !important;
   height: 100% !important;
   max-width: none;
+  transform: translateX(-50%);
 
   z-index: 1 !important;
   pointer-events: none;
