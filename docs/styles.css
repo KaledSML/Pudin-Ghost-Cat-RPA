@@ -1,200 +1,1516 @@
 
-/* ==========================================
-   PUDIN // NEON COSMOS REDESIGN
-   Capa visual nueva para el universo de Pudin
-   ========================================== */
+/* =========================================================
+   PUDIN.EXE // NEON COSMOS
+   Deep space · holographic HUD · subtle parallax
+   ========================================================= */
 
 :root {
+  color-scheme: dark;
+
   --void: #080817;
   --deep-space: #0d1028;
+  --space-blue: #111a38;
   --nebula-violet: #5c2b92;
+
   --neon-cyan: #63f7ff;
   --neon-pink: #ff58c8;
   --neon-orange: #ffad66;
   --star-white: #e8f8ff;
+
+  --text-main: #edf7ff;
+  --text-muted: #aab8d5;
+
+  --glass: rgba(13, 16, 40, 0.72);
+  --glass-border: rgba(130, 171, 255, 0.2);
+
+  --glow-cyan: 0 0 24px rgba(99, 247, 255, 0.15);
+  --glow-pink: 0 0 28px rgba(255, 88, 200, 0.12);
+
+  --page-width: 1180px;
+  --section-space: clamp(5rem, 10vw, 9rem);
 }
 
-/* Un espacio más profundo y menos saturado */
+/* ---------------------------------------------------------
+   1. BASE Y FONDO ESPACIAL
+   --------------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
 html {
+  min-height: 100%;
   background: var(--void);
   scroll-behavior: smooth;
+  scroll-padding-top: 90px;
 }
 
 body {
   position: relative;
   isolation: isolate;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: clip;
+
+  color: var(--text-main);
   background:
     radial-gradient(
-      ellipse at 75% 8%,
-      rgba(91, 43, 146, 0.24),
+      ellipse at 78% 7%,
+      rgba(91, 43, 146, 0.25),
       transparent 34rem
     ),
     radial-gradient(
-      ellipse at 12% 34%,
-      rgba(35, 110, 166, 0.13),
-      transparent 31rem
+      ellipse at 8% 29%,
+      rgba(30, 112, 173, 0.13),
+      transparent 34rem
     ),
     radial-gradient(
-      ellipse at 85% 70%,
-      rgba(175, 48, 140, 0.09),
-      transparent 30rem
+      ellipse at 88% 61%,
+      rgba(171, 45, 139, 0.08),
+      transparent 32rem
     ),
-    linear-gradient(180deg, #09091b 0%, #0b1022 48%, #080817 100%);
-  color: #edf7ff;
+    linear-gradient(
+      180deg,
+      #09091b 0%,
+      #0b1022 48%,
+      #080817 100%
+    );
+
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 1.65;
 }
 
-/* Eliminamos la rejilla global anterior */
-body::after {
-  content: none !important;
-}
-
-/* Estrellas delicadas, no una capa de ruido */
+/* Estrellas repartidas por la página, sin rejilla global */
 body::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
-  opacity: 0.4;
+
   background-image:
-    radial-gradient(circle, #d8faff 1px, transparent 1.6px),
-    radial-gradient(circle, #a99aff 1px, transparent 1.7px),
-    radial-gradient(circle, #ffffff 0.7px, transparent 1.4px);
-  background-size: 137px 151px, 193px 211px, 89px 103px;
-  background-position: 8px 18px, 47px 72px, 24px 51px;
+    radial-gradient(circle, rgba(216, 250, 255, 0.8) 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(169, 154, 255, 0.65) 1px, transparent 1.7px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.65) 0.7px, transparent 1.4px);
+
+  background-size:
+    137px 151px,
+    193px 211px,
+    89px 103px;
+
+  background-position:
+    8px 18px,
+    47px 72px,
+    24px 51px;
+
+  opacity: 0.3;
+
   mask-image: linear-gradient(
     to bottom,
-    black 0%,
-    rgba(0, 0, 0, 0.72) 35%,
-    transparent 92%
+    #000 0%,
+    rgba(0, 0, 0, 0.75) 30%,
+    transparent 95%
   );
 }
 
-/* El contenido siempre queda delante de las estrellas */
-body > * {
-  position: relative;
-  z-index: 1;
+/* No queremos que reaparezca la antigua cuadrícula */
+body::after {
+  content: none !important;
 }
 
-/* La portada se convierte en el escenario principal */
-.hero {
-  position: relative;
-  isolation: isolate;
+img {
+  display: block;
+  max-width: 100%;
 }
 
-/* La lluvia Matrix queda detrás del contenido.
-   En el siguiente paso ajustaremos su tamaño desde JS
-   para limitarla realmente a la portada. */
-#matrix-cosmos {
-  position: absolute !important;
-  inset: 0 0 auto 0;
-  z-index: 0 !important;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  opacity: 0.46;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 12%,
-    black 55%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 12%,
-    black 55%,
-    transparent 100%
-  );
-}
-
-.hero-copy,
-.hero-art {
-  position: relative;
-  z-index: 2;
-}
-
-/* Cristal holográfico: más elegante, menos fluorescente */
-.hero-art .art-frame {
-  border-color: rgba(99, 247, 255, 0.42);
-  background:
-    linear-gradient(
-      145deg,
-      rgba(17, 24, 53, 0.78),
-      rgba(12, 10, 31, 0.92)
-    );
-  box-shadow:
-    0 0 0 1px rgba(255, 88, 200, 0.1),
-    0 0 30px rgba(99, 247, 255, 0.09),
-    0 0 65px rgba(116, 58, 193, 0.12);
-  backdrop-filter: blur(12px);
-}
-
-/* Brillos con los colores de Pudin */
-h1,
-.hero h1 {
-  text-shadow:
-    0 0 22px rgba(99, 247, 255, 0.13),
-    0 0 45px rgba(255, 88, 200, 0.08);
-}
-
-a,
-button {
-  transition:
-    color 180ms ease,
-    border-color 180ms ease,
-    background-color 180ms ease,
-    box-shadow 180ms ease,
-    transform 180ms ease;
-}
-
-button:hover,
-.hero a:hover {
-  box-shadow:
-    0 0 18px rgba(99, 247, 255, 0.14),
-    0 0 28px rgba(255, 88, 200, 0.08);
-}
-
-/* Enlaces y tarjetas con un brillo más fino */
 a {
+  color: inherit;
   text-decoration-color: rgba(99, 247, 255, 0.45);
   text-underline-offset: 0.2em;
 }
 
-.card,
-.panel,
-.feature-card {
-  border-color: rgba(133, 154, 255, 0.19);
-  background-color: rgba(13, 16, 40, 0.68);
-  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.13);
-  backdrop-filter: blur(10px);
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* El sachet necesita respirar y no tapar etiquetas */
+button {
+  font: inherit;
+}
+
+::selection {
+  color: #080817;
+  background: var(--neon-cyan);
+}
+
+/* ---------------------------------------------------------
+   2. ANCHOS Y CAPAS GENERALES
+   --------------------------------------------------------- */
+
+main,
+.site-header,
+footer {
+  position: relative;
+}
+
+.section-wrap,
+.site-header,
+.footer-inner {
+  width: min(var(--page-width), calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.content-section {
+  padding-block: var(--section-space);
+  scroll-margin-top: 70px;
+}
+
+.content-section + .content-section {
+  border-top: 1px solid rgba(135, 157, 255, 0.09);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+h1,
+h2 {
+  letter-spacing: -0.045em;
+}
+
+h1 {
+  font-size: clamp(3.2rem, 8vw, 6.7rem);
+}
+
+h2 {
+  font-size: clamp(2.5rem, 5vw, 4.4rem);
+}
+
+h3 {
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+}
+
+p {
+  color: var(--text-muted);
+}
+
+/* ---------------------------------------------------------
+   3. CABECERA FUTURISTA
+   --------------------------------------------------------- */
+
+.site-header {
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  padding-block: 22px;
+  border-bottom: 1px solid rgba(99, 247, 255, 0.12);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  color: var(--text-main);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.12rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: -0.04em;
+}
+
+.brand-icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+
+  border: 1px solid rgba(99, 247, 255, 0.25);
+  border-radius: 12px;
+  background: rgba(99, 247, 255, 0.06);
+  box-shadow: var(--glow-cyan);
+
+  font-size: 1.3rem;
+}
+
+.accent-cyan {
+  color: var(--neon-cyan);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: clamp(12px, 2vw, 28px);
+}
+
+.nav a {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  color: var(--neon-cyan);
+}
+
+.nav .nav-cta {
+  padding: 9px 15px;
+  border: 1px solid rgba(99, 247, 255, 0.38);
+  border-radius: 8px;
+  color: var(--neon-cyan);
+  background: rgba(99, 247, 255, 0.05);
+}
+
+/* ---------------------------------------------------------
+   4. PORTADA: ESCENARIO PRINCIPAL
+   --------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(35px, 6vw, 85px);
+
+  min-height: min(790px, calc(100svh - 85px));
+  padding-block: clamp(70px, 10vw, 130px);
+
+  overflow: hidden;
+}
+
+/* Nebulosas locales para dar profundidad a la portada */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 75% 42%,
+      rgba(96, 54, 170, 0.2),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 22% 76%,
+      rgba(42, 178, 205, 0.08),
+      transparent 42%
+    );
+
+  opacity: 0.9;
+}
+
+/* Canvas limitado a la portada */
+#matrix-cosmos {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+  opacity: 0.42;
+}
+
+/* El texto y la ilustración permanecen por delante */
+.hero-copy,
+.hero-art {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+}
+
+.hero-copy {
+  max-width: 610px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 22px;
+  color: var(--neon-cyan);
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.6;
+}
+
+.status-dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 12px var(--neon-cyan);
+
+  animation: status-pulse 2.5s ease-in-out infinite;
+}
+
+.hero h1 {
+  margin-bottom: 25px;
+
+  color: #f1f7ff;
+  text-shadow:
+    0 0 22px rgba(99, 247, 255, 0.12),
+    0 0 55px rgba(255, 88, 200, 0.08);
+}
+
+.hero h1 span {
+  color: var(--neon-cyan);
+}
+
+.hero-lead {
+  margin-bottom: 14px;
+  color: #fff;
+  font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+  font-weight: 600;
+}
+
+.hero-description {
+  max-width: 510px;
+  margin-bottom: 30px;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-bottom: 30px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  min-height: 48px;
+  padding: 12px 19px;
+
+  border: 1px solid transparent;
+  border-radius: 9px;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+
+  transition:
+    transform 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.button-primary {
+  color: #07101c;
+  border-color: var(--neon-cyan);
+  background: var(--neon-cyan);
+  box-shadow: 0 0 22px rgba(99, 247, 255, 0.17);
+}
+
+.button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(99, 247, 255, 0.3);
+}
+
+.button-ghost {
+  border-color: rgba(167, 177, 224, 0.28);
+  color: var(--text-main);
+  background: rgba(15, 17, 43, 0.45);
+}
+
+.button-ghost:hover {
+  transform: translateY(-2px);
+  border-color: var(--neon-pink);
+  box-shadow: var(--glow-pink);
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.hero-tags span {
+  padding: 6px 10px;
+
+  border: 1px solid rgba(135, 157, 255, 0.18);
+  border-radius: 5px;
+
+  color: #b8c5e4;
+  background: rgba(13, 16, 40, 0.48);
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.67rem;
+  letter-spacing: 0.06em;
+}
+
+/* ---------------------------------------------------------
+   5. ARTE DE PUDIN Y CRISTAL HOLOGRÁFICO
+   --------------------------------------------------------- */
+
+.hero-art {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  perspective: 1100px;
+}
+
+.art-glow {
+  position: absolute;
+  inset: 9% 3%;
+  z-index: -1;
+
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(91, 43, 146, 0.32),
+      rgba(99, 247, 255, 0.08) 38%,
+      transparent 72%
+    );
+
+  filter: blur(24px);
+  pointer-events: none;
+}
+
+.art-frame {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  padding: 12px;
+
+  border: 1px solid rgba(99, 247, 255, 0.4);
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17, 24, 53, 0.88),
+      rgba(12, 10, 31, 0.94)
+    );
+
+  box-shadow:
+    0 0 0 1px rgba(255, 88, 200, 0.08),
+    0 0 30px rgba(99, 247, 255, 0.09),
+    0 0 65px rgba(116, 58, 193, 0.13),
+    0 30px 80px rgba(0, 0, 0, 0.28);
+
+  backdrop-filter: blur(12px);
+  transform-style: preserve-3d;
+}
+
+.frame-label,
+.art-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 10px 5px;
+
+  color: #9eafcf;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+}
+
+.frame-label {
+  padding-top: 2px;
+  padding-bottom: 12px;
+}
+
+.online {
+  color: #8affc3;
+  white-space: nowrap;
+}
+
+.banner {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1648 / 928;
+  object-fit: cover;
+
+  border: 1px solid rgba(99, 247, 255, 0.18);
+  border-radius: 8px;
+}
+
+.art-caption {
+  padding-bottom: 2px;
+}
+
+/* Sachet: separado del encabezado del marco */
 .hero-art > .floating-sachet {
-  top: 58px;
-  right: 16px;
-  z-index: 3;
+  position: absolute;
+  top: 65px;
+  right: -16px;
+  z-index: 4;
+
+  width: clamp(60px, 9vw, 100px);
+  height: auto;
+
+  filter:
+    drop-shadow(0 0 12px rgba(255, 173, 102, 0.3))
+    drop-shadow(0 0 25px rgba(255, 88, 200, 0.12));
+
+  animation: sachet-float 5s ease-in-out infinite;
 }
 
-/* Móvil: menos brillo, más legibilidad */
+/* Órbitas decorativas */
+.orbit {
+  position: absolute;
+  z-index: 0;
+
+  border: 1px solid rgba(99, 247, 255, 0.23);
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.orbit-one {
+  width: 112%;
+  height: 82%;
+  transform: rotate(-24deg);
+}
+
+.orbit-two {
+  width: 118%;
+  height: 93%;
+  border-color: rgba(255, 88, 200, 0.17);
+  transform: rotate(28deg);
+}
+
+.coordinate {
+  position: absolute;
+  right: -6px;
+  bottom: -34px;
+  z-index: 3;
+
+  color: rgba(166, 189, 226, 0.65);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.58rem;
+  line-height: 1.8;
+  text-align: right;
+}
+
+/* ---------------------------------------------------------
+   6. TRANSMISIÓN EN MOVIMIENTO
+   --------------------------------------------------------- */
+
+.ticker {
+  position: relative;
+  z-index: 2;
+
+  overflow: hidden;
+  border-block: 1px solid rgba(99, 247, 255, 0.17);
+
+  background: rgba(10, 13, 32, 0.85);
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  gap: 42px;
+  padding-block: 15px;
+
+  animation: ticker-scroll 35s linear infinite;
+}
+
+.ticker-track span {
+  color: var(--neon-cyan);
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   7. TÍTULOS DE SECCIÓN
+   --------------------------------------------------------- */
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 36px;
+
+  margin-bottom: 44px;
+}
+
+.section-heading > div {
+  flex: 1 1 auto;
+}
+
+.section-heading .eyebrow {
+  margin-bottom: 16px;
+}
+
+.section-heading h2 {
+  margin-bottom: 0;
+}
+
+.section-heading > p {
+  max-width: 390px;
+  margin-bottom: 5px;
+  line-height: 1.9;
+}
+
+/* ---------------------------------------------------------
+   8. TARJETAS DE HABILIDADES
+   --------------------------------------------------------- */
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.feature-card {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  min-height: 235px;
+  padding: 26px;
+
+  overflow: hidden;
+
+  border: 1px solid var(--glass-border);
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17, 24, 53, 0.78),
+      rgba(12, 10, 31, 0.7)
+    );
+
+  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.13);
+
+  backdrop-filter: blur(10px);
+
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.feature-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(99, 247, 255, 0.09),
+      transparent 55%
+    );
+
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(99, 247, 255, 0.42);
+  box-shadow: var(--glow-cyan);
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.feature-index {
+  display: block;
+  margin-bottom: 22px;
+
+  color: #899cbe;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.67rem;
+  letter-spacing: 0.1em;
+}
+
+.feature-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+
+  margin-bottom: 21px;
+
+  border: 1px solid rgba(99, 247, 255, 0.23);
+  border-radius: 10px;
+
+  color: var(--neon-cyan);
+  background: rgba(99, 247, 255, 0.07);
+
+  font-size: 1.35rem;
+}
+
+.feature-icon.pink {
+  border-color: rgba(255, 88, 200, 0.24);
+  color: var(--neon-pink);
+  background: rgba(255, 88, 200, 0.07);
+}
+
+.feature-icon.orange {
+  border-color: rgba(255, 173, 102, 0.25);
+  color: var(--neon-orange);
+  background: rgba(255, 173, 102, 0.07);
+}
+
+.feature-card h3 {
+  margin-bottom: 12px;
+  font-size: 1.22rem;
+}
+
+.feature-card p {
+  margin-bottom: 0;
+  font-size: 0.91rem;
+  line-height: 1.85;
+}
+
+.food-card > img {
+  position: absolute;
+  top: 12px;
+  right: 5px;
+  z-index: -1;
+
+  width: 94px;
+  height: 94px;
+  object-fit: contain;
+
+  opacity: 0.13;
+  transform: rotate(12deg);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------
+   9. CONTROLES Y TERMINALES
+   --------------------------------------------------------- */
+
+.controls-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: stretch;
+  gap: 20px;
+}
+
+.terminal-panel,
+.warning-panel,
+.install-panel {
+  min-width: 0;
+
+  border: 1px solid var(--glass-border);
+  border-radius: 13px;
+
+  background: var(--glass);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.14);
+
+  backdrop-filter: blur(12px);
+}
+
+.terminal-top {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  min-height: 51px;
+  padding: 12px 18px;
+
+  border-bottom: 1px solid rgba(135, 157, 255, 0.13);
+
+  color: #a8b8d7;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+}
+
+.terminal-top > span:nth-of-type(1) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.terminal-top > .online {
+  margin-left: auto;
+}
+
+.window-dots {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 5px;
+}
+
+.window-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff6b82;
+}
+
+.window-dots i:nth-child(2) {
+  background: #ffca70;
+}
+
+.window-dots i:nth-child(3) {
+  background: #74f6b0;
+}
+
+.key-row {
+  display: grid;
+  grid-template-columns: minmax(110px, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 17px;
+
+  padding: 18px 20px;
+
+  border-bottom: 1px solid rgba(135, 157, 255, 0.09);
+}
+
+.key-row:last-child {
+  border-bottom: 0;
+}
+
+.key-row kbd {
+  display: inline-block;
+  justify-self: start;
+
+  padding: 7px 10px;
+
+  border: 1px solid rgba(99, 247, 255, 0.24);
+  border-radius: 6px;
+
+  color: var(--neon-cyan);
+  background: rgba(99, 247, 255, 0.055);
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+}
+
+.key-row p {
+  margin-bottom: 0;
+  font-size: 0.88rem;
+  line-height: 1.75;
+}
+
+.warning-panel {
+  padding: clamp(24px, 4vw, 37px);
+
+  border-color: rgba(255, 173, 102, 0.23);
+
+  background:
+    radial-gradient(
+      ellipse at 100% 0%,
+      rgba(255, 173, 102, 0.09),
+      transparent 60%
+    ),
+    rgba(20, 16, 35, 0.78);
+}
+
+.warning-panel .eyebrow {
+  color: var(--neon-orange);
+}
+
+.warning-panel h3 {
+  margin-bottom: 17px;
+}
+
+.warning-panel p {
+  font-size: 0.91rem;
+  line-height: 1.9;
+}
+
+.warning-panel strong {
+  color: #ffe0b9;
+}
+
+/* ---------------------------------------------------------
+   10. INSTALACIÓN
+   --------------------------------------------------------- */
+
+.install-panel {
+  overflow: hidden;
+}
+
+.install-panel pre {
+  max-width: 100%;
+  margin: 0;
+  padding: clamp(20px, 4vw, 35px);
+
+  overflow-x: auto;
+
+  color: #e0f5ff;
+  background: rgba(4, 7, 19, 0.48);
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.82rem;
+  line-height: 2;
+  tab-size: 2;
+}
+
+.install-panel code {
+  font-family: inherit;
+}
+
+.comment {
+  color: #7486a7;
+}
+
+.copy-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+
+  padding: 17px 20px;
+  border-top: 1px solid rgba(135, 157, 255, 0.13);
+}
+
+.copy-button {
+  padding: 11px 16px;
+
+  border: 1px solid rgba(99, 247, 255, 0.38);
+  border-radius: 7px;
+
+  color: var(--neon-cyan);
+  background: rgba(99, 247, 255, 0.07);
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.77rem;
+  cursor: pointer;
+
+  transition:
+    background 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.copy-button:hover {
+  transform: translateY(-2px);
+  background: rgba(99, 247, 255, 0.12);
+  box-shadow: var(--glow-cyan);
+}
+
+#copy-status {
+  color: #8affc3;
+  font-size: 0.83rem;
+}
+
+/* ---------------------------------------------------------
+   11. TRANSMISIONES Y ENLACES
+   --------------------------------------------------------- */
+
+.video-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.video-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+
+  min-height: 165px;
+  padding: 24px;
+
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17, 24, 53, 0.72),
+      rgba(12, 10, 31, 0.7)
+    );
+
+  text-decoration: none;
+
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 88, 200, 0.42);
+  box-shadow: var(--glow-pink);
+}
+
+.video-card > span:first-child {
+  color: var(--neon-cyan);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+}
+
+.video-card strong {
+  max-width: calc(100% - 20px);
+  font-size: 1.12rem;
+}
+
+.video-card .arrow {
+  position: absolute;
+  right: 22px;
+  bottom: 20px;
+
+  color: var(--neon-pink);
+  font-size: 1.2rem;
+}
+
+.extra-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+
+  margin-top: 25px;
+}
+
+.extra-links a {
+  color: var(--text-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  text-decoration: none;
+}
+
+.extra-links a:hover {
+  color: var(--neon-cyan);
+}
+
+/* ---------------------------------------------------------
+   12. PIE DE PÁGINA
+   --------------------------------------------------------- */
+
+footer {
+  border-top: 1px solid rgba(99, 247, 255, 0.13);
+  background: rgba(5, 6, 18, 0.45);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  padding-block: 28px;
+}
+
+.footer-inner p {
+  max-width: 430px;
+  margin: 0;
+  font-size: 0.81rem;
+}
+
+.footer-inner > a:last-child {
+  color: #9eafcf;
+  font-size: 0.79rem;
+  text-decoration: none;
+}
+
+.footer-inner > a:last-child:hover {
+  color: var(--neon-cyan);
+}
+
+/* ---------------------------------------------------------
+   13. EFECTO CRT Y HUELLITAS
+   --------------------------------------------------------- */
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+
+  pointer-events: none;
+
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgba(1, 3, 13, 0.11) 4px,
+    transparent 5px
+  );
+
+  opacity: 0.16;
+}
+
+.neon-paw {
+  position: fixed;
+  z-index: 30;
+
+  width: 25px;
+  height: 27px;
+
+  pointer-events: none;
+  opacity: 0;
+
+  filter: drop-shadow(0 0 6px var(--paw-color));
+
+  animation: paw-fade 850ms ease-out forwards;
+}
+
+.neon-paw .toe,
+.neon-paw .pad {
+  position: absolute;
+  display: block;
+
+  background: var(--paw-color);
+  box-shadow: 0 0 5px var(--paw-color);
+}
+
+.neon-paw .toe {
+  width: 5px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.neon-paw .toe:nth-child(1) {
+  top: 4px;
+  left: 3px;
+  transform: rotate(-25deg);
+}
+
+.neon-paw .toe:nth-child(2) {
+  top: 0;
+  left: 10px;
+}
+
+.neon-paw .toe:nth-child(3) {
+  top: 2px;
+  right: 3px;
+  transform: rotate(25deg);
+}
+
+.neon-paw .toe:nth-child(4) {
+  top: 9px;
+  right: 0;
+  transform: rotate(45deg);
+}
+
+.neon-paw .pad {
+  left: 6px;
+  bottom: 1px;
+
+  width: 14px;
+  height: 12px;
+
+  border-radius: 50% 50% 45% 45%;
+}
+
+/* ---------------------------------------------------------
+   14. PARALLAX: PREPARACIÓN VISUAL
+   --------------------------------------------------------- */
+
+/*
+  Las capas tienen transiciones suaves.
+  El movimiento real del cursor se puede activar después
+  desde JavaScript sin cambiar la estructura de la página.
+*/
+
+.hero-art .art-frame,
+.hero-art .art-glow,
+.hero-art .orbit {
+  will-change: transform;
+  transition: transform 240ms ease-out;
+}
+
+.hero-art .art-glow {
+  animation: glow-breathe 7s ease-in-out infinite;
+}
+
+/* ---------------------------------------------------------
+   15. ANIMACIONES
+   --------------------------------------------------------- */
+
+@keyframes status-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 12px var(--neon-cyan);
+  }
+
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 5px var(--neon-cyan);
+  }
+}
+
+@keyframes sachet-float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(3deg);
+  }
+
+  50% {
+    transform: translate3d(0, -9px, 0) rotate(-3deg);
+  }
+}
+
+@keyframes glow-breathe {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.045);
+  }
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-30%);
+  }
+}
+
+@keyframes paw-fade {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(4px);
+  }
+
+  20% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.7) translateY(-12px);
+  }
+}
+
+/* ---------------------------------------------------------
+   16. RESPONSIVE
+   --------------------------------------------------------- */
+
+@media (max-width: 980px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: 30px;
+  }
+
+  .hero-art > .floating-sachet {
+    right: -5px;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .section-heading > p {
+    max-width: 600px;
+  }
+}
+
 @media (max-width: 700px) {
-  body::before {
-    opacity: 0.24;
+  .section-wrap,
+  .site-header,
+  .footer-inner {
+    width: min(100% - 32px, var(--page-width));
+  }
+
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .nav {
+    justify-content: flex-start;
+    gap: 10px 18px;
+  }
+
+  .nav a {
+    font-size: 0.82rem;
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 46px;
+
+    min-height: auto;
+    padding-block: 76px 90px;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 13vw, 5rem);
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
   }
 
   #matrix-cosmos {
-    opacity: 0.25;
+    opacity: 0.27;
   }
 
-  .hero-art .art-frame {
-    box-shadow: 0 0 24px rgba(99, 247, 255, 0.08);
-    backdrop-filter: blur(6px);
+  .hero-art {
+    width: min(100%, 560px);
+    margin-inline: auto;
+  }
+
+  .hero-art > .floating-sachet {
+    top: 45px;
+    right: -3px;
+    width: 68px;
+  }
+
+  .orbit-one {
+    width: 106%;
+    height: 82%;
+  }
+
+  .orbit-two {
+    width: 112%;
+    height: 91%;
+  }
+
+  .coordinate {
+    right: 0;
+    bottom: -31px;
+  }
+
+  .feature-grid,
+  .controls-layout,
+  .video-links {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .feature-card {
+    min-height: 0;
+  }
+
+  .key-row {
+    grid-template-columns: minmax(95px, auto) minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .key-row kbd {
+    font-size: 0.65rem;
+  }
+
+  .install-panel pre {
+    font-size: 0.72rem;
+  }
+
+  .video-card {
+    min-height: 135px;
+  }
+
+  .footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  body::before {
+    opacity: 0.22;
   }
 }
 
-/* Sin movimientos innecesarios para quien los desactive */
+@media (max-width: 420px) {
+  .nav {
+    gap: 10px 13px;
+  }
+
+  .nav a {
+    font-size: 0.77rem;
+  }
+
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .hero-tags {
+    gap: 6px;
+  }
+
+  .hero-tags span {
+    font-size: 0.6rem;
+  }
+
+  .frame-label,
+  .art-caption {
+    font-size: 0.56rem;
+  }
+
+  .key-row {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .terminal-top {
+    padding-inline: 12px;
+    font-size: 0.62rem;
+  }
+}
+
+/* ---------------------------------------------------------
+   17. ACCESIBILIDAD
+   --------------------------------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 4px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -206,5 +1522,16 @@ a {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-art .art-frame,
+  .hero-art .art-glow,
+  .hero-art .orbit {
+    will-change: auto;
+  }
+
+  .ticker-track {
+    animation: none;
   }
 }
