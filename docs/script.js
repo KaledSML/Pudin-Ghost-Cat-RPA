@@ -1,392 +1,411 @@
 
-/* =========================================================
-   PUDIN.EXE | NEON COSMOS
-   Matrix localizado + mensajes secretos + huellitas
-   ========================================================= */
-
-
-/* ---------------------------------------------------------
-   1. BOTÓN PARA COPIAR LOS COMANDOS DE INSTALACIÓN
-   --------------------------------------------------------- */
-
 (() => {
-  const button = document.querySelector('#copy-commands');
-  const status = document.querySelector('#copy-status');
-  const code = document.querySelector('#install-commands code');
+  'use strict';
 
-  if (!button || !status || !code) return;
+  // ==========================================
+  // PUDIN // GHOST CAT RPA
+  // Copy system + Neon Paws + Matrix Cosmos
+  // ==========================================
 
-  button.addEventListener('click', async () => {
+  const reducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  );
+
+  // ------------------------------------------
+  // 1. COPIAR COMANDOS DE INSTALACIÓN
+  // ------------------------------------------
+
+  (() => {
+    const button = document.querySelector('#copy-commands');
+    const status = document.querySelector('#copy-status');
+    const code = document.querySelector('#install-commands code');
+
+    if (!button || !status || !code) return;
+
     const commands = [
       'git clone https://github.com/KaledSML/Pudin-Ghost-Cat-RPA.git',
       'cd Pudin-Ghost-Cat-RPA',
       'pip install -r requirements.txt',
       'cd pudin_cat',
       'python main.py'
-    ].join('\n');
-
-    try {
-      await navigator.clipboard.writeText(commands);
-      status.textContent = '✓ Copiado al portapapeles';
-    } catch {
-      const field = document.createElement('textarea');
-
-      field.value = commands;
-      field.setAttribute('readonly', '');
-      field.style.position = 'fixed';
-      field.style.left = '-9999px';
-      field.style.top = '0';
-
-      document.body.appendChild(field);
-      field.select();
-
-      let copied = false;
-
-      try {
-        copied = document.execCommand('copy');
-      } catch {
-        copied = false;
-      }
-
-      field.remove();
-
-      status.textContent = copied
-        ? '✓ Copiado al portapapeles'
-        : 'No se pudo copiar. Selecciona los comandos manualmente.';
-    }
-  });
-})();
-
-
-/* ---------------------------------------------------------
-   2. HUELLITAS DE NEÓN DE PUDIN 🐾
-   --------------------------------------------------------- */
-
-(() => {
-  const reducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  );
-
-  if (reducedMotion.matches) return;
-
-  const colors = ['#63f7ff', '#ff58c8', '#ffad66'];
-
-  let lastX = null;
-  let lastY = null;
-  let lastTime = 0;
-
-  document.addEventListener('pointermove', (event) => {
-    if (reducedMotion.matches) return;
-    if (event.pointerType === 'touch') return;
-
-    const x = event.clientX;
-    const y = event.clientY;
-    const now = performance.now();
-
-    if (lastX !== null && lastY !== null) {
-      const distance = Math.hypot(x - lastX, y - lastY);
-
-      if (distance < 30 || now - lastTime < 38) return;
-    }
-
-    lastX = x;
-    lastY = y;
-    lastTime = now;
-
-    const paw = document.createElement('div');
-
-    paw.className = 'neon-paw';
-    paw.setAttribute('aria-hidden', 'true');
-    paw.style.left = `${x - 12}px`;
-    paw.style.top = `${y - 13}px`;
-
-    const color = colors[
-      Math.floor(Math.random() * colors.length)
     ];
 
-    paw.style.setProperty('--paw-color', color);
-    paw.style.rotate = `${Math.random() * 50 - 25}deg`;
+    async function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
 
-    paw.innerHTML = `
-      <span class="toe"></span>
-      <span class="toe"></span>
-      <span class="toe"></span>
-      <span class="toe"></span>
-      <span class="pad"></span>
-    `;
+      const textarea = document.createElement('textarea');
 
-    document.body.appendChild(paw);
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      textarea.style.pointerEvents = 'none';
 
-    paw.addEventListener('animationend', () => {
-      paw.remove();
-    }, { once: true });
+      document.body.appendChild(textarea);
+      textarea.select();
 
-  }, { passive: true });
+      let success = false;
 
-  reducedMotion.addEventListener('change', (event) => {
-    if (event.matches) {
-      document.querySelectorAll('.neon-paw').forEach((paw) => {
-        paw.remove();
-      });
+      try {
+        success = document.execCommand('copy');
+      } finally {
+        textarea.remove();
+      }
+
+      if (!success) {
+        throw new Error('No se pudo copiar el texto.');
+      }
+
+      return true;
     }
-  });
-})();
+
+    button.addEventListener('click', async () => {
+      const text = commands.join('\n');
+
+      try {
+        await copyText(text);
+
+        status.textContent = '✓ Copiado al portapapeles';
+        button.setAttribute('aria-label', 'Comandos copiados');
+      } catch (error) {
+        status.textContent =
+          'No se pudo copiar. Selecciona los comandos manualmente.';
+
+        console.error('[PUDIN] Error al copiar comandos:', error);
+      }
+    });
+  })();
 
 
-/* ---------------------------------------------------------
-   3. MATRIX CÓSMICO
-   Solo portada + mensajes secretos de Pudin
-   --------------------------------------------------------- */
+  // ------------------------------------------
+  // 2. HUELLITAS NEÓN DEL CURSOR 🐾
+  // ------------------------------------------
 
-(() => {
-  const canvas = document.querySelector('#matrix-cosmos');
+  (() => {
+    const pawColors = [
+      '#52f5ff',
+      '#ff3fcb',
+      '#ffb347'
+    ];
 
-  if (!canvas) return;
+    let lastX = 0;
+    let lastY = 0;
+    let lastTime = 0;
+    let pawIndex = 0;
 
-  const context = canvas.getContext('2d');
+    function createPaw(x, y) {
+      const paw = document.createElement('span');
 
-  if (!context) return;
+      paw.className = 'neon-paw';
+      paw.setAttribute('aria-hidden', 'true');
+      paw.textContent = '🐾';
 
-  const reducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  );
-
-  /*
-   * Si el canvas estaba en el body, lo movemos a la portada.
-   * Así el efecto deja de cubrir toda la página.
-   */
-  const hero = document.querySelector('.hero');
-
-  if (hero && !hero.contains(canvas)) {
-    hero.prepend(canvas);
-  }
-
-  const host = hero || canvas.parentElement || document.body;
-
-  const characters =
-    '010101アイウエオカキクケコサシスセソネコ';
-
-  const secretMessages = [
-    'MEOW',
-    'PUDIN.EXE',
-    '010101',
-    'GHOST_CAT',
-    'SYSTEM_OK',
-    'NEKO',
-    'PURR.exe'
-  ];
-
-  const colors = [
-    '#63f7ff',
-    '#80ffcf',
-    '#ff58c8',
-    '#ffad66'
-  ];
-
-  const fontSize = 18;
-
-  let width = 0;
-  let height = 0;
-  let columns = 0;
-  let drops = [];
-  let animationFrame = null;
-  let lastFrame = 0;
-  let resizeObserver = null;
-
-  function resizeCanvas() {
-    const pixelRatio = Math.min(
-      window.devicePixelRatio || 1,
-      1.5
-    );
-
-    const bounds = host.getBoundingClientRect();
-
-    width = Math.max(1, bounds.width);
-    height = Math.max(1, bounds.height);
-
-    canvas.width = Math.round(width * pixelRatio);
-    canvas.height = Math.round(height * pixelRatio);
-
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-
-    context.setTransform(
-      pixelRatio, 0,
-      0, pixelRatio,
-      0, 0
-    );
-
-    columns = Math.ceil(width / fontSize);
-
-    drops = Array.from(
-      { length: columns },
-      () => Math.random() * (height / fontSize)
-    );
-
-    startAnimation();
-  }
-
-  function drawStaticBackground() {
-    context.clearRect(0, 0, width, height);
-
-    // Nebulosa tenue, sin una capa oscura opaca.
-    const glow = context.createRadialGradient(
-      width * 0.58,
-      height * 0.42,
-      0,
-      width * 0.58,
-      height * 0.42,
-      Math.max(width, height) * 0.72
-    );
-
-    glow.addColorStop(0, 'rgba(99, 247, 255, 0.07)');
-    glow.addColorStop(0.45, 'rgba(132, 72, 210, 0.055)');
-    glow.addColorStop(0.78, 'rgba(255, 88, 200, 0.025)');
-    glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-    context.fillStyle = glow;
-    context.fillRect(0, 0, width, height);
-
-    // Rejilla de videojuego concentrada en la parte inferior.
-    drawGridOverlay();
-  }
-
-  function drawGridOverlay() {
-    const horizon = height * 0.69;
-    const centerX = width / 2;
-    const gridBottom = height * 1.03;
-
-    context.save();
-
-    context.lineWidth = 1;
-    context.strokeStyle = 'rgba(99, 247, 255, 0.13)';
-
-    // Líneas horizontales con perspectiva.
-    for (let i = 0; i <= 11; i++) {
-      const progress = i / 11;
-      const y = horizon + (
-        (gridBottom - horizon) * progress * progress
+      paw.style.left = `${x}px`;
+      paw.style.top = `${y}px`;
+      paw.style.color = pawColors[pawIndex % pawColors.length];
+      paw.style.setProperty(
+        '--paw-rotation',
+        `${Math.random() * 30 - 15}deg`
       );
 
-      context.beginPath();
-      context.moveTo(0, y);
-      context.lineTo(width, y);
-      context.stroke();
+      pawIndex++;
+
+      document.body.appendChild(paw);
+
+      paw.addEventListener('animationend', () => {
+        paw.remove();
+      }, { once: true });
+
+      // Respaldo por si la animación CSS no se ejecuta.
+      window.setTimeout(() => {
+        paw.remove();
+      }, 1800);
     }
 
-    // Líneas que convergen en el horizonte.
-    for (let i = -10; i <= 10; i++) {
-      const bottomX = centerX + i * width / 10;
+    function handlePointerMove(event) {
+      if (reducedMotion.matches) return;
+      if (event.pointerType === 'touch') return;
 
-      context.beginPath();
-      context.moveTo(centerX, horizon);
-      context.lineTo(bottomX, gridBottom);
-      context.stroke();
+      const now = performance.now();
+      const dx = event.clientX - lastX;
+      const dy = event.clientY - lastY;
+      const distance = Math.hypot(dx, dy);
+
+      if (distance < 28 || now - lastTime < 32) return;
+
+      createPaw(event.clientX, event.clientY);
+
+      lastX = event.clientX;
+      lastY = event.clientY;
+      lastTime = now;
     }
 
-    context.restore();
-  }
+    if (!reducedMotion.matches) {
+      window.addEventListener(
+        'pointermove',
+        handlePointerMove,
+        { passive: true }
+      );
+    }
 
-  function drawMatrix(timestamp = 0) {
-    if (reducedMotion.matches) return;
+    reducedMotion.addEventListener('change', (event) => {
+      if (event.matches) {
+        document.querySelectorAll('.neon-paw').forEach((paw) => {
+          paw.remove();
+        });
+      }
+    });
+  })();
 
-    // Mantener una animación ligera.
-    if (timestamp - lastFrame < 45) {
-      animationFrame = requestAnimationFrame(drawMatrix);
+
+  // ------------------------------------------
+  // 3. MATRIX COSMOS: SOLO DENTRO DE .HERO
+  // ------------------------------------------
+
+  (() => {
+    const canvas = document.querySelector('#matrix-cosmos');
+
+    if (!canvas) return;
+
+    const hero = canvas.closest('.hero');
+
+    if (!hero) {
+      console.warn(
+        '[PUDIN] Coloca #matrix-cosmos dentro de .hero.'
+      );
       return;
     }
 
-    lastFrame = timestamp;
+    const ctx = canvas.getContext('2d');
 
-    // Desvanecimiento para dejar estelas delicadas.
-    context.fillStyle = 'rgba(8, 8, 23, 0.12)';
-    context.fillRect(0, 0, width, height);
+    if (!ctx) return;
 
-    drawGridOverlay();
+    const fontSize = 18;
+    const colors = [
+      '#52f5ff',
+      '#43ff9a',
+      '#ff3fcb',
+      '#ffb347'
+    ];
 
-    context.font =
-      `13px "Courier New", monospace`;
+    const characters =
+      '01アイウエオカキクケコサシスセソタチツテトネコ';
 
-    context.textBaseline = 'middle';
+    const secretMessages = [
+      'MEOW',
+      'PUDIN.EXE',
+      '010101',
+      'GHOST_CAT',
+      'SYSTEM_OK',
+      'NEKO',
+      'PURR.exe'
+    ];
 
-    for (let i = 0; i < drops.length; i++) {
-      const x = i * fontSize;
-      const y = drops[i] * fontSize;
+    let width = 0;
+    let height = 0;
+    let pixelRatio = 1;
+    let columns = 0;
+    let drops = [];
+    let animationFrame = null;
+    let lastFrame = 0;
+    let resizeObserver = null;
 
-      // De vez en cuando aparece una palabra legible.
-      const showMessage = Math.random() < 0.018;
+    function resizeCanvas() {
+      const bounds = hero.getBoundingClientRect();
 
-      let token = showMessage
-        ? secretMessages[
-            Math.floor(Math.random() * secretMessages.length)
-          ]
-        : characters[
-            Math.floor(Math.random() * characters.length)
-          ];
+      width = Math.max(1, Math.round(bounds.width));
+      height = Math.max(1, Math.round(bounds.height));
 
-      // Evitar que las palabras largas se salgan por el borde.
-      if (
-        x + context.measureText(token).width > width
-      ) {
-        token = characters[
-          Math.floor(Math.random() * characters.length)
-        ];
-      }
+      pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
 
-      const color = colors[
-        Math.floor(Math.random() * colors.length)
-      ];
+      canvas.width = Math.round(width * pixelRatio);
+      canvas.height = Math.round(height * pixelRatio);
 
-      context.save();
-      context.fillStyle = color;
-      context.globalAlpha = showMessage ? 0.88 : Math.random() * 0.4 + 0.16;
+      // El CSS mantiene el canvas dentro de la portada.
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
 
-      if (showMessage) {
-        context.shadowColor = color;
-        context.shadowBlur = 9;
-      }
+      ctx.setTransform(
+        pixelRatio, 0,
+        0, pixelRatio,
+        0, 0
+      );
 
-      context.fillText(token, x, y);
-      context.restore();
+      columns = Math.ceil(width / fontSize);
 
-      if (y > height && Math.random() > 0.975) {
-        drops[i] = 0;
-      } else {
-        drops[i] += 0.35 + Math.random() * 0.38;
-      }
+      drops = Array.from(
+        { length: columns },
+        () => Math.random() * (height / fontSize)
+      );
+
+      drawStaticBackground();
     }
 
-    animationFrame = requestAnimationFrame(drawMatrix);
-  }
+    function drawStaticBackground() {
+      ctx.clearRect(0, 0, width, height);
 
-  function startAnimation() {
-    if (animationFrame !== null) {
-      cancelAnimationFrame(animationFrame);
-      animationFrame = null;
+      // Resplandor espacial en la zona superior.
+      const glow = ctx.createRadialGradient(
+        width * 0.5,
+        height * 0.2,
+        0,
+        width * 0.5,
+        height * 0.2,
+        Math.max(width, height) * 0.8
+      );
+
+      glow.addColorStop(0, 'rgba(92, 43, 146, 0.18)');
+      glow.addColorStop(0.55, 'rgba(20, 35, 75, 0.08)');
+      glow.addColorStop(1, 'rgba(8, 8, 23, 0)');
+
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, width, height);
+
+      drawGridOverlay();
     }
 
-    drawStaticBackground();
+    function drawGridOverlay() {
+      const horizon = height * 0.58;
 
-    if (!reducedMotion.matches) {
-      lastFrame = 0;
+      ctx.save();
+
+      ctx.lineWidth = 0.7;
+      ctx.strokeStyle = 'rgba(82, 245, 255, 0.15)';
+
+      // Líneas horizontales de perspectiva.
+      for (let i = 0; i < 12; i++) {
+        const progress = i / 11;
+        const y =
+          horizon +
+          Math.pow(progress, 1.65) * (height - horizon);
+
+        ctx.globalAlpha = 0.12 + progress * 0.32;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
+      }
+
+      // Líneas que convergen hacia el horizonte.
+      ctx.globalAlpha = 0.22;
+
+      for (let i = -10; i <= 10; i++) {
+        ctx.beginPath();
+        ctx.moveTo(width / 2 + i * 3, horizon);
+        ctx.lineTo(width / 2 + i * width * 0.09, height);
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    }
+
+    function drawMatrix(timestamp = 0) {
+      if (reducedMotion.matches) {
+        animationFrame = null;
+        return;
+      }
+
+      // Limita la frecuencia para mantener el efecto ligero.
+      if (timestamp - lastFrame < 45) {
+        animationFrame = requestAnimationFrame(drawMatrix);
+        return;
+      }
+
+      lastFrame = timestamp;
+
+      // Estela suave de los caracteres.
+      ctx.fillStyle = 'rgba(7, 6, 17, 0.16)';
+      ctx.fillRect(0, 0, width, height);
+
+      drawGridOverlay();
+
+      ctx.textBaseline = 'top';
+
+      for (let i = 0; i < drops.length; i++) {
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+
+        const color =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        // Mensajes secretos ocasionales entre los caracteres.
+        const showMessage = Math.random() < 0.009;
+
+        if (showMessage) {
+          const message =
+            secretMessages[
+              Math.floor(Math.random() * secretMessages.length)
+            ];
+
+          ctx.font = 'bold 12px monospace';
+          ctx.fillStyle = color;
+          ctx.globalAlpha = 0.85;
+          ctx.shadowBlur = 9;
+          ctx.shadowColor = color;
+          ctx.fillText(message, x, y);
+        } else {
+          const character =
+            characters[
+              Math.floor(Math.random() * characters.length)
+            ];
+
+          ctx.font = `${fontSize}px monospace`;
+          ctx.fillStyle = color;
+          ctx.globalAlpha = Math.random() * 0.45 + 0.2;
+          ctx.shadowBlur = 0;
+          ctx.fillText(character, x, y);
+        }
+
+        ctx.globalAlpha = 1;
+        ctx.shadowBlur = 0;
+
+        if (
+          y > height &&
+          Math.random() > 0.975
+        ) {
+          drops[i] = 0;
+        } else {
+          drops[i] += 0.45 + Math.random() * 0.4;
+        }
+      }
+
       animationFrame = requestAnimationFrame(drawMatrix);
     }
-  }
 
-  resizeCanvas();
+    function startAnimation() {
+      if (animationFrame !== null) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
 
-  window.addEventListener('resize', resizeCanvas, {
-    passive: true
-  });
+      drawStaticBackground();
 
-  // También reacciona si cambia el tamaño de la portada.
-  if ('ResizeObserver' in window) {
-    resizeObserver = new ResizeObserver(() => {
-      resizeCanvas();
-    });
+      if (!reducedMotion.matches) {
+        lastFrame = 0;
+        animationFrame = requestAnimationFrame(drawMatrix);
+      }
+    }
 
-    resizeObserver.observe(host);
-  }
+    // Ajustar el canvas cuando cambie el tamaño de la portada.
+    if ('ResizeObserver' in window) {
+      resizeObserver = new ResizeObserver(() => {
+        resizeCanvas();
+      });
 
-  reducedMotion.addEventListener('change', startAnimation);
+      resizeObserver.observe(hero);
+    } else {
+      window.addEventListener('resize', resizeCanvas, {
+        passive: true
+      });
+    }
+
+    resizeCanvas();
+    startAnimation();
+
+    reducedMotion.addEventListener('change', startAnimation);
+  })();
+
 })();
