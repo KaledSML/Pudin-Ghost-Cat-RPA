@@ -2286,3 +2286,84 @@ html {
     transition: none;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   PUDIN.EXE // EVIDENCE VIEWER
+   Evidencias grandes para crímenes de tamaño felino 🐾
+   ========================================================= */
+
+.gallery-world .feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 3vw, 30px);
+  align-items: stretch;
+}
+
+.gallery-world .feature-card {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.gallery-world .feature-card .banner {
+  display: block;
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  object-position: center;
+  padding: 12px;
+  cursor: zoom-in;
+  transition: transform 250ms ease, filter 250ms ease;
+}
+
+.gallery-world .feature-card .banner:hover {
+  transform: scale(1.035);
+  filter: drop-shadow(0 0 12px rgba(112, 255, 241, 0.22));
+}
+
+.gallery-world .feature-card figcaption {
+  padding: 18px 20px 22px;
+}
+
+.gallery-world .feature-card figcaption h3 {
+  margin-bottom: 10px;
+}
+
+.gallery-world .feature-card figcaption p {
+  line-height: 1.7;
+}
+
+@media (min-width: 1000px) {
+  .gallery-world .feature-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .gallery-world .feature-card .banner {
+    height: 260px;
+  }
+}
+
+@media (max-width: 650px) {
+  .gallery-world .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-world .feature-card .banner {
+    height: 260px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-world .feature-card .banner {
+    transition: none;
+  }
+}
