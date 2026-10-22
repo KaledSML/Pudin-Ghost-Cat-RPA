@@ -10,14 +10,20 @@
 
 Una mascota de escritorio en Python, animada con Pygame, alimentada por sachets y programada con una preocupante falta de respeto por la productividad.
 
-[🌐 **EXPLORAR LA GUARIDA**](https://kaledsml.github.io/Pudin-Ghost-Cat-RPA/) · [▶ **VER A PUDIN EN ACCIÓN**](https://youtu.be/UMO3PvRJNPc) · [🐈‍⬛ **CÓDIGO FUENTE**](https://github.com/KaledSML/Pudin-Ghost-Cat-RPA)
+<div align="center">
+
+<a href="https://kaledsml.github.io/Pudin-Ghost-Cat-RPA/"><img src="https://img.shields.io/badge/🌐_EXPLORAR-LA_GUARIDA-ff4fd8?style=for-the-badge&labelColor=171126" alt="Explorar la guarida"></a>
+&nbsp;
+<a href="https://youtu.be/UMO3PvRJNPc"><img src="https://img.shields.io/badge/▶_VER-A_PUDIN-00d9ff?style=for-the-badge&labelColor=171126" alt="Ver a Pudin en acción"></a>
+&nbsp;
+</div>
 
 ![Windows](https://img.shields.io/badge/PLATFORM-Windows-00d9ff?style=flat-square&logo=windows&logoColor=white)
 ![Python](https://img.shields.io/badge/BUILT_WITH-Python-ffd166?style=flat-square&logo=python&logoColor=black)
 ![Pygame](https://img.shields.io/badge/POWERED_BY-Pygame-ff4fd8?style=flat-square)
 ![License](https://img.shields.io/badge/LICENSE-MIT-9effa9?style=flat-square)
 
-<img src="docs/assets/pudin_gif.gif" alt="Pudin ejecutando sus protocolos paranormales" width="380">
+<img src="docs/assets/pudin_gif.gif" alt="Pudin ejecutando sus protocolos paranormales" width="480">
 
 `SYSTEM STATUS: HAUNTED`  
 `ENTITY STATUS: VERY MUCH ONLINE`
@@ -35,7 +41,7 @@ Una mascota de escritorio en Python, animada con Pygame, alimentada por sachets 
 
 <div align="center">
 
-<img src="docs/assets/pudin_gif.gif" alt="Pudin, entidad paranormal de escritorio" width="260">
+<img src="docs/assets/Pudin.ico" alt="Pudin, entidad paranormal de escritorio" width="260">
 
 **Un gato fantasma. Un escritorio. Ningún respeto por tu productividad.**
 
@@ -62,7 +68,7 @@ Huellas magenta y partículas neón.
 
 <img src="pudin_cat/assets/dance.png" alt="Pudin bailando" width="140">
 
-### 🪩 Detección musical
+### 🎵 Detección musical
 
 Si detecta YouTube o Spotify, ¡a bailar!
 
