@@ -506,13 +506,6 @@
     });
   })();
 
-
-
-  // ------------------------------------------
-  // 4. ARCHIVE ACCESS // VIDEO TRANSMISSIONS
-  // ------------------------------------------
-
-
   // ------------------------------------------
   // 4. ARCHIVE ACCESS // VIDEO TRANSMISSIONS
   // ------------------------------------------
@@ -657,4 +650,37 @@ if (
   });
 }
   
+})();
+
+
+
+
+
+
+
+
+
+
+/// 🍮 Secreto de Pudin: abrir la trampa
+
+(() => {
+  const sachet = document.querySelector('.floating-sachet');
+  if (!sachet) return;
+
+  sachet.style.cursor = 'pointer';
+  sachet.title = '¿Quieres alimentar a Pudin?';
+  sachet.setAttribute('role', 'link');
+  sachet.setAttribute('tabindex', '0');
+
+  const openIncident = () => {
+    window.location.href = new URL('./sachet-incident.html', window.location.href).href;
+  };
+
+  sachet.addEventListener('click', openIncident);
+  sachet.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openIncident();
+    }
+  });
 })();
