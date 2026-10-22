@@ -90,7 +90,7 @@ Arrástralo demasiado y podría secuestrar tu cursor durante unos segundos.
 
 ## ◈ DESPERTAR A PUDIN
 
-**Requisitos:** Windows, Python 3, soporte de audio y las dependencias del proyecto.
+**Requisitos:** Windows, Python 3 y soporte de audio. 🐈‍⬛
 
 ### 01 · Clona el repositorio
 
@@ -99,29 +99,23 @@ git clone https://github.com/KaledSML/Pudin-Ghost-Cat-RPA.git
 cd Pudin-Ghost-Cat-RPA
 ```
 
-### 02 · Prepara el entorno
-
-En PowerShell:
+### 02 · Instala las dependencias
 
 ```powershell
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
+py -m pip install -r requirements.txt
 ```
 
-### 03 · Revisa las rutas antes de invocarlo
+### 03 · Invoca a la entidad
 
-**Importante:** la estructura del repositorio ubica los recursos de la aplicación en `pudin_cat/assets/`, pero el código de `utils.py` y la configuración de PyInstaller esperan una carpeta `assets/` en las ubicaciones configuradas.
-
-Esa discrepancia debe corregirse antes de asumir que el programa o el ejecutable arrancarán correctamente.
-
-Cuando las rutas estén alineadas, ejecuta desde la ubicación correcta de `main.py`:
-
-```bash
+```powershell
+cd pudin_cat
 python main.py
 ```
 
-`BOOT SEQUENCE: PENDING ROUTE FIX` 🐾
+`BOOT SEQUENCE: INITIATED` 🐾
+
+> **Nota:** ejecuta el programa desde `pudin_cat/`, donde se encuentran los archivos de la aplicación y la carpeta `assets/`. La ejecución y la compilación dependen de que las rutas de recursos estén configuradas correctamente.
+
 
 ---
 
@@ -204,21 +198,6 @@ python test_maldades.py
 Pudin debe estar ejecutándose para que el panel pueda identificar su ventana correctamente. Guarda tu trabajo antes de probarlo.
 
 `TEST SUBJECT: YOUR DESKTOP`
-
-</details>
-
-<details>
-<summary><strong>📡 Transmisiones recuperadas</strong></summary>
-
-<div align="center">
-
-[![Demostración de Pudin](https://img.youtube.com/vi/UMO3PvRJNPc/hqdefault.jpg)](https://youtu.be/UMO3PvRJNPc)
-
-[▶ Ver la demostración completa](https://youtu.be/UMO3PvRJNPc)
-
-[📼 Explorar la playlist](https://youtube.com/playlist?list=PL6ic-uQzzKmICgM4mTKT97MxOHBTYgjKb)
-
-</div>
 
 </details>
 
