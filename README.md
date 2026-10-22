@@ -114,8 +114,6 @@ python main.py
 
 `BOOT SEQUENCE: INITIATED` 🐾
 
-> **Nota:** ejecuta el programa desde `pudin_cat/`, donde se encuentran los archivos de la aplicación y la carpeta `assets/`. La ejecución y la compilación dependen de que las rutas de recursos estén configuradas correctamente.
-
 
 ---
 
@@ -128,108 +126,145 @@ python main.py
 | `P` | Pausar o reanudar |
 | `ESC` | Cerrar la aplicación |
 
-La pausa no detiene necesariamente todos los temporizadores internos.
 
 ---
+## 🧬 Anatomía de la anomalía
 
 <details>
-<summary><strong>🧬 Anatomía de la anomalía</strong></summary>
+<summary><strong>📂 Explorar la estructura interna de Pudin</strong></summary>
 
-| Archivo o carpeta | Función |
-|---|---|
-| `main.py` | Ventana, controles y bucle principal |
-| `pudin.py` | Movimiento, animaciones y comportamiento |
-| `effects.py` | Huellas y partículas |
-| `utils.py` | Recursos, audio, ventanas y bromas |
-| `test_maldades.py` | Panel de pruebas manuales |
-| `requirements.txt` | Dependencias de Python |
-| `Pudin_Ghost_Cat.spec` | Configuración de PyInstaller |
-| `pudin_cat/assets/` | Recursos gráficos y sonoros |
-| `docs/` | Landing page y recursos del sitio |
+<br>
 
-### Ciclo de comportamiento
+> **ARCHIVO CLASIFICADO · PUDIN PROJECT**
+>
+> Un mapa de los componentes responsables del comportamiento de la criatura.
+
+### 🗂️ Módulos del sistema
+
+| Archivo o directorio | Descripción |
+|:--|:--|
+| `main.py` | 🖥️ Ventana, controles y bucle principal |
+| `pudin.py` | 🐈 Movimiento, animaciones y comportamiento |
+| `effects.py` | ✨ Huellas, partículas y efectos visuales |
+| `utils.py` | 🔊 Recursos, audio, ventanas y bromas |
+| `test_maldades.py` | 🧪 Panel de experimentación manual |
+| `requirements.txt` | 📦 Dependencias de Python |
+| `Pudin_Ghost_Cat.spec` | ⚙️ Configuración del ejecutable |
+| `pudin_cat/assets/` | 🎨 Recursos gráficos y sonoros |
+| `docs/` | 🌐 Landing page y recursos web |
+
+### 🔄 Ciclo de comportamiento
+
+El sujeto alterna entre distintos estados según su entorno, sus necesidades y el nivel de provocación recibido.
 
 ```mermaid
 stateDiagram-v2
+    direction LR
+
     [*] --> Idle
+
+    state "😴 Idle" as Idle
+    state "🚶 Walk" as Walk
+    state "💃 Dance" as Dance
+    state "🍗 Eat" as Eat
+    state "😾 Angry" as Angry
+    state "🪑 Sit" as Sit
+
     Idle --> Walk: Seguir o vagar
     Walk --> Idle: Detenerse
+
     Idle --> Dance: Detectar música
     Dance --> Idle: Cambiar de contexto
+
     Idle --> Eat: Buscar comida
     Eat --> Idle: Terminar de comer
+
     Idle --> Angry: Arrastre prolongado
     Angry --> Idle: Calmarse
+
     Idle --> Sit: Pausa
     Sit --> Idle: Reanudar
 ```
 
+<sub>STATUS: OPERATIONAL · BEHAVIORAL ROUTINES MAPPED</sub>
+
 </details>
 
+---
+
+## ⚙️ Fabricación del ejecutable
+
 <details>
-<summary><strong>⚙️ Fabricar el ejecutable</strong></summary>
+<summary><strong>🔧 Protocolo de compilación · PyInstaller</strong></summary>
 
-El repositorio incluye `Pudin_Ghost_Cat.spec`.
+<br>
 
-Cuando las rutas de `main.py`, `utils.py`, los recursos y el archivo `.spec` estén alineadas, puedes intentar compilar con:
+El repositorio incluye el archivo `Pudin_Ghost_Cat.spec`, encargado de definir la configuración de compilación del ejecutable.
+
+**Antes de iniciar el procedimiento**, comprueba que las rutas de `main.py`, `utils.py`, los recursos gráficos y sonoros, y el archivo `.spec` coincidan con la estructura real del proyecto.
+
+### 🛠️ Iniciar la compilación
+
+Ejecuta el siguiente comando desde el directorio raíz del repositorio:
 
 ```bash
 python -m PyInstaller Pudin_Ghost_Cat.spec
 ```
 
-La configuración actual espera encontrar `main.py` y los recursos en ubicaciones concretas. Comprueba las rutas y revisa el resultado en `dist/`. Después, prueba el ejecutable en Windows para verificar que carga correctamente las imágenes, los sonidos y el fondo de pantalla.
+### 📋 Registro del procedimiento
 
-**Un `.exe` no neutraliza las acciones de Pudin. Solo las empaqueta.**
+- **Herramienta:** PyInstaller
+- **Archivo de configuración:** `Pudin_Ghost_Cat.spec`
+- **Punto de partida:** directorio raíz del proyecto
 
-</details>
-
-<details>
-<summary><strong>🧪 El laboratorio de pruebas</strong></summary>
-
-`test_maldades.py` contiene un panel para lanzar una broma manualmente.
-
-```bash
-python test_maldades.py
-```
-
-- Pulsa `1` para ejecutar una broma.
-- Pulsa `ESC` para cerrar el panel.
-
-Pudin debe estar ejecutándose para que el panel pueda identificar su ventana correctamente. Guarda tu trabajo antes de probarlo.
-
-`TEST SUBJECT: YOUR DESKTOP`
-
-</details>
-
-<details>
-<summary><strong>💿 Archivo clasificado: skin secreta</strong></summary>
-
-<div align="center">
-
-### 🩷 CYBERPUDIN
-
-¿Creías que habías desbloqueado todos los cosméticos?
-
-[✨ Reclamar la skin exclusiva](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
-
-`ERROR 404: SKIN NO ENCONTRADA`
-
-`REDIRIGIENDO AL DEPARTAMENTO DE ENGAÑOS...`
-
-</div>
+<sub>BUILD STATUS: PENDING VERIFICATION</sub>
 
 </details>
 
 ---
 
-<div align="center">
+## 🧪 El laboratorio de pruebas
 
-**Made with 💜 by [@KaledSML](https://github.com/KaledSML)**
+<details>
+<summary><strong>☣️ Abrir el panel de experimentación manual</strong></summary>
 
-Si Pudin te sacó una sonrisa, déjale una ⭐ en [GitHub](https://github.com/KaledSML/Pudin-Ghost-Cat-RPA).
+<br>
 
-`THANKS FOR FEEDING THE CAT` 🐾
+> **TEST SUBJECT: YOUR DESKTOP**
+>
+> El siguiente procedimiento permite activar manualmente una de las bromas de Pudin.
 
-`END OF FILE · ENTITY STATUS: STILL ONLINE`
+### ▶️ Inicializar el laboratorio
 
-</div>
+```bash
+python test_maldades.py
+```
+
+### 🎮 Controles del experimento
+
+| Tecla | Acción |
+|:--|:--|
+| `1` | 💥 Ejecutar una broma |
+| `ESC` | 🚪 Cerrar el panel de pruebas |
+
+### ⚠️ Protocolo de seguridad
+
+Pudin debe estar ejecutándose para que el panel pueda identificar su ventana correctamente.
+
+**Guarda tu trabajo antes de comenzar.** Algunas pruebas pueden interferir con tu escritorio.
+
+<sub>EXPERIMENT STATUS: MANUAL CONTROL ENABLED</sub>
+
+</details>
+
+---
+
+
+---
+
+<sub>🐈‍⬛ **PUDIN GHOST CAT** · Internal Documentation</sub>
+
+<sub>Made with 💜 by [@KaledSML](https://github.com/KaledSML)</sub>
+
+<sub>¿Pudin te sacó una sonrisa? Déjale una ⭐ en GitHub.</sub>
+
