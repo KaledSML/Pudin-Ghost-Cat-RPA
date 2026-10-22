@@ -257,14 +257,19 @@ Pudin debe estar ejecutándose para que el panel pueda identificar su ventana co
 
 </details>
 
----
 
 
 ---
 
-<sub>🐈‍⬛ **PUDIN GHOST CAT** · Internal Documentation</sub>
+<div align="center">
 
-<sub>Made with 💜 by [@KaledSML](https://github.com/KaledSML)</sub>
+`SYSTEM STATUS: CONTAINED` · `ENTITY STATUS: STILL ONLINE`
+
+🐈‍⬛ **PUDIN.EXE**  
+<sub>UNEXPECTED ENTITY FOUND IN YOUR DESKTOP</sub>
+
+Made with 💜 by <a href="https://github.com/KaledSML">@KaledSML</a>
 
 <sub>¿Pudin te sacó una sonrisa? Déjale una ⭐ en GitHub.</sub>
 
+</div>
