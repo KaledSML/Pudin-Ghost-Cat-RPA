@@ -257,7 +257,16 @@ Pudin debe estar ejecutándose para que el panel pueda identificar su ventana co
 
 </details>
 
+---
 
+
+> [!TIP]
+> **✨ CÓMO TENER EL ESCRITORIO CYBERPUNK DEFINITIVO**
+> Tutorial rápido de cómo combinar **Pudin.exe** con Rainmeter, Lively Wallpaper y efectos neón para lograr la guarida perfecta en Windows.
+> 
+> 🎬 **[VER TUTORIAL DE SETUP Y CUSTOMIZACIÓN EN YOUTUBE](https://www.youtube.com/watch?v=dQw4w9WgXcQ)**
+
+---
 
 ---
 
