@@ -1,6 +1,6 @@
  <div align="center">
 
-<img src="docs/assets/pudin-banner.png" alt="Pudin, el gato fantasma naranja, en su guarida cyberpunk" width="100%">
+<img src="/pudin_banner_readme.png" alt="Pudin, el gato fantasma naranja, en su guarida cyberpunk" width="100%">
 
 # PUDIN.EXE
 
@@ -18,7 +18,7 @@ Una mascota en Python que sigue tu cursor, deja huellas de neón y sabotea tu pr
 ![Pygame](https://img.shields.io/badge/POWERED_BY-Pygame-ff4fd8?style=flat-square)
 ![MIT](https://img.shields.io/badge/LICENSE-MIT-9effa9?style=flat-square)
 
-<img src="docs/assets/pudin_gif.gif" alt="Pudin ejecutando sus protocolos paranormales" width="360">
+<img src="docs/assets/pudin_gif.gif" alt="Pudin ejecutando sus protocolos paranormales" width="480">
 
 `SYSTEM STATUS: HAUNTED` · `ENTITY STATUS: ONLINE`
 
