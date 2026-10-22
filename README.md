@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/pudin-banner.png" alt="Pudin, el gato fantasma naranja, en su guarida cyberpunk" width="100%">
+<img src="/pudin_banner_readme.png" alt="Pudin, el gato fantasma naranja, en su guarida cyberpunk" width="100%">
 
 # PUDIN.EXE
 
