@@ -58,6 +58,8 @@ docs/
         ├── pudin-jumpscare.png
         └── sachet.png
 
+```
+
 ### ¿Qué hace cada archivo?
 
 | Archivo | Función |
