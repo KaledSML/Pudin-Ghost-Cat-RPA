@@ -31,73 +31,90 @@ Una mascota de escritorio en Python, animada con Pygame, alimentada por sachets 
 >
 > Cambia el fondo de pantalla, minimiza y sacude ventanas, mueve el cursor, escribe automáticamente en el Bloc de notas y abre YouTube. Guarda tu trabajo antes de ejecutarlo y no lo utilices durante tareas sensibles. El fondo de pantalla original no se restaura automáticamente.
 
-## ◈ Una presencia inexplicable
+## ◈ UNA PRESENCIA INEXPLICABLE
 
-Pudin no abre una ventana para quedarse quieto mirando al vacío. Tiene otros planes.
+<div align="center">
 
-Esta pequeña criatura paranormal vive en una ventana transparente que permanece por encima de las demás aplicaciones. Sigue el cursor, pasea por la pantalla, deja huellas de neón y observa tus hábitos informáticos con una curiosidad que probablemente no aprobaría ningún especialista en ciberseguridad.
+<img src="docs/assets/pudin_gif.gif" alt="Pudin, entidad paranormal de escritorio" width="260">
 
-¿YouTube abierto? Quizá baile.
+**Un gato fantasma. Un escritorio. Ningún respeto por tu productividad.**
 
-¿Spotify en marcha? Quizá también.
+Sigue el cursor, deja huellas de neón y hace lo que le da la gana.
 
-¿Llevas demasiado tiempo trabajando? Pudin tiene una solución. No necesariamente la que necesitabas.
+`STATUS: HAUNTING YOUR DESKTOP`
 
-Y si lo provocas mientras lo arrastras, puede enfadarse y arrebatarte temporalmente el control del cursor.
+</div>
 
-**No es un asistente de productividad. Es el motivo por el que necesitas uno.**
+## ◈ HABILIDADES PARANORMALES
 
-## ◈ Capacidades paranormales
+<table>
+<tr>
+<td align="center" width="50%">
 
-<details>
-<summary>🐾 <b>Rastros espectrales</b></summary>
+<img src="pudin_cat/assets/walk.png" alt="Pudin caminando" width="140">
 
-Mientras camina, Pudin genera huellas circulares magenta y pequeñas partículas luminosas. Los rastros se desvanecen poco después, dejando una estela de neón sobre el escritorio.
-</details>
+### 🐾 Rastros espectrales
 
-<details>
-<summary>🪩 <b>Detección musical</b></summary>
+Huellas magenta y partículas neón.
 
-Pudin busca las palabras `YouTube` y `Spotify` en el título de la ventana activa. Cuando las encuentra, puede activar su animación de baile.
-</details>
+</td>
+<td align="center" width="50%">
 
-<details>
-<summary>👻 <b>Protocolo de interrupción</b></summary>
+<img src="pudin_cat/assets/dance.png" alt="Pudin bailando" width="140">
 
-Durante el modo de trabajo, Pudin puede ejecutar una de tres bromas sobre la ventana activa:
+### 🪩 Detección musical
 
-- Minimizarla.
-- Sacudirla durante unos instantes.
-- Abrir el Bloc de notas e introducir una frase automáticamente.
+Si detecta YouTube o Spotify, ¡a bailar!
 
-Los intentos se programan con intervalos aleatorios de aproximadamente 30 a 90 segundos.
-</details>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
 
-<details>
-<summary>🍅 <b>Pomodoro inverso</b></summary>
+<img src="pudin_cat/assets/angry.png" alt="Pudin enfadado" width="140">
 
-Pudin alterna sesiones de trabajo de 25 minutos y descansos de 5 minutos. Al terminar cada sesión de trabajo, abre un vídeo de YouTube.
+### 👻 Motor del caos
 
-El temporizador continúa avanzando aunque la mascota esté pausada. Pudin, al parecer, sí respeta el calendario.
-</details>
+Ventanas sacudidas, minimizadas y escritura fantasma.
 
-<details>
-<summary>🍣 <b>Economía del sachet</b></summary>
+</td>
+<td align="center" width="50%">
 
-Pulsa `F` o haz clic derecho para dejar comida cerca del cursor. Pudin irá hasta ella y empezará a comer cuando llegue.
+<img src="pudin_cat/assets/sit.png" alt="Pudin sentado" width="140">
 
-Después de terminar, aplaza el siguiente intento de broma durante 120 segundos.
+### 🍅 Pomodoro inverso
 
-La paz tiene un precio. En este caso, viene en un envase pequeño.
-</details>
+25 minutos de trabajo. 5 de descanso. YouTube al final.
 
-<details>
-<summary>😾 <b>Modo furioso</b></summary>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
 
-Arrastra a Pudin durante más de dos segundos y puede activar su protocolo de represalia. Durante aproximadamente 3 a 5 segundos, moverá el cursor físicamente y entrará en su estado de enfado.
+<img src="docs/assets/sachet.png" alt="Sachet de comida de Pudin" width="140">
 
-No es un método recomendado para negociar con la entidad.
-</details>
+### 🍣 Economía del sachet
+
+Dale comida y consigue 120 segundos de tregua.
+
+</td>
+<td align="center" width="50%">
+
+<img src="pudin_cat/assets/angry.png" alt="Pudin en modo furioso" width="140">
+
+### 😾 Modo furioso
+
+Arrástralo demasiado y podría secuestrar tu cursor durante 3 a 5 segundos.
+
+</td>
+</tr>
+</table>
+
+<div align="center">
+
+*No es un asistente de productividad. Es el motivo por el que necesitas uno.*
+
+</div>
 
 ---
 
@@ -319,28 +336,18 @@ El diagrama representa estados visibles de forma conceptual. El comportamiento r
 
 ---
 
-## ◈ Créditos
-
-Creado por **[KaledSML](https://github.com/KaledSML)**.
-
-Hecho con Python, píxeles y decisiones gatunas cuestionables.
-
-- [Repositorio](https://github.com/KaledSML/Pudin-Ghost-Cat-RPA)
-- [Landing page](https://kaledsml.github.io/Pudin-Ghost-Cat-RPA/)
-- [Reportar un problema](https://github.com/KaledSML/Pudin-Ghost-Cat-RPA/issues)
-- [Demostración en YouTube](https://youtu.be/UMO3PvRJNPc)
-- [Licencia MIT](LICENSE)
-
-Este proyecto se distribuye bajo la licencia MIT. Consulta el archivo `LICENSE` para conocer sus términos.
-
 <div align="center">
 
-**Si Pudin te hizo el día más extraño, regálale una ⭐ en GitHub.**
+---
 
+**Made with 💜 by [@KaledSML](https://github.com/KaledSML)**
+
+Si Pudin te sacó una sonrisa, déjale una ⭐ en GitHub.
+
+`THANKS FOR FEEDING THE CAT` 💜
 `END OF FILE` · `ENTITY STATUS: STILL ONLINE`
+</div>
 
-🐾 · 💜 · 👻
 
-**NO ALIMENTAR DESPUÉS DE MEDIANOCHE.**
 
 </div>
