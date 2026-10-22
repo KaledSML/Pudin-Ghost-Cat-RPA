@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap');
+:root{--pink:#ff55cc;--cyan:#00efff;--purple:#9d00ff;--gold:#ffbf47;--ink:#080812}
+*{box-sizing:border-box}body{margin:0;background:var(--ink);color:#f8f3ff;font-family:'Share Tech Mono',monospace;overflow:hidden}
+.scene{min-height:100svh;position:relative;display:grid;place-items:center;text-align:center;overflow:hidden;background:radial-gradient(ellipse at center,#21113b,#080812 72%)}
+.scene:before{content:"";position:absolute;inset:0;opacity:.2;background:linear-gradient(90deg,transparent 49%,#7a43a9 50%,transparent 51%),linear-gradient(0deg,transparent 49%,#7a43a9 50%,transparent 51%);background-size:52px 52px;pointer-events:none}
+.scan{position:absolute;inset:0;pointer-events:none;z-index:10;background:repeating-linear-gradient(0deg,transparent 0 3px,#0003 4px)}
+.hud,.foot{position:absolute;left:16px;right:16px;display:flex;justify-content:space-between;color:#a89ac4;font-size:10px;z-index:11;gap:12px}.hud{top:14px}.foot{bottom:12px}
+.stage{position:relative;z-index:2;min-height:100svh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:52px 18px}
+.hidden{display:none!important}.eyebrow{font-size:11px;letter-spacing:.18em;color:var(--cyan)}
+.prompt{font:clamp(30px,6vw,50px) 'VT323',monospace;line-height:1.03;margin:15px 0 26px}.prompt span{color:var(--cyan);text-shadow:0 0 18px #00efff55}
+.packet{width:clamp(155px,23vw,225px);padding:0;border:0;background:none;cursor:pointer;filter:drop-shadow(0 0 22px #ffbf4770);animation:float 2.6s ease-in-out infinite;transition:filter .2s}
+.packet img{width:100%;display:block;image-rendering:auto}.packet:hover{filter:drop-shadow(0 0 34px #ff55ccaa) brightness(1.08);animation-play-state:paused}
+.hint{color:#9c8eaf;font-size:11px;letter-spacing:.12em;margin-top:22px}.hint b{color:var(--pink)}
+.glitchtext{position:absolute;top:17%;color:var(--pink);text-shadow:3px 0 var(--cyan);letter-spacing:.15em}
+.eyes{display:flex;gap:30px;margin-top:20px;animation:pulse .3s infinite alternate}.eyes i{width:14px;height:8px;border-radius:50%;background:white;box-shadow:0 0 13px 6px var(--cyan),0 0 34px var(--pink)}
+.fallen{position:absolute;bottom:10%;width:80px;transform:rotate(13deg);filter:drop-shadow(0 0 12px #ffbf47);animation:drop .38s forwards}.fallen img{width:100%}
+.attackart{position:absolute;inset:0;display:grid;place-items:center}.attackart img{width:min(110vw,980px);max-height:100svh;object-fit:contain;filter:drop-shadow(0 0 28px #ff55cc88);transform:scale(.1);animation:slam .48s cubic-bezier(.12,.82,.18,1) forwards}
+.impact{position:absolute;bottom:8%;font:clamp(34px,8vw,70px) 'VT323',monospace;color:white;text-shadow:4px 4px var(--pink),-3px -2px var(--cyan);z-index:3}
+.ending h1{font:clamp(34px,7vw,66px) 'VT323',monospace;line-height:.9;margin:12px 0}.dance-sprite{width:128px;height:128px;background-image:url('assets/pudin-dance.png');background-repeat:no-repeat;background-size:512px 128px;image-rendering:pixelated;filter:drop-shadow(0 0 18px #ffbf4777);animation:dance .72s steps(4) infinite}
+@keyframes dance{from{background-position:0 0}to{background-position:-512px 0}}
+.pudinized{color:var(--cyan);letter-spacing:.15em}.again{margin-top:15px;padding:13px 18px;background:transparent;color:var(--pink);border:1px solid var(--pink);font-family:inherit;cursor:pointer;box-shadow:0 0 16px #ff55cc22}.again:hover{background:#ff55cc18}.back{color:#a99bc8;text-decoration:none;font-size:11px;margin-top:23px}
+.flash{position:absolute;inset:0;background:white;opacity:0;pointer-events:none;z-index:9}.scene.flash .flash{animation:flash .2s}.scene.shake{animation:shake .065s 10}.scene.glitch{animation:glitch .1s 6}
+@keyframes float{50%{translate:0 -12px}}@keyframes pulse{to{transform:scale(1.2);filter:brightness(1.8)}}@keyframes drop{to{bottom:7%;transform:rotate(13deg) scale(.8)}}@keyframes slam{65%{transform:scale(1.08) rotate(2deg)}82%{transform:scale(.96)}100%{transform:scale(1.04)}}@keyframes flash{to{opacity:0}}@keyframes shake{25%{translate:7px -4px}50%{translate:-6px 3px}75%{translate:3px 5px}}@keyframes glitch{25%{filter:hue-rotate(100deg);translate:6px -3px}50%{filter:contrast(2);translate:-5px 2px}}
+@media(max-width:520px){.hud,.foot{font-size:8px}.packet{width:175px}.prompt{margin:13px 0 20px}.attackart img{width:125vw}.impact{bottom:10%}.dance-sprite{width:112px;height:112px;background-size:448px 112px;animation:dance-mobile .72s steps(4) infinite}}
+@keyframes dance-mobile{from{background-position:0 0}to{background-position:-448px 0}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}

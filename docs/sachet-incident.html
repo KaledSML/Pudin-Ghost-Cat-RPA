@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PUDIN.exe — Incidente del sachet</title>
+<link rel="stylesheet" href="sachet-incident.css"></head>
+<body><main class="scene" id="scene">
+<div class="scan"></div><div class="hud"><span>PUDIN.exe // EXP_006</span><span id="status">SEÑAL ESTABLE</span></div>
+<section class="stage" id="offer"><p class="eyebrow">PROTOCOLO FANTASMA</p><p class="prompt">¿Quieres alimentar a Pudin?<br><span>Toma el sachet.</span></p>
+<button class="packet" id="sachet" aria-label="Tomar el sachet"><img src="assets/pudin-incident/sachet.png" alt="Sachet Pudin's Finest"></button>
+<p class="hint">[ <b>CLIC PARA TOMAR</b> ]</p></section>
+<section class="stage hidden" id="glitch"><p class="glitchtext">ERROR // OBJETO RECLAMADO</p><div class="eyes"><i></i><i></i></div><div class="fallen"><img src="assets/pudin-incident/sachet.png" alt=""></div></section>
+<section class="stage hidden" id="attack"><div class="attackart"><img src="assets/pudin-incident/pudin-jumpscare.png" alt="Pudin fantasma en modo jumpscare"></div><div class="impact">PUDIN.exe</div></section>
+<section class="stage hidden ending" id="ending"><div class="dance-sprite" role="img" aria-label="Pudin bailando"></div><p class="eyebrow">INCIDENTE CERRADO</p><h1>PUDIN SE COMIÓ EL SACHET<br>Y SE FUE.</h1><p class="pudinized">HAS SIDO PUDINIZADO.</p><button class="again" id="again">VOLVER A CAER EN LA TRAMPA</button><a class="back" href="./index.html">← Volver a Pudin Ghost Cat RPA</a></section>
+<audio id="jumpscareSound" preload="auto" src="assets/pudin-incident/hiss.mp3"></audio><audio id="eatSound" preload="auto" src="assets/pudin-incident/comer.mp3"></audio><div class="flash"></div><div class="foot"><span>RPA // RETRO PARANORMAL ACTIVITY</span><span>SACHET: 0 · PUDIN: 1</span></div></main>
+<script src="sachet-incident.js" defer></script></body></html>
