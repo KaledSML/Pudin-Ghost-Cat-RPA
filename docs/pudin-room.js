@@ -1,11 +1,26 @@
+
 (() => {
   "use strict";
+
+  // ==========================================
+  // ELEMENTOS PRINCIPALES
+  // ==========================================
+
   const scene = document.querySelector(".scene");
   const pudin = document.querySelector("#pudin");
   const status = document.querySelector("#cat-status");
   const sachet = document.querySelector("#sachet");
   const toast = document.querySelector("#glitch-toast");
   const sprite = pudin.querySelector(".cat-sprite");
+
+  // Nuevos elementos: diálogo y energía de Pudin.
+  const catDialogue = document.querySelector("#cat-dialogue");
+  const energyPanel = document.querySelector("#pudin-energy");
+  const energyValue = document.querySelector("#energy-value");
+  const energyBar = document.querySelector("#energy-bar");
+  const energyTrack = document.querySelector("#energy-track");
+  const energyMessage = document.querySelector("#energy-message");
+
   const sounds = {
     salto: document.querySelector("#sfx-salto"),
     comer: document.querySelector("#sfx-comer"),
@@ -14,10 +29,31 @@
     mimir: document.querySelector("#sfx-mimir")
   };
 
-  let state = "sleep", dragging = false, moved = false, offsetX = 0, offsetY = 0;
-  let downAt = 0, dragStartX = 0, dragStartY = 0, angryTimer = null, prankTimer = null;
-  let foodTimeout = null, toastTimeout = null, lastStep = 0;
-  let x = 0, y = 0, targetX = 0, targetY = 0, facingLeft = false;
+  // ==========================================
+  // ESTADO DEL GATO
+  // ==========================================
+
+  let state = "sleep";
+  let dragging = false;
+  let moved = false;
+  let offsetX = 0;
+  let offsetY = 0;
+  let downAt = 0;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let angryTimer = null;
+  let prankTimer = null;
+  let foodTimeout = null;
+  let toastTimeout = null;
+  let dialogueTimeout = null;
+  let lastStep = 0;
+
+  let x = 0;
+  let y = 0;
+  let targetX = 0;
+  let targetY = 0;
+  let facingLeft = false;
+
   const stateMessages = {
     sleep: "PUDIN STATUS: SLEEP · NO MOLESTAR",
     idle: "PUDIN STATUS: IDLE · OBSERVANDO",
@@ -27,206 +63,576 @@
     angry: "PUDIN STATUS: ANGRY · TE ESTÁ JUZGANDO",
     eat: "PUDIN STATUS: EAT · SACHET ACEPTADO"
   };
+
   const spriteForState = {
-    sleep: "sit", idle: "idle", pet: "idle", walk: "walk",
-    dance: "dance", angry: "angry", eat: "eat"
+    sleep: "sit",
+    idle: "idle",
+    pet: "idle",
+    walk: "walk",
+    dance: "dance",
+    angry: "angry",
+    eat: "eat"
   };
+
+  // ==========================================
+  // DIÁLOGOS DE PUDIN
+  // ==========================================
+
+  const dialogues = {
+    wake: [
+      "Sistema iniciado. ¿Trajiste sachets?",
+      "Cinco minutos más... mentira, ya desperté.",
+      "PUDIN ONLINE. Procede a admirarme."
+    ],
+    pet: [
+      "Acepto tus caricias. Continúa.",
+      "Ronroneo.exe ejecutándose.",
+      "Bueno, humano. No lo estás haciendo tan mal."
+    ],
+    focus: [
+      "Concentración detectada. Te estoy vigilando.",
+      "Menos pestañas, más productividad.",
+      "Trabaja, humano. Yo superviso desde aquí."
+    ],
+    break: [
+      "Descanso autorizado. Ve a estirar las patas.",
+      "Pausa aprobada por el sindicato felino.",
+      "Te ganaste un descanso. Quizá un sachet también."
+    ],
+    low: [
+      "Advertencia: mis niveles de energía están sospechosamente bajos.",
+      "Necesito combustible felino. Y no hablo de café.",
+      "Humano... la barra no se va a rellenar con miradas."
+    ],
+    sachet: [
+      "SACHET ADQUIRIDO. Tu deuda sigue pendiente.",
+      "Excelente. Has tomado una decisión inteligente.",
+      "Combustible recibido. Vuelvo a tolerarte."
+    ],
+    sleepy: [
+      "Entrando en modo siesta. No reiniciar.",
+      "Si me necesitas, deja un sachet junto a mí.",
+      "Ahorro de energía activado. Zzz..."
+    ]
+  };
+
+  function randomLine(lines) {
+    return lines[Math.floor(Math.random() * lines.length)];
+  }
+
+  function setDialogue(text, duration = 3200) {
+    if (!catDialogue) return;
+
+    catDialogue.textContent = text;
+    catDialogue.classList.add("visible");
+
+    clearTimeout(dialogueTimeout);
+    dialogueTimeout = setTimeout(() => {
+      catDialogue.classList.remove("visible");
+    }, duration);
+  }
+
+  // ==========================================
+  // SONIDOS
+  // ==========================================
 
   function playSound(name) {
     const audio = sounds[name];
     if (!audio) return;
+
     try {
+      const volumeControl = document.querySelector("#volume");
+
       audio.currentTime = 0;
-      audio.volume = Number(document.querySelector("#volume").value) / 100;
+
+      if (volumeControl) {
+        audio.volume = Number(volumeControl.value) / 100;
+      }
+
       audio.play().catch(() => {});
     } catch (_) {}
   }
+
   function stopSounds() {
-    Object.values(sounds).forEach(a => { a.pause(); a.currentTime = 0; });
+    Object.values(sounds).forEach(audio => {
+      if (!audio) return;
+      audio.pause();
+      audio.currentTime = 0;
+    });
   }
+
+  // ==========================================
+  // ENERGÍA DE PUDIN
+  // ==========================================
+
+  let energy = 100;
+  let lowEnergyWarningShown = false;
+
+  const MAX_ENERGY = 100;
+
+  // Un focus de 25 minutos puede consumir toda la energía.
+  const FOCUS_ENERGY_PER_SECOND = 100 / (25 * 60);
+
+  // Cinco minutos de descanso pueden recuperar toda la energía.
+  const BREAK_ENERGY_PER_SECOND = 100 / (5 * 60);
+
+  function renderEnergy() {
+    energy = Math.max(0, Math.min(MAX_ENERGY, energy));
+
+    const roundedEnergy = Math.round(energy);
+    const isLow = energy <= 25;
+
+    if (energyValue) {
+      energyValue.textContent = `${roundedEnergy}%`;
+    }
+
+    if (energyBar) {
+      energyBar.style.width = `${energy}%`;
+      energyBar.classList.toggle("low-energy", isLow);
+    }
+
+    if (energyPanel) {
+      energyPanel.classList.toggle("low-energy", isLow);
+    }
+
+    if (energyTrack) {
+      energyTrack.setAttribute("role", "progressbar");
+      energyTrack.setAttribute("aria-valuemin", "0");
+      energyTrack.setAttribute("aria-valuemax", "100");
+      energyTrack.setAttribute("aria-valuenow", String(roundedEnergy));
+      energyTrack.setAttribute("aria-label", "Energía de Pudin");
+    }
+
+    if (energyMessage) {
+      if (energy <= 10) {
+        energyMessage.textContent = "ENERGÍA CRÍTICA · SACHET URGENTE";
+      } else if (energy <= 25) {
+        energyMessage.textContent = "ENERGÍA BAJA · NECESITO COMBUSTIBLE";
+      } else if (energy < 70) {
+        energyMessage.textContent = "RESERVAS EN DESCENSO · SIGUE ASÍ";
+      } else {
+        energyMessage.textContent = "SISTEMA ESTABLE · TODO BAJO CONTROL";
+      }
+    }
+
+    // Aviso una sola vez por cada bajada de energía.
+    if (isLow && !lowEnergyWarningShown) {
+      lowEnergyWarningShown = true;
+      showToast("ENERGY WARNING // PUDIN NEEDS A SACHET");
+      setDialogue(randomLine(dialogues.low), 4200);
+    }
+
+    // El aviso puede volver a aparecer después de recuperar energía.
+    if (energy > 35) {
+      lowEnergyWarningShown = false;
+    }
+  }
+
+  function changeEnergy(amount) {
+    energy = Math.max(0, Math.min(MAX_ENERGY, energy + amount));
+    renderEnergy();
+  }
+
+  // ==========================================
+  // ESTADO Y ANIMACIÓN DEL GATO
+  // ==========================================
+
   function setState(next, opts = {}) {
     state = next;
-    pudin.className = `pudin ${next === "sleep" ? "sleeping" : ""} ${next === "dance" ? "dancing" : ""} ${next === "angry" ? "angry" : ""}`.trim();
-    pudin.setAttribute("aria-label", next === "sleep" ? "Pudin está durmiendo. Clic para despertarlo" : "Interactuar con Pudin");
-    sprite.style.backgroundImage = `url("assets/room/sprites/${spriteForState[next] || "idle"}.png")`;
+
+    pudin.className = [
+      "pudin",
+      next === "sleep" ? "sleeping" : "",
+      next === "dance" ? "dancing" : "",
+      next === "angry" ? "angry" : ""
+    ].filter(Boolean).join(" ");
+
+    pudin.setAttribute(
+      "aria-label",
+      next === "sleep"
+        ? "Pudin está durmiendo. Clic para despertarlo"
+        : "Interactuar con Pudin"
+    );
+
+    sprite.style.backgroundImage =
+      `url("assets/room/sprites/${spriteForState[next] || "idle"}.png")`;
+
     status.textContent = stateMessages[next] || stateMessages.idle;
-    if (next !== "sleep") pudin.querySelector(".zzz").hidden = true;
-    else pudin.querySelector(".zzz").hidden = false;
+
+    const zzz = pudin.querySelector(".zzz");
+    if (zzz) zzz.hidden = next !== "sleep";
+
     if (next === "pet") {
-      pudin.animate([{transform:"scale(1)"},{transform:"scale(1.12) rotate(-6deg)"},{transform:"scale(1)"}], {duration:420});
+      pudin.animate(
+        [
+          { transform: "scale(1)" },
+          { transform: "scale(1.12) rotate(-6deg)" },
+          { transform: "scale(1)" }
+        ],
+        { duration: 420 }
+      );
     }
-    if (opts.sound) playSound(opts.sound);
+
+    if (opts.sound) {
+      playSound(opts.sound);
+    }
   }
+
   function showToast(text) {
+    if (!toast) return;
+
     toast.textContent = text;
     toast.classList.add("visible");
+
     clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => toast.classList.remove("visible"), 2200);
+
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove("visible");
+    }, 2200);
   }
+
+  // ==========================================
+  // MOVIMIENTO Y LÍMITES DE LA HABITACIÓN
+  // ==========================================
+
   function bounds() {
-    const r = scene.getBoundingClientRect();
-    return {w:r.width, h:r.height};
+    const rect = scene.getBoundingClientRect();
+
+    return {
+      w: rect.width,
+      h: rect.height
+    };
   }
+
   function placeCat(nx, ny) {
-    const b = bounds();
-    x = Math.max(0, Math.min(b.w - pudin.offsetWidth, nx));
-    y = Math.max(0, Math.min(b.h - pudin.offsetHeight - 8, ny));
+    const area = bounds();
+
+    x = Math.max(0, Math.min(area.w - pudin.offsetWidth, nx));
+    y = Math.max(0, Math.min(area.h - pudin.offsetHeight - 8, ny));
+
     pudin.style.left = `${x}px`;
     pudin.style.top = `${y}px`;
     pudin.style.right = "auto";
     pudin.style.bottom = "auto";
+
     pudin.style.setProperty("--facing", facingLeft ? "-1" : "1");
   }
+
   function spawnPaw() {
     const now = performance.now();
+
     if (now - lastStep < 340) return;
     lastStep = now;
+
     const paw = document.createElement("span");
+
     paw.className = "paw-particle";
     paw.setAttribute("aria-hidden", "true");
-    // Huella vectorial propia: almohadilla + cuatro deditos, sin emoji.
-    paw.innerHTML = `<svg viewBox="0 0 44 42" role="presentation">
-      <ellipse class="paw-toe" cx="9" cy="12" rx="4.2" ry="5.6" transform="rotate(-25 9 12)"/>
-      <ellipse class="paw-toe" cx="18.5" cy="7.5" rx="4.2" ry="5.7" transform="rotate(-8 18.5 7.5)"/>
-      <ellipse class="paw-toe" cx="28.5" cy="9" rx="4.1" ry="5.6" transform="rotate(15 28.5 9)"/>
-      <ellipse class="paw-toe" cx="36" cy="16" rx="3.8" ry="5" transform="rotate(28 36 16)"/>
-      <path class="paw-pad" d="M9 26 C8 20 14 17 19 20 C22 16 28 18 29 23 C35 25 34 32 28 35 C23 38 14 35 10 32 C8 30 8 28 9 26Z"/>
-    </svg>`;
+
+    // Huella vectorial: almohadilla y cuatro deditos.
+    paw.innerHTML = `
+      <svg viewBox="0 0 44 42" role="presentation">
+        <ellipse class="paw-toe" cx="9" cy="12" rx="4.2" ry="5.6"
+          transform="rotate(-25 9 12)"/>
+        <ellipse class="paw-toe" cx="18.5" cy="7.5" rx="4.2" ry="5.7"
+          transform="rotate(-8 18.5 7.5)"/>
+        <ellipse class="paw-toe" cx="28.5" cy="9" rx="4.1" ry="5.6"
+          transform="rotate(15 28.5 9)"/>
+        <ellipse class="paw-toe" cx="36" cy="16" rx="3.8" ry="5"
+          transform="rotate(28 36 16)"/>
+        <path class="paw-pad"
+          d="M9 26 C8 20 14 17 19 20 C22 16 28 18 29 23
+          C35 25 34 32 28 35 C23 38 14 35 10 32 C8 30 8 28 9 26Z"/>
+      </svg>
+    `;
+
     paw.style.left = `${x + 32 + Math.random() * 36}px`;
     paw.style.top = `${y + 91 + Math.random() * 8}px`;
     paw.style.setProperty("--paw-tilt", `${Math.random() * 34 - 17}deg`);
+
     scene.appendChild(paw);
     setTimeout(() => paw.remove(), 1750);
   }
+
   function wake() {
-    if (state === "sleep") {
-      setState("idle", {sound:"salto"});
-      showToast("WAKE EVENT: PUDIN ONLINE");
-    }
+    if (state !== "sleep") return;
+
+    setState("idle", { sound: "salto" });
+    showToast("WAKE EVENT: PUDIN ONLINE");
+    setDialogue(randomLine(dialogues.wake));
   }
+
+  // ==========================================
+  // SACHET: COMIDA Y RECUPERACIÓN DE ENERGÍA
+  // ==========================================
+
   function offerSachet() {
     wake();
-    const sr = sachet.getBoundingClientRect(), cr = scene.getBoundingClientRect();
-    targetX = sr.left - cr.left - 8;
-    targetY = sr.top - cr.top - 50;
+
+    const sachetRect = sachet.getBoundingClientRect();
+    const sceneRect = scene.getBoundingClientRect();
+
+    targetX = sachetRect.left - sceneRect.left - 8;
+    targetY = sachetRect.top - sceneRect.top - 50;
+
     setState("walk");
     playSound("maldad");
+
     showToast("BRIBE ACCEPTED // APPROACHING SACHET");
+    setDialogue("¿Un sachet? Sabía que eras útil.");
+
     clearTimeout(foodTimeout);
+
     foodTimeout = setTimeout(() => {
       placeCat(targetX, targetY);
-      setState("eat", {sound:"comer"});
+
+      setState("eat", { sound: "comer" });
+
+      // La comida restaura parte de la energía.
+      changeEnergy(35);
+
       sachet.classList.add("being-eaten");
-      setTimeout(() => sachet.classList.remove("being-eaten"), 700);
-      showToast("SACHET CONSUMED // 120 SEC OF PEACE");
-      foodTimeout = setTimeout(() => setState("idle"), 3200);
+
+      setTimeout(() => {
+        sachet.classList.remove("being-eaten");
+      }, 700);
+
+      showToast("SACHET CONSUMED // ENERGY RESTORED");
+      setDialogue(randomLine(dialogues.sachet), 4000);
+
+      foodTimeout = setTimeout(() => {
+        if (state === "eat") setState("idle");
+      }, 3200);
     }, 850);
   }
 
-  // Place Pudin at the lower-right of the room and make every visit begin asleep.
+  // ==========================================
+  // POSICIÓN INICIAL
+  // ==========================================
+
   requestAnimationFrame(() => {
-    const b = bounds();
+    const area = bounds();
 
-    // Posición inicial provisional
-    placeCat(b.w * 0.22, b.h * 0.65);
-
+    // Pudin aparece en la habitación y comienza durmiendo.
+    placeCat(area.w * 0.22, area.h * 0.65);
     setState("sleep");
+    renderEnergy();
   });
+
+  // ==========================================
+  // CLIC Y ARRASTRE DE PUDIN
+  // ==========================================
 
   pudin.addEventListener("click", () => {
     if (moved) return;
-    if (state === "sleep") return wake();
-    if (state === "angry") { setState("idle"); return; }
-    setState("pet", {sound:"salto"});
-    setTimeout(() => { if (!dragging && state === "pet") setState("idle"); }, 1600);
+
+    if (state === "sleep") {
+      wake();
+      return;
+    }
+
+    if (state === "angry") {
+      setState("idle");
+      setDialogue("Ya, ya. Pero no me arrastres así.");
+      return;
+    }
+
+    setState("pet", { sound: "salto" });
+    setDialogue(randomLine(dialogues.pet));
+
+    setTimeout(() => {
+      if (!dragging && state === "pet") setState("idle");
+    }, 1600);
   });
 
-  pudin.addEventListener("pointerdown", e => {
+  pudin.addEventListener("pointerdown", event => {
     wake();
-    dragging = true; moved = false; downAt = performance.now();
-    pudin.setPointerCapture(e.pointerId);
-    const r = pudin.getBoundingClientRect(), s = scene.getBoundingClientRect();
-    offsetX = e.clientX - r.left; offsetY = e.clientY - r.top;
-    dragStartX = e.clientX - s.left; dragStartY = e.clientY - s.top;
-    pudin.style.transition = "none";
+
+    dragging = true;
+    moved = false;
+    downAt = performance.now();
+
+    pudin.setPointerCapture(event.pointerId);
+
+    const catRect = pudin.getBoundingClientRect();
+    const sceneRect = scene.getBoundingClientRect();
+
+    offsetX = event.clientX - catRect.left;
+    offsetY = event.clientY - catRect.top;
+
+    dragStartX = event.clientX - sceneRect.left;
+    dragStartY = event.clientY - sceneRect.top;
+
+    pudin.style.transition = "";
+
     clearTimeout(angryTimer);
+
     angryTimer = setTimeout(() => {
       if (dragging) {
-        setState("angry", {sound:"hiss"});
+        setState("angry", { sound: "hiss" });
         showToast("WARNING: CAT TEMPER EXCEEDED");
+        setDialogue("¡SUÉLTAME, HUMANO!");
       }
     }, 2000);
   });
-  pudin.addEventListener("pointermove", e => {
+
+  pudin.addEventListener("pointermove", event => {
     if (!dragging) return;
-    const s = scene.getBoundingClientRect();
-    const nx = e.clientX - s.left - offsetX, ny = e.clientY - s.top - offsetY;
-    if (Math.abs(e.clientX - s.left - dragStartX) + Math.abs(e.clientY - s.top - dragStartY) > 6) moved = true;
+
+    const sceneRect = scene.getBoundingClientRect();
+
+    const nx = event.clientX - sceneRect.left - offsetX;
+    const ny = event.clientY - sceneRect.top - offsetY;
+
+    if (
+      Math.abs(event.clientX - sceneRect.left - dragStartX) +
+      Math.abs(event.clientY - sceneRect.top - dragStartY) > 6
+    ) {
+      moved = true;
+    }
+
     if (moved) {
       facingLeft = nx < x;
       placeCat(nx, ny);
+
       if (state !== "angry") setState("walk");
     }
   });
+
   function stopDrag() {
     if (!dragging) return;
-    dragging = false; clearTimeout(angryTimer);
+
+    dragging = false;
+    clearTimeout(angryTimer);
+
     pudin.style.transition = "";
+
     if (state === "angry") {
-      setTimeout(() => { if (!dragging && state === "angry") setState("idle"); }, 1300);
+      setTimeout(() => {
+        if (!dragging && state === "angry") setState("idle");
+      }, 1300);
     } else if (moved) {
       setState("idle");
     }
-    setTimeout(() => moved = false, 80);
+
+    setTimeout(() => {
+      moved = false;
+    }, 80);
   }
+
   pudin.addEventListener("pointerup", stopDrag);
   pudin.addEventListener("pointercancel", stopDrag);
 
-  document.querySelectorAll("[data-action]").forEach(button => button.addEventListener("click", () => {
-    const action = button.dataset.action;
-    if (action === "sleep") { setState("sleep", {sound:"mimir"}); return; }
-    wake();
-    if (action === "pet") { setState("pet", {sound:"salto"}); setTimeout(() => { if (state === "pet") setState("idle"); }, 1500); }
-    if (action === "dance") { setState("dance"); showToast("MUSIC DETECTOR: MANUAL OVERRIDE"); }
-    if (action === "angry") { setState("angry", {sound:"hiss"}); setTimeout(() => { if (state === "angry") setState("idle"); }, 2200); }
-    if (action === "wander") {
-      targetX = Math.random() * Math.max(0, bounds().w - 128);
-      targetY = bounds().h * (0.40 + Math.random() * 0.28);
-      setState("walk"); showToast("AUTOPILOT: WANDER MODE");
-    }
-    if (action === "prank") {
-      playSound("maldad");
-      const pranks = [
-        "PUDIN_OS: INSTALANDO RONRONEOS.EXE",
-        "ALERTA: SE DETECTÓ UNA DEUDA DE SACHETS",
-        "ERROR 404: PRODUCTIVIDAD NO ENCONTRADA",
-        "SYSTEM OVERRIDE: 5 MINUTOS PARA MIRAR GATOS"
-      ];
-      showToast(pranks[Math.floor(Math.random() * pranks.length)]);
-      scene.classList.add("glitching");
-      setTimeout(() => scene.classList.remove("glitching"), 700);
-    }
-  }));
+  // ==========================================
+  // BOTONES DE INTERACCIÓN
+  // ==========================================
+
+  document.querySelectorAll("[data-action]").forEach(button => {
+    button.addEventListener("click", () => {
+      const action = button.dataset.action;
+
+      if (action === "sleep") {
+        setState("sleep", { sound: "mimir" });
+        setDialogue(randomLine(dialogues.sleepy));
+        return;
+      }
+
+      wake();
+
+      if (action === "pet") {
+        setState("pet", { sound: "salto" });
+        setDialogue(randomLine(dialogues.pet));
+
+        setTimeout(() => {
+          if (state === "pet") setState("idle");
+        }, 1500);
+      }
+
+      if (action === "dance") {
+        setState("dance");
+        showToast("MUSIC DETECTOR: MANUAL OVERRIDE");
+        setDialogue("Procesando ritmo... bailando con dignidad.");
+      }
+
+      if (action === "angry") {
+        setState("angry", { sound: "hiss" });
+        setDialogue("ERROR: paciencia felina agotada.");
+
+        setTimeout(() => {
+          if (state === "angry") setState("idle");
+        }, 2200);
+      }
+
+      if (action === "wander") {
+        targetX = Math.random() * Math.max(0, bounds().w - 128);
+        targetY = bounds().h * (0.40 + Math.random() * 0.28);
+
+        setState("walk");
+        showToast("AUTOPILOT: WANDER MODE");
+        setDialogue("Inspección rutinaria de la guarida.");
+      }
+
+      if (action === "prank") {
+        playSound("maldad");
+
+        const pranks = [
+          "PUDIN_OS: INSTALANDO RONRONEOS.EXE",
+          "ALERTA: SE DETECTÓ UNA DEUDA DE SACHETS",
+          "ERROR 404: PRODUCTIVIDAD NO ENCONTRADA",
+          "SYSTEM OVERRIDE: 5 MINUTOS PARA MIRAR GATOS"
+        ];
+
+        showToast(randomLine(pranks));
+        setDialogue("No fui yo. Fue un fallo del sistema.");
+
+        scene.classList.add("glitching");
+
+        clearTimeout(prankTimer);
+        prankTimer = setTimeout(() => {
+          scene.classList.remove("glitching");
+        }, 700);
+      }
+    });
+  });
 
   sachet.addEventListener("click", offerSachet);
 
-  // Gentle autonomous movement only after waking; no real OS or cursor control.
+  // ==========================================
+  // MOVIMIENTO AUTÓNOMO
+  // ==========================================
+
   setInterval(() => {
-    if (dragging || ["sleep","dance","eat","angry"].includes(state)) return;
+    if (dragging || ["sleep", "dance", "eat", "angry"].includes(state)) {
+      return;
+    }
+
     if (state === "walk") {
-      const dx = targetX - x, dy = targetY - y, dist = Math.hypot(dx, dy);
-      if (dist < 7) { setState("idle"); return; }
-      const step = Math.min(3.2, dist);
+      const dx = targetX - x;
+      const dy = targetY - y;
+      const distance = Math.hypot(dx, dy);
+
+      if (distance < 7) {
+        setState("idle");
+        return;
+      }
+
+      const step = Math.min(3.2, distance);
+
       facingLeft = dx < 0;
-      placeCat(x + dx / dist * step, y + dy / dist * step);
+
+      placeCat(
+        x + (dx / distance) * step,
+        y + (dy / distance) * step
+      );
+
       spawnPaw();
     } else if (state === "idle" && Math.random() < 0.045) {
       targetX = Math.random() * Math.max(0, bounds().w - 128);
       targetY = bounds().h * (0.42 + Math.random() * 0.22);
+
       setState("walk");
     }
   }, 50);
-
 
   // ==========================================
   // RADIO ONLINE: LO-FI / SYNTHWAVE
@@ -249,18 +655,17 @@
   };
 
   const ambientAudio = new Audio();
+
   ambientAudio.loop = false;
   ambientAudio.preload = "none";
   ambientAudio.volume = Number(musicVolume?.value ?? 35) / 100;
 
   let ambientPlaying = false;
   let selectedStation = "lofi";
-  
-
-
-  
 
   function updateMusicButton() {
+    if (!audioToggle) return;
+
     audioToggle.textContent = ambientPlaying
       ? "Ⅱ PAUSAR AMBIENTE"
       : "♫ REPRODUCIR AMBIENTE";
@@ -276,7 +681,7 @@
     try {
       if (!station) throw new Error("Emisora desconocida");
 
-      // Cambia de emisora solo cuando la URL es diferente.
+      // Solo recarga el audio si cambia la emisora.
       if (ambientAudio.dataset.station !== selectedStation) {
         ambientAudio.pause();
         ambientAudio.src = station.url;
@@ -291,7 +696,7 @@
       ambientPlaying = true;
       updateMusicButton();
       updateMusicNote(`EN DIRECTO · ${station.name}`);
-    } catch (error) {
+    } catch (_) {
       ambientPlaying = false;
       updateMusicButton();
 
@@ -310,6 +715,7 @@
 
     musicOptions.forEach(button => {
       const active = button.dataset.mode === mode;
+
       button.classList.toggle("active", active);
       button.setAttribute("aria-pressed", String(active));
     });
@@ -318,10 +724,7 @@
       `${radioStations[mode].name} seleccionado. Pulsa reproducir para escuchar.`
     );
 
-    // Si la radio ya estaba sonando, cambia de emisora.
-    if (ambientPlaying) {
-      playAmbient();
-    }
+    if (ambientPlaying) playAmbient();
   }
 
   musicOptions.forEach(button => {
@@ -330,25 +733,30 @@
 
       if (state !== "sleep" && state !== "angry") {
         setState("dance");
+        setDialogue("Cambio de frecuencia. Hora de bailar.");
       }
     });
   });
 
-  audioToggle.addEventListener("click", () => {
-    if (ambientPlaying) {
-      ambientAudio.pause();
-      ambientPlaying = false;
-      updateMusicButton();
-      updateMusicNote("Radio pausada.");
-      return;
-    }
+  if (audioToggle) {
+    audioToggle.addEventListener("click", () => {
+      if (ambientPlaying) {
+        ambientAudio.pause();
+        ambientPlaying = false;
 
-    playAmbient();
-  });
+        updateMusicButton();
+        updateMusicNote("Radio pausada.");
+        return;
+      }
+
+      playAmbient();
+    });
+  }
 
   ambientAudio.addEventListener("playing", () => {
     ambientPlaying = true;
     updateMusicButton();
+
     updateMusicNote(`EN DIRECTO · ${radioStations[selectedStation].name}`);
   });
 
@@ -360,9 +768,8 @@
   ambientAudio.addEventListener("error", () => {
     ambientPlaying = false;
     updateMusicButton();
-    updateMusicNote(
-      "La emisora no está disponible en este momento."
-    );
+
+    updateMusicNote("La emisora no está disponible en este momento.");
   });
 
   if (musicVolume) {
@@ -373,56 +780,216 @@
 
   selectStation("lofi");
   updateMusicButton();
-  
-  
-  document.querySelector("#panel-toggle").addEventListener("click", () => {
-    const panel = document.querySelector("#control-panel");
-    const closed = panel.classList.toggle("closed");
-    const toggle = document.querySelector("#panel-toggle");
-    toggle.setAttribute("aria-expanded", String(!closed));
-    toggle.innerHTML = closed ? "☰ <span>CONTROLES</span>" : "✕ <span>OCULTAR</span>";
-  });
-  document.querySelector("#volume").addEventListener("input", e => {
-    const volume = Number(e.target.value) / 100;
 
-    Object.values(sounds).forEach(audio => {
-      audio.volume = volume;
+  // ==========================================
+  // PANEL DE CONTROLES Y VOLUMEN DE EFECTOS
+  // ==========================================
+
+  const panelToggle = document.querySelector("#panel-toggle");
+  const controlPanel = document.querySelector("#control-panel");
+  const effectVolume = document.querySelector("#volume");
+
+  if (panelToggle && controlPanel) {
+    panelToggle.addEventListener("click", () => {
+      const closed = controlPanel.classList.toggle("closed");
+
+      panelToggle.setAttribute("aria-expanded", String(!closed));
+
+      panelToggle.innerHTML = closed
+        ? "☰ <span>CONTROLES</span>"
+        : "✕ <span>OCULTAR</span>";
+    });
+  }
+
+  if (effectVolume) {
+    effectVolume.addEventListener("input", event => {
+      const volume = Number(event.target.value) / 100;
+
+      Object.values(sounds).forEach(audio => {
+        if (audio) audio.volume = volume;
+      });
+    });
+  }
+
+  // ==========================================
+  // POMODORO + ENERGÍA
+  // ==========================================
+
+  let duration = 25 * 60;
+  let remaining = duration;
+  let interval = null;
+  let modeLabel = "FOCUS";
+
+  const timer = document.querySelector("#timer");
+  const progress = document.querySelector("#timer-progress");
+  const start = document.querySelector("#timer-start");
+  const message = document.querySelector("#timer-message");
+  const timerMode = document.querySelector("#timer-mode");
+  const reset = document.querySelector("#timer-reset");
+  const modeButtons = document.querySelectorAll(".mode-button");
+
+  function renderTimer() {
+    if (!timer || !progress) return;
+
+    const minutes = Math.floor(remaining / 60);
+    const seconds = remaining % 60;
+
+    timer.textContent =
+      `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+    progress.style.width =
+      `${100 * (1 - remaining / duration)}%`;
+  }
+
+  function stopTimer() {
+    if (interval !== null) {
+      clearInterval(interval);
+    }
+
+    interval = null;
+
+    if (start) start.textContent = "▶ CONTINUAR";
+  }
+
+  function completeTimer() {
+    stopTimer();
+
+    if (start) start.textContent = "▶ INICIAR";
+
+    if (modeLabel === "FOCUS") {
+      if (message) {
+        message.textContent =
+          "¡FOCUS COMPLETADO! Pudin exige su paga en sachets. 🍣";
+      }
+
+      setState("dance");
+      playSound("maldad");
+      showToast("FOCUS COMPLETE // CAT APPROVED");
+      setDialogue("¡Trabajo terminado! Exijo mi recompensa.");
+
+    } else {
+      if (message) {
+        message.textContent =
+          "Descanso terminado. Cuando quieras, puedes iniciar otro protocolo.";
+      }
+
+      showToast("BREAK COMPLETE // READY TO FOCUS");
+      setDialogue("Descanso finalizado. Volvamos al trabajo, humano.");
+    }
+  }
+
+  function tick() {
+    if (remaining <= 0) {
+      completeTimer();
+      return;
+    }
+
+    remaining--;
+
+    // La energía depende del modo del Pomodoro activo.
+    if (modeLabel === "FOCUS") {
+      changeEnergy(-FOCUS_ENERGY_PER_SECOND);
+    } else {
+      changeEnergy(BREAK_ENERGY_PER_SECOND);
+    }
+
+    renderTimer();
+
+    // Completa el protocolo en el mismo segundo que llega a cero.
+    if (remaining <= 0) {
+      completeTimer();
+    }
+  }
+
+  modeButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      stopTimer();
+
+      duration = Number(button.dataset.minutes) * 60;
+      remaining = duration;
+      modeLabel = (button.dataset.label || "FOCUS").trim().toUpperCase();
+
+      modeButtons.forEach(element => {
+        element.classList.toggle("selected", element === button);
+      });
+
+      if (timerMode) {
+        timerMode.textContent = button.dataset.label;
+      }
+
+      if (message) message.textContent = "Nuevo protocolo cargado.";
+
+      if (start) start.textContent = "▶ INICIAR";
+
+      // No rellenamos ni vaciamos la energía al cambiar de modo.
+      renderTimer();
+
+      if (modeLabel === "FOCUS") {
+        setDialogue(randomLine(dialogues.focus));
+      } else {
+        setDialogue(randomLine(dialogues.break));
+      }
     });
   });
 
-  // Pomodoro with selectable focus and break periods.
-  let duration = 25 * 60, remaining = duration, interval = null;
-  const timer = document.querySelector("#timer"), progress = document.querySelector("#timer-progress");
-  const start = document.querySelector("#timer-start"), message = document.querySelector("#timer-message");
-  function renderTimer() {
-    const m = Math.floor(remaining / 60), s = remaining % 60;
-    timer.textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
-    progress.style.width = `${100 * (1 - remaining / duration)}%`;
-  }
-  function stopTimer() { if (interval) clearInterval(interval); interval = null; start.textContent = "▶ CONTINUAR"; }
-  function tick() {
-    if (remaining > 0) { remaining--; renderTimer(); return; }
-    stopTimer(); start.textContent = "▶ INICIAR";
-    message.textContent = "¡PROTOCOLO COMPLETADO! Pudin exige su paga en sachets. 🍣";
-    setState("dance"); playSound("maldad"); showToast("FOCUS COMPLETE // CAT APPROVED");
-  }
-  document.querySelectorAll(".mode-button").forEach(button => button.addEventListener("click", () => {
-    stopTimer(); duration = Number(button.dataset.minutes) * 60; remaining = duration;
-    document.querySelectorAll(".mode-button").forEach(el => el.classList.toggle("selected", el === button));
-    document.querySelector("#timer-mode").textContent = button.dataset.label;
-    message.textContent = "Nuevo protocolo cargado."; renderTimer(); start.textContent = "▶ INICIAR";
-  }));
-  start.addEventListener("click", () => {
-    if (interval) { stopTimer(); return; }
-    if (remaining === 0) remaining = duration;
-    interval = setInterval(tick, 1000); start.textContent = "Ⅱ PAUSAR";
-    message.textContent = "Sesión en curso. Pudin está supervisando… desde su cama.";
-  });
-  document.querySelector("#timer-reset").addEventListener("click", () => {
-    stopTimer(); remaining = duration; renderTimer(); start.textContent = "▶ INICIAR";
-    message.textContent = "Temporizador reiniciado."; 
-  });
-  renderTimer();
+  if (start) {
+    start.addEventListener("click", () => {
+      if (interval !== null) {
+        stopTimer();
 
-  window.addEventListener("resize", () => placeCat(x, y));
+        if (message) message.textContent = "Protocolo pausado.";
+
+        return;
+      }
+
+      if (remaining <= 0) {
+        remaining = duration;
+      }
+
+      interval = setInterval(tick, 1000);
+      start.textContent = "Ⅱ PAUSAR";
+
+      if (modeLabel === "FOCUS") {
+        if (message) {
+          message.textContent =
+            "Sesión en curso. Pudin está supervisando… desde su cama.";
+        }
+
+        setDialogue(randomLine(dialogues.focus));
+      } else {
+        if (message) {
+          message.textContent =
+            "Descanso en curso. Recuperando energía felina.";
+        }
+
+        setDialogue(randomLine(dialogues.break));
+      }
+    });
+  }
+
+  if (reset) {
+    reset.addEventListener("click", () => {
+      stopTimer();
+
+      remaining = duration;
+      renderTimer();
+
+      if (start) start.textContent = "▶ INICIAR";
+      if (message) message.textContent = "Temporizador reiniciado.";
+
+      // Reiniciar el reloj no cambia la energía acumulada.
+    });
+  }
+
+  // Primera representación del temporizador y de la energía.
+  renderTimer();
+  renderEnergy();
+
+  // ==========================================
+  // AJUSTE AL CAMBIAR EL TAMAÑO DE LA VENTANA
+  // ==========================================
+
+  window.addEventListener("resize", () => {
+    placeCat(x, y);
+  });
 })();
