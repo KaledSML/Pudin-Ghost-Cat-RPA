@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100923">
+  <title>La pieza de Pudin // PUDIN_BOOTCAMP.JS</title>
+  <link rel="stylesheet" href="pudin-room.css">
+</head>
+<body>
+  <main class="room-shell">
+<section class="scene" aria-label="Habitación cyberpunk de Pudin">
+      <div class="city-window">
+        <div class="moon"></div><div class="city city-back"></div><div class="city city-front"></div>
+        <div class="rain"></div><div class="window-cross vertical"></div><div class="window-cross horizontal"></div>
+      </div>
+      <div class="wall-poster poster-one">ฅ^•ﻌ•^ฅ<br><small>BE NICE<br>TO CATS</small></div>
+      <div class="wall-poster poster-two">NO SLEEP<br><b>JUST MIAU</b></div>
+      <div class="shelf"><span>▰</span><span>▱</span><span>ฅ</span><span>▰</span></div>
+      <div class="desk">
+        <div class="desk-glow"></div>
+        <div class="monitor">
+          <div class="monitor-top"><span>pudin.sys</span><span>● ONLINE</span></div>
+          <div class="monitor-screen"><span class="terminal-prompt">&gt;</span> nap.exe has priority<span class="cursor">_</span><br><small>system idle. cat asleep.</small></div>
+        </div>
+        <div class="keyboard">▰ ▰ ▰ ▰ ▰ ▰ ▰<br> ▰ ▰ ▰ ▰ ▰ ▰</div>
+        <div class="mug">ฅ</div>
+      </div>
+      <div class="floor"></div>
+      <div class="rug"></div>
+      <div class="paw-trail" id="paw-trail" aria-hidden="true"></div>
+      <button class="sachet" id="sachet" type="button" aria-label="Ofrecer un sachet a Pudin">
+        <img src="assets/room/sprites/sachet.png" alt=""><span>OFRECER SACHET</span>
+      </button>
+      <button class="pudin sleeping" id="pudin" type="button" aria-label="Pudin está durmiendo. Clic para despertarlo" title="Clic para acariciar · arrastra para mover">
+        <span class="cat-sprite" aria-hidden="true"></span>
+        <span class="zzz" aria-hidden="true">z<span>z</span><i>z</i></span>
+        <span class="cat-shadow"></span>
+      </button>
+      <div class="scene-caption" id="cat-status" role="status" aria-live="polite">PUDIN STATUS: SLEEP · NO MOLESTAR</div>
+      <div class="glitch-toast" id="glitch-toast" aria-live="polite"></div>
+    </section>
+
+    <button class="panel-toggle" id="panel-toggle" type="button" aria-expanded="true" aria-controls="control-panel">☰ <span>CONTROLES</span></button>
+    <aside class="control-panel" id="control-panel" aria-label="Controles de La pieza de Pudin">
+    <section class="control-grid">
+      <article class="panel music-panel">
+        <div class="panel-heading"><span class="panel-icon">♫</span><div><p class="eyebrow">AUDIO DE AMBIENTE</p><h2>Estación nocturna</h2></div><span class="signal">SELECTOR READY</span></div>
+        <div class="music-options" role="group" aria-label="Seleccionar ambiente musical">
+          <button class="music-option active" data-mode="lofi" type="button"><span>☁</span><b>LO-FI</b><small>RAINY STUDY</small></button>
+          <button class="music-option" data-mode="synthwave" type="button"><span>◈</span><b>SYNTHWAVE</b><small>NIGHT DRIVE</small></button>
+        </div>
+        <p class="music-note" id="music-note">Elige el estilo de la estación. Los efectos originales de Pudin están conectados; las pistas musicales se pueden añadir en assets/room/audio/.</p>
+        <div class="audio-controls">
+          <button id="audio-toggle" class="primary-button" type="button">♫ AMBIENTE: PENDIENTE</button>
+          <label class="volume-label" for="volume">SFX <input id="volume" type="range" min="0" max="100" value="55"></label>
+        </div>
+        <p class="tiny-note">El selector está listo, pero todavía no hay pistas lo-fi/synthwave en el proyecto. Los efectos del gato tienen volumen propio.</p>
+      </article>
+
+      <article class="panel pomodoro-panel">
+        <div class="panel-heading"><span class="panel-icon">◷</span><div><p class="eyebrow">FOCUS PROTOCOL</p><h2>Pomodoro paranormal</h2></div><span class="signal" id="timer-mode">FOCUS</span></div>
+        <div class="timer-readout" id="timer" aria-live="off">25:00</div>
+        <div class="timer-track"><span id="timer-progress"></span></div>
+        <div class="timer-modes">
+          <button class="mode-button selected" data-minutes="25" data-label="FOCUS" type="button">FOCUS <small>25 MIN</small></button>
+          <button class="mode-button" data-minutes="5" data-label="SHORT BREAK" type="button">PAUSA <small>5 MIN</small></button>
+          <button class="mode-button" data-minutes="15" data-label="LONG BREAK" type="button">DESCANSO <small>15 MIN</small></button>
+        </div>
+        <div class="timer-actions"><button class="primary-button" id="timer-start" type="button">▶ INICIAR</button><button class="secondary-button" id="timer-reset" type="button">↺ REINICIAR</button></div>
+        <p class="tiny-note" id="timer-message">Pudin duerme profundamente y no se hace responsable de tu productividad.</p>
+      </article>
+
+      <article class="panel interaction-panel">
+        <div class="panel-heading"><span class="panel-icon">ฅ</span><div><p class="eyebrow">RESIDENTE OFICIAL</p><h2>Protocolo felino</h2></div></div>
+        <div class="cat-actions">
+          <button data-action="pet" type="button">♡ Acariciar</button>
+          <button data-action="dance" type="button">♫ Hacer bailar</button>
+          <button data-action="sleep" type="button">☾ Modo siesta</button>
+          <button data-action="angry" type="button">⚡ Provocar</button>
+          <button data-action="wander" type="button">🐾 Explorar</button>
+          <button data-action="prank" type="button">👻 Travesura</button>
+        </div>
+        <p class="tiny-note">Arrástralo para moverlo. Si lo retienes más de 2 segundos, se enfadará; no secuestrará el cursor real, solo hará un pequeño caos dentro de la habitación.</p>
+      </article>
+    </section>
+    </aside>
+
+    <div class="room-brand"><span class="brand-kicker">PUDIN_BOOTCAMP.JS</span><strong>LA PIEZA DE PUDIN <span>ฅ</span></strong><small>SYSTEM STATUS: ONLINE · ENTITY STATUS: NAPPING</small></div>
+    <div class="room-footer"><span>ENTITY: PUDIN.EXE</span><span>SAFE MODE · NO OS CONTROL</span></div>
+  </main>
+
+  <audio id="sfx-salto" preload="auto" src="assets/room/audio/salto.mp3"></audio>
+  <audio id="sfx-comer" preload="auto" src="assets/room/audio/comer.mp3"></audio>
+  <audio id="sfx-hiss" preload="auto" src="assets/room/audio/hiss.mp3"></audio>
+  <audio id="sfx-maldad" preload="auto" src="assets/room/audio/maldad.mp3"></audio>
+  <audio id="sfx-mimir" preload="auto" src="assets/room/audio/mimir.mp3"></audio>
+  <script src="pudin-room.js"></script>
+</body>
+</html>
