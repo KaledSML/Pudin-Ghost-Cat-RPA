@@ -126,7 +126,10 @@
   // Place Pudin at the lower-right of the room and make every visit begin asleep.
   requestAnimationFrame(() => {
     const b = bounds();
-    placeCat(b.w * 0.69, b.h * 0.49);
+
+    // Posición inicial provisional
+    placeCat(b.w * 0.22, b.h * 0.65);
+
     setState("sleep");
   });
 
@@ -224,31 +227,150 @@
     }
   }, 50);
 
-  document.querySelectorAll(".music-option").forEach(button => button.addEventListener("click", () => {
-    document.querySelectorAll(".music-option").forEach(el => el.classList.toggle("active", el === button));
-    const mode = button.dataset.mode;
-    document.querySelector("#music-note").textContent = mode === "lofi"
-      ? "LO-FI seleccionado: falta añadir la pista de ambiente."
-      : "SYNTHWAVE seleccionado: falta añadir la pista de ambiente.";
-    if (state !== "sleep") setState("dance");
-  }));
+
+  // ==========================================
+  // RADIO ONLINE: LO-FI / SYNTHWAVE
+  // ==========================================
+
+  const musicNote = document.querySelector("#music-note");
+  const audioToggle = document.querySelector("#audio-toggle");
+  const musicVolume = document.querySelector("#music-volume");
+  const musicOptions = document.querySelectorAll(".music-option");
+
+  const radioStations = {
+    lofi: {
+      name: "LO-FI",
+      url: "https://streaming.hotmixradio.com/hotmix-lofi-en-mp3?provider=radiobrowser"
+    },
+    synthwave: {
+      name: "SYNTHWAVE",
+      url: "https://stream.laut.fm/synthwave"
+    }
+  };
+
   const ambientAudio = new Audio();
-  ambientAudio.loop = true;
-  ambientAudio.volume = 0.35;
+  ambientAudio.loop = false;
+  ambientAudio.preload = "none";
+  ambientAudio.volume = Number(musicVolume?.value ?? 35) / 100;
+
   let ambientPlaying = false;
-  function setAmbientTrack(mode) {
-    ambientAudio.src = mode === "lofi" ? "assets/room/audio/lofi.mp3" : "assets/room/audio/synthwave.mp3";
-    if (ambientPlaying) ambientAudio.play().catch(() => { ambientPlaying = false; showToast("No se pudo iniciar la pista. Comprueba que exista el archivo de audio."); });
+  let selectedStation = "lofi";
+
+  function updateMusicButton() {
+    audioToggle.textContent = ambientPlaying
+      ? "Ⅱ PAUSAR AMBIENTE"
+      : "♫ REPRODUCIR AMBIENTE";
   }
-  document.querySelector("#audio-toggle").addEventListener("click", () => {
-    const mode = document.querySelector(".music-option.active")?.dataset.mode || "lofi";
-    if (ambientPlaying) { ambientAudio.pause(); ambientPlaying = false; document.querySelector("#audio-toggle").textContent = "♫ REPRODUCIR AMBIENTE"; return; }
-    setAmbientTrack(mode);
-    ambientAudio.play().then(() => { ambientPlaying = true; document.querySelector("#audio-toggle").textContent = "Ⅱ PAUSAR AMBIENTE"; }).catch(() => showToast("Falta la pista: añade lofi.mp3 o synthwave.mp3 en assets/room/audio/."));
+
+  function updateMusicNote(text) {
+    if (musicNote) musicNote.textContent = text;
+  }
+
+  async function playAmbient() {
+    const station = radioStations[selectedStation];
+
+    try {
+      if (!station) throw new Error("Emisora desconocida");
+
+      // Cambia de emisora solo cuando la URL es diferente.
+      if (ambientAudio.dataset.station !== selectedStation) {
+        ambientAudio.pause();
+        ambientAudio.src = station.url;
+        ambientAudio.dataset.station = selectedStation;
+        ambientAudio.load();
+      }
+
+      updateMusicNote(`Conectando con ${station.name}...`);
+
+      await ambientAudio.play();
+
+      ambientPlaying = true;
+      updateMusicButton();
+      updateMusicNote(`EN DIRECTO · ${station.name}`);
+    } catch (error) {
+      ambientPlaying = false;
+      updateMusicButton();
+
+      updateMusicNote(
+        "No se pudo conectar. Prueba otra emisora o inténtalo de nuevo."
+      );
+
+      showToast("RADIO OFFLINE // REINTENTA LA CONEXIÓN");
+    }
+  }
+
+  function selectStation(mode) {
+    if (!radioStations[mode]) return;
+
+    selectedStation = mode;
+
+    musicOptions.forEach(button => {
+      const active = button.dataset.mode === mode;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+
+    updateMusicNote(
+      `${radioStations[mode].name} seleccionado. Pulsa reproducir para escuchar.`
+    );
+
+    // Si la radio ya estaba sonando, cambia de emisora.
+    if (ambientPlaying) {
+      playAmbient();
+    }
+  }
+
+  musicOptions.forEach(button => {
+    button.addEventListener("click", () => {
+      selectStation(button.dataset.mode);
+
+      if (state !== "sleep" && state !== "angry") {
+        setState("dance");
+      }
+    });
   });
-  document.querySelectorAll(".music-option").forEach(button => button.addEventListener("click", () => {
-    if (ambientPlaying) setAmbientTrack(button.dataset.mode);
-  }));
+
+  audioToggle.addEventListener("click", () => {
+    if (ambientPlaying) {
+      ambientAudio.pause();
+      ambientPlaying = false;
+      updateMusicButton();
+      updateMusicNote("Radio pausada.");
+      return;
+    }
+
+    playAmbient();
+  });
+
+  ambientAudio.addEventListener("playing", () => {
+    ambientPlaying = true;
+    updateMusicButton();
+    updateMusicNote(`EN DIRECTO · ${radioStations[selectedStation].name}`);
+  });
+
+  ambientAudio.addEventListener("pause", () => {
+    ambientPlaying = false;
+    updateMusicButton();
+  });
+
+  ambientAudio.addEventListener("error", () => {
+    ambientPlaying = false;
+    updateMusicButton();
+    updateMusicNote(
+      "La emisora no está disponible en este momento."
+    );
+  });
+
+  if (musicVolume) {
+    musicVolume.addEventListener("input", event => {
+      ambientAudio.volume = Number(event.target.value) / 100;
+    });
+  }
+
+  selectStation("lofi");
+  updateMusicButton();
+  
+  
   document.querySelector("#panel-toggle").addEventListener("click", () => {
     const panel = document.querySelector("#control-panel");
     const closed = panel.classList.toggle("closed");
@@ -257,7 +379,11 @@
     toggle.innerHTML = closed ? "☰ <span>CONTROLES</span>" : "✕ <span>OCULTAR</span>";
   });
   document.querySelector("#volume").addEventListener("input", e => {
-    Object.values(sounds).forEach(a => a.volume = Number(e.target.value) / 100); ambientAudio.volume = Math.min(0.7, Number(e.target.value) / 100);
+    const volume = Number(e.target.value) / 100;
+
+    Object.values(sounds).forEach(audio => {
+      audio.volume = volume;
+    });
   });
 
   // Pomodoro with selectable focus and break periods.
