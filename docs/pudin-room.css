@@ -1,9 +1,12 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
 /* ==================================================
-   1. VARIABLES Y BASE
+   LA PIEZA DE PUDIN
+   Hoja de estilos principal
    ================================================== */
+
+/* 1. FUENTES Y COLORES */
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
   --bg: #0b0618;
@@ -73,7 +76,10 @@ button {
   overflow: hidden;
   border: 0;
   border-radius: 0;
-  background: #08051a url("assets/room/room-background.png") center center / cover no-repeat;
+  background:
+    #08051a
+    url("assets/room/room-background.png")
+    center center / cover no-repeat;
   box-shadow: none;
 }
 
@@ -91,11 +97,14 @@ button {
       transparent 66%,
       #07041455 100%
     ),
-    linear-gradient(0deg, #08041555, transparent 28%);
+    linear-gradient(
+      0deg,
+      #08041555,
+      transparent 28%
+    );
 }
 
-/* La habitación usa la imagen de fondo original.
-   Ocultamos los muebles creados con CSS para no duplicarlos. */
+/* Usamos el fondo ilustrado, sin duplicar muebles */
 
 .city-window,
 .wall-poster,
@@ -107,7 +116,7 @@ button {
 }
 
 /* ==================================================
-   3. ELEMENTOS DE AMBIENTE Y MARCA
+   3. MARCA Y ESTADO DE LA HABITACIÓN
    ================================================== */
 
 .room-brand {
@@ -185,7 +194,7 @@ button {
 }
 
 /* ==================================================
-   4. PUDIN: SPRITE, POSICIÓN Y ESTADOS
+   4. PUDIN: SPRITE Y ANIMACIONES
    ================================================== */
 
 .pudin {
@@ -223,6 +232,8 @@ button {
     float 2.8s ease-in-out infinite;
 }
 
+/* Pudin durmiendo */
+
 .pudin.sleeping .cat-sprite {
   animation:
     cat-frames .8s steps(4) infinite,
@@ -230,11 +241,15 @@ button {
   filter: saturate(.86);
 }
 
+/* Pudin bailando */
+
 .pudin.dancing .cat-sprite {
   animation:
     cat-frames .36s steps(4) infinite,
     dance .35s ease-in-out infinite alternate;
 }
+
+/* Pudin enfadado */
 
 .pudin.angry .cat-sprite {
   animation:
@@ -242,6 +257,8 @@ button {
     angry .12s linear infinite;
   filter: drop-shadow(0 0 12px #ff4d4d);
 }
+
+/* Zzz de la siesta */
 
 .zzz {
   position: absolute;
@@ -266,6 +283,8 @@ button {
   display: none;
 }
 
+/* Sombra bajo el gato */
+
 .cat-shadow {
   display: block;
   width: 65px;
@@ -278,8 +297,6 @@ button {
 
 /* ==================================================
    5. SACHET SECRETO
-   Fondo transparente: solo se muestra el sprite.
-   El brillo neón sustituye al antiguo rectángulo naranja.
    ================================================== */
 
 .sachet {
@@ -299,8 +316,6 @@ button {
     filter .2s ease,
     border-color .2s ease;
 }
-
-/* Conserva el texto si existe en el HTML, pero no lo muestra. */
 
 .sachet span {
   display: none;
@@ -332,7 +347,7 @@ button {
 }
 
 /* ==================================================
-   6. HUELLITAS Y EFECTOS SECRETOS
+   6. HUELLITAS
    ================================================== */
 
 .paw-trail {
@@ -385,6 +400,12 @@ button {
   stroke: #b8f8ff;
 }
 
+/* ==================================================
+   7. ALERTAS CYBERPUNK DEL SISTEMA
+   ================================================== */
+
+/* Toast: mensajes temporales del sistema */
+
 .glitch-toast {
   position: absolute;
   top: 12px;
@@ -401,7 +422,9 @@ button {
   opacity: 0;
   pointer-events: none;
   transform: translate(-50%, -10px);
-  transition: opacity .15s, transform .15s;
+  transition:
+    opacity .15s,
+    transform .15s;
 }
 
 .glitch-toast.visible {
@@ -409,12 +432,67 @@ button {
   transform: translate(-50%, 0);
 }
 
+/* Efecto de interferencia */
+
 .scene.glitching {
   animation: scene-glitch .12s steps(2) 5;
 }
 
 /* ==================================================
-   7. BOTÓN PARA ABRIR EL PANEL
+   8. NUEVO: DIÁLOGOS DE PUDIN
+   ================================================== */
+
+/* Globo que aparece cerca del sprite */
+
+.cat-dialogue {
+  position: absolute;
+  top: 54%;
+  left: 22%;
+  z-index: 15;
+  width: max-content;
+  max-width: min(240px, 65vw);
+  padding: 10px 12px;
+  border: 1px solid var(--pink);
+  border-radius: 8px 8px 8px 2px;
+  background: #10071df2;
+  color: #ffe0fb;
+  font: 11px/1.5 "Share Tech Mono", monospace;
+  overflow-wrap: anywhere;
+  box-shadow: 0 0 18px #ff4fd833;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(6px) scale(.97);
+  transition:
+    opacity .18s ease,
+    transform .18s ease;
+}
+
+/* Identificador del personaje */
+
+.cat-dialogue::before {
+  content: "PUDIN.EXE // SAYS";
+  display: block;
+  margin-bottom: 4px;
+  color: var(--cyan);
+  font-size: 8px;
+  letter-spacing: .08em;
+}
+
+/* Estado visible del globo */
+
+.cat-dialogue.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* No mostrar el globo cuando está oculto */
+
+.cat-dialogue[hidden] {
+  display: none;
+}
+
+/* ==================================================
+   9. BOTÓN DE CONTROLES
    ================================================== */
 
 .panel-toggle {
@@ -439,7 +517,7 @@ button {
 }
 
 /* ==================================================
-   8. PANEL DE CONTROLES
+   10. PANEL DE CONTROLES
    ================================================== */
 
 .control-panel {
@@ -459,7 +537,9 @@ button {
     0 0 28px #a72bff1f;
   backdrop-filter: blur(14px);
   scrollbar-color: #7132a0 #10081f;
-  transition: transform .28s ease, opacity .28s ease;
+  transition:
+    transform .28s ease,
+    opacity .28s ease;
 }
 
 .control-panel.closed {
@@ -480,7 +560,11 @@ button {
   padding: 14px;
   border: 1px solid #432164;
   border-radius: 10px;
-  background: linear-gradient(145deg, #180d2bef, #0b0719f2);
+  background: linear-gradient(
+    145deg,
+    #180d2bef,
+    #0b0719f2
+  );
   box-shadow: inset 0 1px #ffffff08;
 }
 
@@ -521,7 +605,7 @@ button {
 }
 
 /* ==================================================
-   9. MÚSICA Y VOLUMEN
+   11. RADIO Y VOLUMEN
    ================================================== */
 
 .music-options {
@@ -612,7 +696,7 @@ button {
 }
 
 /* ==================================================
-   10. TEMPORIZADOR POMODORO
+   12. POMODORO
    ================================================== */
 
 .timer-readout {
@@ -633,7 +717,11 @@ button {
   display: block;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, var(--pink), var(--cyan));
+  background: linear-gradient(
+    90deg,
+    var(--pink),
+    var(--cyan)
+  );
   transition: width .3s;
 }
 
@@ -673,7 +761,90 @@ button {
 }
 
 /* ==================================================
-   11. INTERACCIONES CON PUDIN
+   13. NUEVO: BARRA DE ENERGÍA
+   ================================================== */
+
+.pudin-energy {
+  margin: 0 0 14px;
+  padding: 12px;
+  border: 1px solid #432164;
+  background: #0b0719d9;
+  font-family: "Share Tech Mono", monospace;
+}
+
+/* Nombre y porcentaje */
+
+.energy-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--cyan);
+  font-size: 10px;
+  letter-spacing: .08em;
+}
+
+#energy-value {
+  color: var(--pink);
+  font-size: 13px;
+}
+
+/* Barra vacía */
+
+.energy-track {
+  height: 8px;
+  margin-top: 9px;
+  overflow: hidden;
+  border: 1px solid #432164;
+  background: #090513;
+}
+
+/* Nivel actual de energía */
+
+#energy-bar {
+  display: block;
+  width: 85%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--pink),
+    var(--cyan)
+  );
+  box-shadow: 0 0 10px #00d9ff66;
+  transition:
+    width .35s ease,
+    background .35s ease;
+}
+
+/* Aviso visual cuando la energía es baja */
+
+.pudin-energy.low-energy #energy-bar {
+  background: linear-gradient(
+    90deg,
+    #ff3434,
+    var(--orange)
+  );
+  box-shadow: 0 0 12px #ff343466;
+}
+
+.pudin-energy.low-energy #energy-value {
+  color: #ff6464;
+  animation: blink 1s steps(2) infinite;
+}
+
+.energy-message {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.pudin-energy.low-energy .energy-message {
+  color: #ff7777;
+}
+
+/* ==================================================
+   14. BOTONES DE INTERACCIÓN CON PUDIN
    ================================================== */
 
 .cat-actions {
@@ -695,14 +866,8 @@ button {
 }
 
 /* ==================================================
-   12. ANIMACIONES
+   15. ANIMACIONES
    ================================================== */
-
-@keyframes rain {
-  to {
-    background-position: 0 25px;
-  }
-}
 
 @keyframes blink {
   50% {
@@ -750,6 +915,8 @@ button {
   }
 }
 
+/* Cuadros del sprite */
+
 @keyframes cat-frames {
   from {
     background-position: 0 0;
@@ -759,6 +926,8 @@ button {
     background-position: -512px 0;
   }
 }
+
+/* Zzz flotantes */
 
 @keyframes zzz-float {
   0%, 100% {
@@ -771,6 +940,8 @@ button {
     transform: translateY(-9px);
   }
 }
+
+/* Brillo del sachet */
 
 @keyframes sachet-glow {
   0%, 100% {
@@ -793,10 +964,15 @@ button {
   }
 }
 
+/* Desaparición de las huellitas */
+
 @keyframes paw-fade {
   0% {
     opacity: 0;
-    transform: translateY(4px) scale(.65) rotate(var(--paw-tilt, 0deg));
+    transform:
+      translateY(4px)
+      scale(.65)
+      rotate(var(--paw-tilt, 0deg));
   }
 
   18% {
@@ -805,9 +981,14 @@ button {
 
   100% {
     opacity: 0;
-    transform: translateY(-18px) scale(1.08) rotate(var(--paw-tilt, 0deg));
+    transform:
+      translateY(-18px)
+      scale(1.08)
+      rotate(var(--paw-tilt, 0deg));
   }
 }
+
+/* Interferencia visual */
 
 @keyframes scene-glitch {
   0%, 100% {
@@ -820,10 +1001,11 @@ button {
 }
 
 /* ==================================================
-   13. TABLET Y MÓVILES
+   16. TABLET Y MÓVILES
    ================================================== */
 
 @media (max-width: 700px) {
+
   .room-brand {
     top: 12px;
     left: 12px;
@@ -893,13 +1075,24 @@ button {
   .room-footer span:last-child {
     display: none;
   }
+
+  /* Globo de diálogo adaptable a pantallas pequeñas */
+
+  .cat-dialogue {
+    top: 54%;
+    left: 8%;
+    max-width: 65vw;
+    font-size: 10px;
+  }
 }
 
 /* ==================================================
-   14. ACCESIBILIDAD: REDUCIR MOVIMIENTO
+   17. ACCESIBILIDAD
+   Respeta la preferencia de reducir animaciones.
    ================================================== */
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -912,5 +1105,8 @@ button {
   .control-panel {
     transition: none;
   }
-}
 
+  .pudin-energy.low-energy #energy-value {
+    animation: none;
+  }
+}
