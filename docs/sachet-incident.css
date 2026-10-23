@@ -1,574 +1,915 @@
 
-/* =========================================================
-   PUDIN.EXE — INCIDENTE DEL SACHET
-   Hoja de estilos de la página secreta.
-   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-
-/* ---------------------------------------------------------
-   1. FUENTES
-   --------------------------------------------------------- */
-
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap');
-
-
-/* ---------------------------------------------------------
-   2. COLORES GLOBALES
-   Cambia estos valores para modificar los colores del sitio.
-   --------------------------------------------------------- */
+/* ==================================================
+   1. VARIABLES Y BASE
+   ================================================== */
 
 :root {
-    --pink: #ff55cc;    /* Rosa neón */
-    --cyan: #00efff;    /* Cian neón */
-    --purple: #9d00ff;  /* Morado */
-    --gold: #ffbf47;    /* Dorado / sachet */
-    --ink: #080812;     /* Fondo casi negro */
+  --bg: #0b0618;
+  --panel: #130c27;
+  --line: #3b1b65;
+  --pink: #ff4fd8;
+  --cyan: #00d9ff;
+  --purple: #9b5cff;
+  --text: #f8eaff;
+  --muted: #b7a5d0;
+  --orange: #ff9d32;
 }
 
-
-/* ---------------------------------------------------------
-   3. REINICIO Y CONFIGURACIÓN GENERAL
-   --------------------------------------------------------- */
-
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
 }
 
 body {
-    margin: 0;
-    background: var(--ink);
-    color: #f8f3ff;
-    font-family: 'Share Tech Mono', monospace;
-    overflow: hidden;
+  color: var(--text);
+  background: #08051a;
+  font-family: "Space Grotesk", sans-serif;
 }
 
+button,
+input {
+  font: inherit;
+}
 
-/* ---------------------------------------------------------
-   4. ESCENA PRINCIPAL Y FONDO
-   --------------------------------------------------------- */
+button {
+  color: inherit;
+  cursor: pointer;
+}
+
+/* ==================================================
+   2. ESTRUCTURA DE LA HABITACIÓN
+   ================================================== */
+
+.room-shell {
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.topbar,
+.room-intro {
+  display: none !important;
+}
 
 .scene {
-    min-height: 100svh;
-    position: relative;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    overflow: hidden;
-
-    background: radial-gradient(
-        ellipse at center,
-        #21113b,
-        #080812 72%
-    );
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: #08051a url("assets/room/room-background.png") center center / cover no-repeat;
+  box-shadow: none;
 }
 
-/* Cuadrícula de fondo */
-
-.scene::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: 0.2;
-    pointer-events: none;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent 49%,
-            #7a43a9 50%,
-            transparent 51%
-        ),
-        linear-gradient(
-            0deg,
-            transparent 49%,
-            #7a43a9 50%,
-            transparent 51%
-        );
-
-    background-size: 52px 52px;
+.scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      #07041488 0%,
+      transparent 28%,
+      transparent 66%,
+      #07041455 100%
+    ),
+    linear-gradient(0deg, #08041555, transparent 28%);
 }
 
-/* Efecto de líneas de monitor */
+/* La habitación usa la imagen de fondo original.
+   Ocultamos los muebles creados con CSS para no duplicarlos. */
 
-.scan {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 10;
-
-    background: repeating-linear-gradient(
-        0deg,
-        transparent 0 3px,
-        #0003 4px
-    );
+.city-window,
+.wall-poster,
+.shelf,
+.desk,
+.floor,
+.rug {
+  display: none !important;
 }
 
+/* ==================================================
+   3. ELEMENTOS DE AMBIENTE Y MARCA
+   ================================================== */
 
-/* ---------------------------------------------------------
-   5. HUD: INFORMACIÓN SUPERIOR E INFERIOR
-   --------------------------------------------------------- */
-
-.hud,
-.foot {
-    position: absolute;
-    left: 16px;
-    right: 16px;
-
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-
-    color: #a89ac4;
-    font-size: 10px;
-    z-index: 11;
+.room-brand {
+  position: fixed;
+  top: 24px;
+  left: 28px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 14px 17px;
+  border: 1px solid #55257c;
+  background: #09051bd9;
+  box-shadow: 0 0 24px #6e1bba22;
+  backdrop-filter: blur(8px);
+  font-family: "Share Tech Mono", monospace;
 }
 
-.hud {
-    top: 14px;
+.brand-kicker {
+  color: var(--cyan);
+  font-size: 10px;
+  letter-spacing: .18em;
 }
 
-.foot {
-    bottom: 12px;
+.room-brand strong {
+  color: #f4d7ff;
+  font-size: clamp(17px, 2vw, 26px);
+  letter-spacing: .08em;
+  text-shadow: 0 0 14px #a92cff;
 }
 
-
-/* ---------------------------------------------------------
-   6. CONTENIDO CENTRAL
-   --------------------------------------------------------- */
-
-.stage {
-    position: relative;
-    z-index: 2;
-
-    min-height: 100svh;
-    width: 100%;
-    padding: 52px 18px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.room-brand strong span {
+  color: var(--pink);
 }
 
-/* Oculta las pantallas que no están activas */
-
-.hidden {
-    display: none !important;
+.room-brand small {
+  color: #7effc0;
+  font-size: 9px;
+  letter-spacing: .06em;
 }
 
-/* Texto pequeño de introducción */
-
-.eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    color: var(--cyan);
+.scene-caption {
+  position: absolute;
+  bottom: 24px;
+  left: 22px;
+  z-index: 8;
+  padding: 8px 10px;
+  border: 1px solid #512478;
+  background: #10071dbb;
+  color: #d9c2ff;
+  font: 10px "Share Tech Mono", monospace;
+  letter-spacing: .08em;
 }
 
-/* Mensajes principales */
-
-.prompt {
-    font: clamp(30px, 6vw, 50px) 'VT323', monospace;
-    line-height: 1.03;
-    margin: 15px 0 26px;
+.room-footer {
+  position: fixed;
+  bottom: 15px;
+  left: 20px;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0;
+  padding: 9px 12px;
+  border: 1px solid #442066;
+  background: #09051bd9;
+  color: #8e79aa;
+  font: 8px "Share Tech Mono", monospace;
+  letter-spacing: .08em;
+  backdrop-filter: blur(8px);
 }
 
-.prompt span {
-    color: var(--cyan);
-    text-shadow: 0 0 18px #00efff55;
+.room-footer span:nth-child(2) {
+  color: #83ffd0;
 }
 
+/* ==================================================
+   4. PUDIN: SPRITE, POSICIÓN Y ESTADOS
+   ================================================== */
 
-/* ---------------------------------------------------------
-   7. SACHET INTERACTIVO
-   --------------------------------------------------------- */
-
-.packet {
-    width: clamp(155px, 23vw, 225px);
-    padding: 0;
-
-    border: 0;
-    background: none;
-    cursor: pointer;
-
-    filter: drop-shadow(0 0 22px #ffbf4770);
-
-    animation: float 2.6s ease-in-out infinite;
-    transition: filter 0.2s;
+.pudin {
+  position: absolute;
+  top: 65%;
+  left: 22%;
+  z-index: 7;
+  width: 128px;
+  height: 128px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+  filter: drop-shadow(0 0 10px #ff8c28);
+  transition: transform .25s ease;
+  transform: scaleX(var(--facing, 1));
 }
 
-.packet img {
-    width: 100%;
-    display: block;
+.pudin:active {
+  cursor: grabbing;
 }
 
-.packet:hover {
-    filter:
-        drop-shadow(0 0 34px #ff55ccaa)
-        brightness(1.08);
-
-    animation-play-state: paused;
+.cat-sprite {
+  display: block;
+  width: 128px;
+  height: 128px;
+  background-repeat: no-repeat;
+  background-size: 512px 128px;
+  background-position: 0 0;
+  image-rendering: pixelated;
+  animation:
+    cat-frames .48s steps(4) infinite,
+    float 2.8s ease-in-out infinite;
 }
 
-/* Texto que indica al visitante qué hacer */
-
-.hint {
-    color: #9c8eaf;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    margin-top: 22px;
+.pudin.sleeping .cat-sprite {
+  animation:
+    cat-frames .8s steps(4) infinite,
+    sleep 3.2s ease-in-out infinite;
+  filter: saturate(.86);
 }
 
-.hint b {
-    color: var(--pink);
+.pudin.dancing .cat-sprite {
+  animation:
+    cat-frames .36s steps(4) infinite,
+    dance .35s ease-in-out infinite alternate;
 }
 
-
-/* ---------------------------------------------------------
-   8. JUMPSCARE: TEXTO, OJOS Y SACHET CAÍDO
-   --------------------------------------------------------- */
-
-/* Texto glitch */
-
-.glitchtext {
-    position: absolute;
-    top: 17%;
-
-    color: var(--pink);
-    text-shadow: 3px 0 var(--cyan);
-    letter-spacing: 0.15em;
+.pudin.angry .cat-sprite {
+  animation:
+    cat-frames .3s steps(4) infinite,
+    angry .12s linear infinite;
+  filter: drop-shadow(0 0 12px #ff4d4d);
 }
 
-/* Ojos brillantes */
-
-.eyes {
-    display: flex;
-    gap: 30px;
-    margin-top: 20px;
-
-    animation: pulse 0.3s infinite alternate;
+.zzz {
+  position: absolute;
+  top: -10px;
+  right: 5px;
+  color: #d7b5ff;
+  font: 22px "Share Tech Mono", monospace;
+  text-shadow: 0 0 12px #d946ef;
+  animation: zzz-float 2s ease-in-out infinite;
 }
 
-.eyes i {
-    width: 14px;
-    height: 8px;
-    border-radius: 50%;
-
-    background: white;
-
-    box-shadow:
-        0 0 13px 6px var(--cyan),
-        0 0 34px var(--pink);
+.zzz span {
+  font-size: 17px;
 }
 
-/* Sachet que cae durante el susto */
-
-.fallen {
-    position: absolute;
-    bottom: 10%;
-    width: 80px;
-
-    transform: rotate(13deg);
-    filter: drop-shadow(0 0 12px var(--gold));
-
-    animation: drop 0.38s forwards;
+.zzz i {
+  font-size: 12px;
+  font-style: normal;
 }
 
-.fallen img {
-    width: 100%;
+.zzz[hidden] {
+  display: none;
 }
 
-/* Imagen grande de Pudin durante el jumpscare */
-
-.attackart {
-    position: absolute;
-    inset: 0;
-
-    display: grid;
-    place-items: center;
+.cat-shadow {
+  display: block;
+  width: 65px;
+  height: 12px;
+  margin: -8px auto 0;
+  border-radius: 50%;
+  background: #05020c99;
+  filter: blur(4px);
 }
 
-.attackart img {
-    width: min(110vw, 980px);
-    max-height: 100svh;
-    object-fit: contain;
+/* ==================================================
+   5. SACHET SECRETO
+   Fondo transparente: solo se muestra el sprite.
+   El brillo neón sustituye al antiguo rectángulo naranja.
+   ================================================== */
 
-    filter: drop-shadow(0 0 28px #ff55cc88);
-
-    transform: scale(0.1);
-    animation: slam 0.48s cubic-bezier(0.12, 0.82, 0.18, 1) forwards;
+.sachet {
+  position: absolute;
+  bottom: 8%;
+  left: 62%;
+  z-index: 6;
+  padding: 5px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  box-shadow: none;
+  transform: rotate(-8deg);
+  transition:
+    transform .2s ease,
+    filter .2s ease,
+    border-color .2s ease;
 }
 
-/* Texto grande del impacto */
+/* Conserva el texto si existe en el HTML, pero no lo muestra. */
 
-.impact {
-    position: absolute;
-    bottom: 8%;
-    z-index: 3;
-
-    font: clamp(34px, 8vw, 70px) 'VT323', monospace;
-    color: white;
-
-    text-shadow:
-        4px 4px var(--pink),
-        -3px -2px var(--cyan);
+.sachet span {
+  display: none;
 }
 
-
-/* ---------------------------------------------------------
-   9. PANTALLA FINAL
-   --------------------------------------------------------- */
-
-.ending h1 {
-    font: clamp(34px, 7vw, 66px) 'VT323', monospace;
-    line-height: 0.9;
-    margin: 12px 0;
+.sachet img {
+  display: block;
+  width: 42px;
+  height: 42px;
+  margin: auto;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter:
+    drop-shadow(0 0 4px #ff9d32)
+    drop-shadow(0 0 9px #ff4fd8);
+  animation: sachet-glow 2s ease-in-out infinite;
 }
 
-/*
-   PUDIN BAILANDO
-   La imagen debe estar en:
-   assets/pudin-incident/pudin-dance.png
-
-   Este sprite usa 4 fotogramas horizontales.
-   --------------------------------------------------------- */
-
-.dance-sprite {
-    width: 128px;
-    height: 128px;
-
-    background-image: url('assets/pudin-incident/pudin-dance.png');
-    background-repeat: no-repeat;
-    background-size: 512px 128px;
-
-    image-rendering: pixelated;
-    filter: drop-shadow(0 0 18px #ffbf4777);
-
-    animation: dance 0.72s steps(4) infinite;
+.sachet:hover,
+.sachet:focus-visible {
+  border-color: #ff4fd888;
+  outline: none;
+  filter: drop-shadow(0 0 12px #ff4fd8);
+  transform: rotate(0deg) scale(1.12);
 }
 
-/* Texto "has sido pudinizado" */
-
-.pudinized {
-    color: var(--cyan);
-    letter-spacing: 0.15em;
+.sachet.being-eaten {
+  animation: sachet-bounce .2s linear 3;
 }
 
-/* Botón para repetir la broma */
+/* ==================================================
+   6. HUELLITAS Y EFECTOS SECRETOS
+   ================================================== */
 
-.again {
-    margin-top: 15px;
-    padding: 13px 18px;
-
-    background: transparent;
-    color: var(--pink);
-    border: 1px solid var(--pink);
-
-    font-family: inherit;
-    cursor: pointer;
-
-    box-shadow: 0 0 16px #ff55cc22;
+.paw-trail {
+  position: absolute;
+  bottom: 17%;
+  left: 12%;
+  color: var(--pink);
+  font-size: 23px;
+  opacity: .75;
+  filter: drop-shadow(0 0 8px var(--pink));
+  transform: rotate(-15deg);
 }
 
-.again:hover {
-    background: #ff55cc18;
+.paw-particle {
+  position: absolute;
+  z-index: 6;
+  width: 28px;
+  height: 27px;
+  pointer-events: none;
+  transform: rotate(var(--paw-tilt, 0deg));
+  animation: paw-fade 1.75s ease-out forwards;
+  filter:
+    drop-shadow(0 0 3px var(--pink))
+    drop-shadow(0 0 8px var(--pink));
 }
 
-/* Enlace para volver a la landing */
-
-.back {
-    color: #a99bc8;
-    text-decoration: none;
-    font-size: 11px;
-    margin-top: 23px;
+.paw-particle svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
+.paw-particle .paw-toe,
+.paw-particle .paw-pad {
+  fill: var(--pink);
+  stroke: #ffc4ff;
+  stroke-width: 1.1;
+}
 
-/* ---------------------------------------------------------
-   10. EFECTOS DE PANTALLA
-   --------------------------------------------------------- */
+.paw-particle:nth-child(odd) {
+  filter:
+    drop-shadow(0 0 3px var(--cyan))
+    drop-shadow(0 0 8px var(--cyan));
+}
 
-/* Destello blanco */
+.paw-particle:nth-child(odd) .paw-toe,
+.paw-particle:nth-child(odd) .paw-pad {
+  fill: var(--cyan);
+  stroke: #b8f8ff;
+}
 
-.flash {
-    position: absolute;
-    inset: 0;
+.glitch-toast {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  z-index: 20;
+  max-width: 90%;
+  padding: 10px 14px;
+  border: 1px solid var(--cyan);
+  background: #10071de8;
+  color: var(--cyan);
+  font: 11px "Share Tech Mono", monospace;
+  text-align: center;
+  box-shadow: 0 0 20px #00d9ff33;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -10px);
+  transition: opacity .15s, transform .15s;
+}
 
-    background: white;
+.glitch-toast.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.scene.glitching {
+  animation: scene-glitch .12s steps(2) 5;
+}
+
+/* ==================================================
+   7. BOTÓN PARA ABRIR EL PANEL
+   ================================================== */
+
+.panel-toggle {
+  position: fixed;
+  top: 22px;
+  right: 22px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 16px;
+  border: 1px solid var(--pink);
+  background: #110923ef;
+  color: #ffc9ff;
+  font: 12px "Share Tech Mono", monospace;
+  letter-spacing: .08em;
+  box-shadow: 0 0 22px #b52bff33;
+}
+
+.panel-toggle:hover {
+  background: #2b1041;
+}
+
+/* ==================================================
+   8. PANEL DE CONTROLES
+   ================================================== */
+
+.control-panel {
+  position: fixed;
+  top: 70px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 25;
+  width: min(390px, calc(100vw - 32px));
+  overflow: auto;
+  padding: 12px;
+  border: 1px solid #6e2da0;
+  border-radius: 14px;
+  background: #0b0618ef;
+  box-shadow:
+    0 0 35px #05010f99,
+    0 0 28px #a72bff1f;
+  backdrop-filter: blur(14px);
+  scrollbar-color: #7132a0 #10081f;
+  transition: transform .28s ease, opacity .28s ease;
+}
+
+.control-panel.closed {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(calc(100% + 24px));
+}
+
+.control-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+}
+
+.panel {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #432164;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #180d2bef, #0b0719f2);
+  box-shadow: inset 0 1px #ffffff08;
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 12px;
+}
+
+.panel-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #6b2c98;
+  background: #210e39;
+  color: var(--pink);
+  font-size: 22px;
+}
+
+.panel h2 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.panel-heading .eyebrow {
+  margin-bottom: 4px;
+  color: var(--cyan);
+  font: 9px "Share Tech Mono", monospace;
+}
+
+.signal {
+  margin-left: auto;
+  color: #6cffb2;
+  font: 8px "Share Tech Mono", monospace;
+  white-space: nowrap;
+}
+
+/* ==================================================
+   9. MÚSICA Y VOLUMEN
+   ================================================== */
+
+.music-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.music-option {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 1px 8px;
+  padding: 10px 8px;
+  border: 1px solid #432164;
+  background: #10091e;
+  text-align: left;
+}
+
+.music-option > span {
+  grid-row: span 2;
+  color: var(--cyan);
+  font-size: 23px;
+}
+
+.music-option b {
+  font: 12px "Share Tech Mono", monospace;
+}
+
+.music-option small {
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.music-option.active {
+  border-color: var(--pink);
+  box-shadow: inset 0 0 15px #ff4fd81c;
+}
+
+.music-option.active > span {
+  color: var(--pink);
+}
+
+.music-note,
+.tiny-note {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.audio-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.primary-button,
+.secondary-button {
+  padding: 10px 12px;
+  border: 1px solid var(--pink);
+  background: #3a1248;
+  color: #fff;
+  font: 11px "Share Tech Mono", monospace;
+  letter-spacing: .04em;
+}
+
+.primary-button:hover {
+  background: #591b69;
+  box-shadow: 0 0 15px #ff4fd833;
+}
+
+.secondary-button {
+  border-color: #543276;
+  background: #160c27;
+}
+
+.volume-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font: 9px "Share Tech Mono", monospace;
+}
+
+.volume-label input {
+  width: 75px;
+  accent-color: var(--pink);
+}
+
+/* ==================================================
+   10. TEMPORIZADOR POMODORO
+   ================================================== */
+
+.timer-readout {
+  padding: 4px;
+  color: #f2b1ff;
+  font: 48px "Share Tech Mono", monospace;
+  text-align: center;
+  text-shadow: 0 0 20px #d946ef55;
+}
+
+.timer-track {
+  height: 4px;
+  margin: 5px 0 14px;
+  background: #29163d;
+}
+
+.timer-track span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--pink), var(--cyan));
+  transition: width .3s;
+}
+
+.timer-modes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.mode-button {
+  padding: 8px 3px;
+  border: 1px solid #3b2054;
+  background: #10091e;
+  font: 10px "Share Tech Mono", monospace;
+}
+
+.mode-button small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 8px;
+}
+
+.mode-button.selected {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.timer-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.timer-actions button {
+  flex: 1;
+}
+
+/* ==================================================
+   11. INTERACCIONES CON PUDIN
+   ================================================== */
+
+.cat-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.cat-actions button {
+  padding: 12px 8px;
+  border: 1px solid #4b2866;
+  background: #10091e;
+  font-size: 11px;
+}
+
+.cat-actions button:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+/* ==================================================
+   12. ANIMACIONES
+   ================================================== */
+
+@keyframes rain {
+  to {
+    background-position: 0 25px;
+  }
+}
+
+@keyframes blink {
+  50% {
     opacity: 0;
-    pointer-events: none;
-    z-index: 9;
+  }
 }
-
-.scene.flash .flash {
-    animation: flash 0.2s;
-}
-
-/* Sacudida de pantalla */
-
-.scene.shake {
-    animation: shake 0.065s 10;
-}
-
-/* Distorsión glitch */
-
-.scene.glitch {
-    animation: glitch 0.1s 6;
-}
-
-
-/* ---------------------------------------------------------
-   11. ANIMACIONES
-   --------------------------------------------------------- */
-
-/* Sachet flotante */
 
 @keyframes float {
-    50% {
-        translate: 0 -12px;
-    }
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-9px);
+  }
 }
-
-/* Ojos pulsantes */
-
-@keyframes pulse {
-    to {
-        transform: scale(1.2);
-        filter: brightness(1.8);
-    }
-}
-
-/* Caída del sachet */
-
-@keyframes drop {
-    to {
-        bottom: 7%;
-        transform: rotate(13deg) scale(0.8);
-    }
-}
-
-/* Entrada brusca de Pudin */
-
-@keyframes slam {
-    65% {
-        transform: scale(1.08) rotate(2deg);
-    }
-
-    82% {
-        transform: scale(0.96);
-    }
-
-    100% {
-        transform: scale(1.04);
-    }
-}
-
-/* Destello */
-
-@keyframes flash {
-    to {
-        opacity: 0;
-    }
-}
-
-/* Sacudida */
-
-@keyframes shake {
-    25% {
-        translate: 7px -4px;
-    }
-
-    50% {
-        translate: -6px 3px;
-    }
-
-    75% {
-        translate: 3px 5px;
-    }
-}
-
-/* Glitch de color y posición */
-
-@keyframes glitch {
-    25% {
-        filter: hue-rotate(100deg);
-        translate: 6px -3px;
-    }
-
-    50% {
-        filter: contrast(2);
-        translate: -5px 2px;
-    }
-}
-
-/* Baile de Pudin: 4 fotogramas */
 
 @keyframes dance {
-    from {
-        background-position: 0 0;
-    }
+  from {
+    transform: rotate(-13deg) translateY(0);
+  }
 
-    to {
-        background-position: -512px 0;
-    }
+  to {
+    transform: rotate(13deg) translateY(-10px);
+  }
 }
 
-/* Baile adaptado a pantallas pequeñas */
+@keyframes sleep {
+  0%, 100% {
+    transform: translateY(0) rotate(-3deg);
+  }
 
-@keyframes dance-mobile {
-    from {
-        background-position: 0 0;
-    }
-
-    to {
-        background-position: -448px 0;
-    }
+  50% {
+    transform: translateY(3px) rotate(3deg);
+  }
 }
 
+@keyframes angry {
+  0% {
+    transform: translateX(-3px);
+  }
 
-/* ---------------------------------------------------------
-   12. ADAPTACIÓN A MÓVILES
-   --------------------------------------------------------- */
-
-@media (max-width: 520px) {
-    .hud,
-    .foot {
-        font-size: 8px;
-    }
-
-    .packet {
-        width: 175px;
-    }
-
-    .prompt {
-        margin: 13px 0 20px;
-    }
-
-    .attackart img {
-        width: 125vw;
-    }
-
-    .impact {
-        bottom: 10%;
-    }
-
-    .dance-sprite {
-        width: 112px;
-        height: 112px;
-
-        background-size: 448px 112px;
-        animation: dance-mobile 0.72s steps(4) infinite;
-    }
+  100% {
+    transform: translateX(3px);
+  }
 }
 
+@keyframes cat-frames {
+  from {
+    background-position: 0 0;
+  }
 
-/* ---------------------------------------------------------
-   13. ACCESIBILIDAD
-   Reduce las animaciones si el dispositivo lo solicita.
-   --------------------------------------------------------- */
+  to {
+    background-position: -512px 0;
+  }
+}
+
+@keyframes zzz-float {
+  0%, 100% {
+    opacity: .6;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes sachet-glow {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 3px #ff9d32)
+      drop-shadow(0 0 7px #ff4fd8);
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 7px #ffcf52)
+      drop-shadow(0 0 15px #ff4fd8)
+      drop-shadow(0 0 22px #9b5cff);
+  }
+}
+
+@keyframes sachet-bounce {
+  50% {
+    transform: rotate(9deg) scale(.88);
+  }
+}
+
+@keyframes paw-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) scale(.65) rotate(var(--paw-tilt, 0deg));
+  }
+
+  18% {
+    opacity: .98;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-18px) scale(1.08) rotate(var(--paw-tilt, 0deg));
+  }
+}
+
+@keyframes scene-glitch {
+  0%, 100% {
+    filter: none;
+  }
+
+  50% {
+    filter: hue-rotate(90deg) contrast(1.2);
+  }
+}
+
+/* ==================================================
+   13. TABLET Y MÓVILES
+   ================================================== */
+
+@media (max-width: 700px) {
+  .room-brand {
+    top: 12px;
+    left: 12px;
+    padding: 10px 12px;
+  }
+
+  .room-brand small {
+    font-size: 7px;
+  }
+
+  .panel-toggle {
+    top: 12px;
+    right: 12px;
+    padding: 10px 12px;
+  }
+
+  .control-panel {
+    top: 60px;
+    right: 8px;
+    bottom: 8px;
+    width: min(360px, calc(100vw - 16px));
+  }
+
+  .pudin {
+    top: 66%;
+    left: 10%;
+    width: 104px;
+    height: 104px;
+  }
+
+  .cat-sprite {
+    width: 104px;
+    height: 104px;
+    background-size: 416px 104px;
+  }
+
+  .zzz {
+    top: -7px;
+    right: 0;
+    font-size: 18px;
+  }
+
+  .sachet {
+    right: 8%;
+    bottom: 9%;
+    left: auto;
+  }
+
+  .sachet img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .scene-caption {
+    bottom: 54px;
+    left: 10px;
+    max-width: 75%;
+    font-size: 8px;
+  }
+
+  .room-footer {
+    bottom: 8px;
+    left: 8px;
+    font-size: 7px;
+  }
+
+  .room-footer span:last-child {
+    display: none;
+  }
+}
+
+/* ==================================================
+   14. ACCESIBILIDAD: REDUCIR MOVIMIENTO
+   ================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-    }
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+
+  .control-panel {
+    transition: none;
+  }
 }
