@@ -1110,3 +1110,387 @@ button {
     animation: none;
   }
 }
+
+/* ==================================================
+   18. NUEVO: VENTANAS GRANDES DE EVENTOS
+   MIAU · POMODORO · ENERGÍA CRÍTICA
+   ================================================== */
+
+/* Contenedor de la ventana */
+
+#event-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Importante: ocultar el modal cuando el JS lo cierra */
+
+#event-modal[hidden] {
+  display: none !important;
+}
+
+/* Fondo oscuro detrás de la ventana */
+
+.event-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at center,
+      #32104c88 0%,
+      #080313e8 70%
+    );
+  backdrop-filter: blur(7px);
+  animation: event-backdrop-in .2s ease-out both;
+}
+
+/* Ventana principal */
+
+.event-modal-window {
+  position: relative;
+  z-index: 1;
+  width: min(490px, 100%);
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  padding: clamp(22px, 5vw, 34px);
+  border: 1px solid var(--pink);
+  border-radius: 14px;
+  background:
+    linear-gradient(145deg, #1b0b30f7, #090514fa);
+  color: var(--text);
+  box-shadow:
+    0 0 0 1px #9b5cff33,
+    0 0 25px #ff4fd844,
+    0 0 65px #9b5cff33,
+    inset 0 0 28px #9b5cff0c;
+  font-family: "Space Grotesk", sans-serif;
+  animation: event-window-in .32s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+/* Línea decorativa superior */
+
+.event-modal-window::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12%;
+  width: 76%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--cyan),
+    var(--pink),
+    transparent
+  );
+  box-shadow: 0 0 14px #ff4fd8aa;
+}
+
+/* Esquinas decorativas */
+
+.event-modal-window::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 22px;
+  height: 22px;
+  border-right: 1px solid var(--cyan);
+  border-bottom: 1px solid var(--cyan);
+  opacity: .7;
+  pointer-events: none;
+}
+
+/* Botón de cerrar */
+
+#event-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid #643477;
+  border-radius: 6px;
+  background: #10071de8;
+  color: var(--pink);
+  font: 20px "Share Tech Mono", monospace;
+  transition:
+    color .15s ease,
+    border-color .15s ease,
+    background .15s ease,
+    transform .15s ease;
+}
+
+#event-modal-close:hover,
+#event-modal-close:focus-visible {
+  border-color: var(--cyan);
+  outline: none;
+  background: #211034;
+  color: var(--cyan);
+  transform: scale(1.06);
+}
+
+/* Icono o símbolo del evento */
+
+#event-modal-icon {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  margin: 2px auto 18px;
+  border: 1px solid #8b3bba;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle, #3a1457, #120820);
+  color: var(--pink);
+  font-size: 38px;
+  line-height: 1;
+  text-shadow:
+    0 0 10px #ff4fd8,
+    0 0 24px #9b5cff;
+  box-shadow:
+    0 0 18px #ff4fd82b,
+    inset 0 0 18px #9b5cff22;
+  animation: event-icon-pulse 2.4s ease-in-out infinite;
+}
+
+/* Etiqueta superior */
+
+#event-modal-eyebrow {
+  margin: 0 0 10px;
+  color: var(--cyan);
+  font: 10px/1.6 "Share Tech Mono", monospace;
+  letter-spacing: .16em;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+/* Título principal */
+
+#event-modal-title {
+  margin: 0 0 16px;
+  color: #ffe4ff;
+  font-size: clamp(22px, 4.5vw, 31px);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-wrap: balance;
+  text-shadow:
+    0 0 12px #ff4fd844,
+    0 0 25px #9b5cff22;
+  overflow-wrap: anywhere;
+}
+
+/* Mensaje del evento */
+
+#event-modal-message {
+  margin: 0 auto 24px;
+  max-width: 390px;
+  color: #cbb8e1;
+  font-size: 14px;
+  line-height: 1.75;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+/* Botón de confirmación */
+
+#event-modal-confirm {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 16px;
+  border: 1px solid var(--pink);
+  border-radius: 5px;
+  background: linear-gradient(100deg, #42154e, #24103e);
+  color: #ffe5ff;
+  font: 12px "Share Tech Mono", monospace;
+  letter-spacing: .1em;
+  text-align: center;
+  box-shadow: 0 0 16px #ff4fd81c;
+  transition:
+    border-color .15s ease,
+    color .15s ease,
+    background .15s ease,
+    box-shadow .15s ease;
+}
+
+#event-modal-confirm:hover,
+#event-modal-confirm:focus-visible {
+  border-color: var(--cyan);
+  outline: none;
+  background: #211039;
+  color: var(--cyan);
+  box-shadow: 0 0 20px #00d9ff30;
+}
+
+/* ==================================================
+   19. GLITCH PARA EVENTOS IMPORTANTES
+   ================================================== */
+
+.scene.event-glitching {
+  animation: event-scene-glitch .12s steps(2, end) 5;
+}
+
+.event-modal-window.event-glitching {
+  animation:
+    event-window-glitch .12s steps(2, end) 5,
+    event-window-in .32s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+/* ==================================================
+   20. ANIMACIONES DE LAS VENTANAS
+   ================================================== */
+
+@keyframes event-backdrop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes event-window-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes event-icon-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 18px #ff4fd82b,
+      inset 0 0 18px #9b5cff22;
+  }
+
+  50% {
+    transform: scale(1.04);
+    box-shadow:
+      0 0 26px #ff4fd855,
+      inset 0 0 22px #9b5cff33;
+  }
+}
+
+@keyframes event-scene-glitch {
+  0%, 100% {
+    filter: none;
+    transform: translateX(0);
+  }
+
+  25% {
+    filter: hue-rotate(70deg) contrast(1.15);
+    transform: translateX(-2px);
+  }
+
+  50% {
+    filter: hue-rotate(-60deg) contrast(1.3);
+    transform: translateX(2px);
+  }
+
+  75% {
+    filter: saturate(1.8);
+    transform: translateX(-1px);
+  }
+}
+
+@keyframes event-window-glitch {
+  0%, 100% {
+    filter: none;
+    transform: translateX(0);
+  }
+
+  25% {
+    filter: hue-rotate(90deg);
+    transform: translateX(-3px);
+  }
+
+  50% {
+    filter: contrast(1.5);
+    transform: translateX(3px);
+  }
+
+  75% {
+    filter: hue-rotate(-90deg);
+    transform: translateX(-1px);
+  }
+}
+
+/* ==================================================
+   21. ADAPTACIÓN A PANTALLAS PEQUEÑAS
+   ================================================== */
+
+@media (max-width: 480px) {
+  #event-modal {
+    padding: 12px;
+  }
+
+  .event-modal-window {
+    max-height: calc(100dvh - 24px);
+    padding: 26px 18px 20px;
+    border-radius: 10px;
+  }
+
+  #event-modal-close {
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+  }
+
+  #event-modal-icon {
+    width: 62px;
+    height: 62px;
+    margin-top: 8px;
+    font-size: 32px;
+  }
+
+  #event-modal-eyebrow {
+    font-size: 9px;
+  }
+
+  #event-modal-title {
+    font-size: 23px;
+  }
+
+  #event-modal-message {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+}
+
+/* ==================================================
+   22. ACCESIBILIDAD PARA LAS VENTANAS
+   ================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .event-modal-backdrop,
+  .event-modal-window,
+  #event-modal-icon,
+  .scene.event-glitching,
+  .event-modal-window.event-glitching {
+    animation: none !important;
+  }
+}
+
+/* Seguridad: una ventana oculta no debe aparecer */
+#event-modal[hidden] {
+  display: none !important;
+}
