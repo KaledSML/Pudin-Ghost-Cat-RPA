@@ -74,7 +74,7 @@
       <div class="floor"></div>
       <div class="rug"></div>
 
-      <!-- Aquí aparecen las huellitas de Pudin -->
+      <!-- Huellitas de Pudin -->
       <div class="paw-trail" id="paw-trail" aria-hidden="true"></div>
 
       <!-- SACHET SECRETO -->
@@ -88,7 +88,7 @@
         <img src="assets/room/sprites/sachet.png" alt="">
       </button>
 
-      <!-- PUDIN: conservamos el sprite original -->
+      <!-- PUDIN: sprite original -->
       <button
         class="pudin sleeping"
         id="pudin"
@@ -98,7 +98,6 @@
       >
         <span class="cat-sprite" aria-hidden="true"></span>
 
-        <!-- Zzz aparece cuando Pudin duerme -->
         <span class="zzz" aria-hidden="true">
           z<span>z</span><i>z</i>
         </span>
@@ -106,7 +105,7 @@
         <span class="cat-shadow"></span>
       </button>
 
-      <!-- NUEVO: globo para los diálogos de Pudin -->
+      <!-- Diálogos habituales de Pudin -->
       <div
         class="cat-dialogue"
         id="cat-dialogue"
@@ -115,7 +114,7 @@
         hidden
       ></div>
 
-      <!-- Mensajes del estado actual del gato -->
+      <!-- Estado actual del gato -->
       <div
         class="scene-caption"
         id="cat-status"
@@ -125,7 +124,7 @@
         PUDIN STATUS: SLEEP · NO MOLESTAR
       </div>
 
-      <!-- Alertas del sistema: aquí aparecen los mensajes cyberpunk -->
+      <!-- Notificaciones pequeñas habituales -->
       <div
         class="glitch-toast"
         id="glitch-toast"
@@ -154,9 +153,7 @@
 
       <section class="control-grid">
 
-        <!-- =========================================
-             RADIO ONLINE
-             ========================================= -->
+        <!-- RADIO ONLINE -->
         <article class="panel music-panel">
 
           <div class="panel-heading">
@@ -172,7 +169,6 @@
             </span>
           </div>
 
-          <!-- Selector de emisoras -->
           <div
             class="music-options"
             role="group"
@@ -213,7 +209,6 @@
             La transmisión online se conectará en el siguiente paso.
           </p>
 
-          <!-- Encendido y volúmenes independientes -->
           <div class="audio-controls">
 
             <button
@@ -261,10 +256,7 @@
 
         </article>
 
-        <!-- =========================================
-             POMODORO
-             Conservamos los tres modos originales.
-             ========================================= -->
+        <!-- POMODORO -->
         <article class="panel pomodoro-panel">
 
           <div class="panel-heading">
@@ -280,17 +272,14 @@
             </span>
           </div>
 
-          <!-- Tiempo restante -->
           <div class="timer-readout" id="timer" aria-live="off">
             25:00
           </div>
 
-          <!-- Barra de progreso del temporizador -->
           <div class="timer-track">
             <span id="timer-progress"></span>
           </div>
 
-          <!-- Elegir foco o descanso -->
           <div class="timer-modes">
 
             <button
@@ -325,7 +314,6 @@
 
           </div>
 
-          <!-- Iniciar, pausar y reiniciar -->
           <div class="timer-actions">
 
             <button
@@ -353,9 +341,7 @@
 
         </article>
 
-        <!-- =========================================
-             CONTROLES Y ESTADO DE PUDIN
-             ========================================= -->
+        <!-- CONTROLES Y ESTADO DE PUDIN -->
         <article class="panel interaction-panel">
 
           <div class="panel-heading">
@@ -367,7 +353,7 @@
             </div>
           </div>
 
-          <!-- NUEVO: energía vinculada al Pomodoro -->
+          <!-- ENERGÍA DE PUDIN -->
           <div class="pudin-energy" id="pudin-energy">
 
             <div class="energy-heading">
@@ -375,7 +361,6 @@
               <span id="energy-value">85%</span>
             </div>
 
-            <!-- La barra cambiará mediante JavaScript -->
             <div
               class="energy-track"
               id="energy-track"
@@ -397,7 +382,7 @@
 
           </div>
 
-          <!-- Acciones originales del gato -->
+          <!-- ACCIONES DEL GATO -->
           <div class="cat-actions">
 
             <button data-action="pet" type="button">
@@ -456,6 +441,82 @@
     </div>
 
   </main>
+
+  <!-- =========================================
+       NUEVA VENTANA DE NOTIFICACIONES IMPORTANTES
+       Se mantiene oculta hasta que JavaScript la abra.
+       ========================================= -->
+  <div
+    class="event-modal"
+    id="event-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="event-modal-title"
+    aria-describedby="event-modal-message"
+    aria-hidden="true"
+    hidden
+  >
+    <div class="event-modal-backdrop" data-modal-close></div>
+
+    <section class="event-modal-window">
+
+      <div class="event-modal-header">
+        <span class="event-modal-system">
+          PUDIN.SYS // EVENT NOTIFICATION
+        </span>
+
+        <button
+          class="event-modal-close"
+          id="event-modal-close"
+          type="button"
+          aria-label="Cerrar notificación"
+          title="Cerrar (Esc)"
+          data-modal-close
+        >
+          ×
+        </button>
+      </div>
+
+      <div class="event-modal-content">
+
+        <div
+          class="event-modal-icon"
+          id="event-modal-icon"
+          aria-hidden="true"
+        >
+          ฅ
+        </div>
+
+        <p class="event-modal-eyebrow" id="event-modal-eyebrow">
+          SYSTEM MESSAGE
+        </p>
+
+        <h2 id="event-modal-title">
+          Pudin tiene algo que decirte
+        </h2>
+
+        <p id="event-modal-message">
+          Miau. El sistema felino está esperando.
+        </p>
+
+        <div class="event-modal-divider"></div>
+
+        <p class="event-modal-footer">
+          NO PANIC // PUDIN IS WATCHING YOU
+        </p>
+
+        <button
+          class="primary-button event-modal-confirm"
+          id="event-modal-confirm"
+          type="button"
+        >
+          ENTENDIDO, MIAU
+        </button>
+
+      </div>
+
+    </section>
+  </div>
 
   <!-- EFECTOS DE SONIDO LOCALES -->
   <audio
