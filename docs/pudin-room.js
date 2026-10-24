@@ -1,4 +1,3 @@
-
 (() => {
   "use strict";
 
@@ -20,6 +19,18 @@
   const energyBar = document.querySelector("#energy-bar");
   const energyTrack = document.querySelector("#energy-track");
   const energyMessage = document.querySelector("#energy-message");
+
+  // Ventana grande para eventos importantes.
+  const eventModal = document.querySelector("#event-modal");
+  const eventModalWindow = eventModal?.querySelector(".event-modal-window");
+  const eventModalIcon = document.querySelector("#event-modal-icon");
+  const eventModalEyebrow = document.querySelector("#event-modal-eyebrow");
+  const eventModalTitle = document.querySelector("#event-modal-title");
+  const eventModalMessage = document.querySelector("#event-modal-message");
+  const eventModalClose = document.querySelector("#event-modal-close");
+  const eventModalConfirm = document.querySelector("#event-modal-confirm");
+  let lastModalTrigger = null;
+  let eventGlitchTimer = null;
 
   const sounds = {
     salto: document.querySelector("#sfx-salto"),
@@ -133,6 +144,82 @@
   }
 
   // ==========================================
+  // VENTANA GRANDE DE EVENTOS IMPORTANTES
+  // ==========================================
+
+  function triggerGlitch() {
+    if (!scene) return;
+
+    scene.classList.add("event-glitching");
+    eventModalWindow?.classList.remove("event-glitching");
+
+    // Reinicia la animación para que también funcione en eventos seguidos.
+    void eventModalWindow?.offsetWidth;
+    eventModalWindow?.classList.add("event-glitching");
+
+    clearTimeout(eventGlitchTimer);
+    eventGlitchTimer = setTimeout(() => {
+      scene.classList.remove("event-glitching");
+      eventModalWindow?.classList.remove("event-glitching");
+    }, 850);
+  }
+
+  function showEventModal({
+    icon = "ฅ",
+    eyebrow = "SYSTEM MESSAGE",
+    title = "Pudin tiene algo que decirte",
+    message = "Miau. El sistema felino está esperando."
+  } = {}) {
+    if (!eventModal) return;
+
+    lastModalTrigger = document.activeElement;
+
+    if (eventModalIcon) eventModalIcon.textContent = icon;
+    if (eventModalEyebrow) eventModalEyebrow.textContent = eyebrow;
+    if (eventModalTitle) eventModalTitle.textContent = title;
+    if (eventModalMessage) eventModalMessage.textContent = message;
+
+    eventModal.hidden = false;
+    eventModal.setAttribute("aria-hidden", "false");
+    triggerGlitch();
+
+    // Mueve el foco a un control útil sin pausar ni reiniciar el Pomodoro.
+    requestAnimationFrame(() => {
+      if (!eventModal.hidden) eventModalClose?.focus();
+    });
+  }
+
+  function closeEventModal() {
+    if (!eventModal || eventModal.hidden) return;
+
+    eventModal.hidden = true;
+    eventModal.setAttribute("aria-hidden", "true");
+    eventModalWindow?.classList.remove("event-glitching");
+
+    if (lastModalTrigger && typeof lastModalTrigger.focus === "function") {
+      lastModalTrigger.focus({ preventScroll: true });
+    }
+  }
+
+  eventModal?.querySelectorAll("[data-modal-close]").forEach(element => {
+    element.addEventListener("click", event => {
+      // El fondo cierra la ventana; los botones la cierran directamente.
+      if (element.classList.contains("event-modal-backdrop") &&
+          event.target !== element) return;
+      closeEventModal();
+    });
+  });
+
+  eventModalClose?.addEventListener("click", closeEventModal);
+  eventModalConfirm?.addEventListener("click", closeEventModal);
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && eventModal && !eventModal.hidden) {
+      closeEventModal();
+    }
+  });
+
+  // ==========================================
   // SONIDOS
   // ==========================================
 
@@ -167,6 +254,7 @@
 
   let energy = 100;
   let lowEnergyWarningShown = false;
+  let sleepingFromZero = false;
 
   const MAX_ENERGY = 100;
 
@@ -229,8 +317,24 @@
   }
 
   function changeEnergy(amount) {
+    const previousEnergy = energy;
     energy = Math.max(0, Math.min(MAX_ENERGY, energy + amount));
     renderEnergy();
+
+    // Al llegar a cero, Pudin entra en siesta profunda.
+    // Solo el sachet podrá sacarlo de este estado.
+    if (energy <= 0 && previousEnergy > 0 && !sleepingFromZero) {
+      sleepingFromZero = true;
+      setState("sleep", { sound: "mimir" });
+      showToast("CRITICAL ENERGY // PUDIN ENTERED SLEEP MODE");
+      setDialogue("Batería felina agotada... necesito un sachet para despertar.", 5000);
+      showEventModal({
+        icon: "💤",
+        eyebrow: "CRITICAL ENERGY // AUTO-SLEEP",
+        title: "Pudin se quedó sin energía",
+        message: "El sistema felino entró en modo siesta. Acerca el sachet secreto para recargarlo y despertarlo."
+      });
+    }
   }
 
   // ==========================================
@@ -354,12 +458,20 @@
     setTimeout(() => paw.remove(), 1750);
   }
 
-  function wake() {
-    if (state !== "sleep") return;
+  function wake(force = false) {
+    if (sleepingFromZero && !force) {
+      showToast("SLEEP LOCKED // BRING A SACHET");
+      setDialogue("No puedo despertar todavía... necesito un sachet.", 3500);
+      return false;
+    }
+
+    // El bloqueo de energía cero se mantiene hasta que el sachet se consume.
+    if (state !== "sleep") return true;
 
     setState("idle", { sound: "salto" });
     showToast("WAKE EVENT: PUDIN ONLINE");
     setDialogue(randomLine(dialogues.wake));
+    return true;
   }
 
   // ==========================================
@@ -367,7 +479,8 @@
   // ==========================================
 
   function offerSachet() {
-    wake();
+    // El sachet es la única forma de despertar a Pudin con energía agotada.
+    wake(true);
 
     const sachetRect = sachet.getBoundingClientRect();
     const sceneRect = scene.getBoundingClientRect();
@@ -390,6 +503,7 @@
 
       // La comida restaura parte de la energía.
       changeEnergy(35);
+      sleepingFromZero = false;
 
       sachet.classList.add("being-eaten");
 
@@ -423,8 +537,25 @@
   // CLIC Y ARRASTRE DE PUDIN
   // ==========================================
 
+  function petPudin() {
+    setState("pet", { sound: "salto" });
+    setDialogue("Miau. Sí, así está bien. Sigue acariciándome.", 4200);
+    showToast("MEOW.EXE // AFFECTION DETECTED");
+
+    // Acariciar no abre la ventana glitcheada.
+    setTimeout(() => {
+      if (!dragging && state === "pet") setState("idle");
+    }, 1600);
+  }
+
   pudin.addEventListener("click", () => {
     if (moved) return;
+
+    if (sleepingFromZero) {
+      showToast("SLEEP LOCKED // BRING A SACHET");
+      setDialogue("Mmm... no despierto hasta que traigas un sachet.", 3500);
+      return;
+    }
 
     if (state === "sleep") {
       wake();
@@ -437,15 +568,15 @@
       return;
     }
 
-    setState("pet", { sound: "salto" });
-    setDialogue(randomLine(dialogues.pet));
-
-    setTimeout(() => {
-      if (!dragging && state === "pet") setState("idle");
-    }, 1600);
+    petPudin();
   });
 
   pudin.addEventListener("pointerdown", event => {
+    if (sleepingFromZero) {
+      event.preventDefault();
+      return;
+    }
+
     wake();
 
     dragging = true;
@@ -531,6 +662,12 @@
     button.addEventListener("click", () => {
       const action = button.dataset.action;
 
+      if (sleepingFromZero) {
+        showToast("SLEEP LOCKED // BRING A SACHET");
+        setDialogue("No puedo hacer nada todavía... trae el sachet secreto.", 3500);
+        return;
+      }
+
       if (action === "sleep") {
         setState("sleep", { sound: "mimir" });
         setDialogue(randomLine(dialogues.sleepy));
@@ -540,12 +677,7 @@
       wake();
 
       if (action === "pet") {
-        setState("pet", { sound: "salto" });
-        setDialogue(randomLine(dialogues.pet));
-
-        setTimeout(() => {
-          if (state === "pet") setState("idle");
-        }, 1500);
+        petPudin();
       }
 
       if (action === "dance") {
@@ -851,10 +983,14 @@
     if (start) start.textContent = "▶ CONTINUAR";
   }
 
+
   function completeTimer() {
     stopTimer();
 
     if (start) start.textContent = "▶ INICIAR";
+
+    // El mismo miau para Focus, Pausa y Descanso.
+    playSound("salto");
 
     if (modeLabel === "FOCUS") {
       if (message) {
@@ -862,10 +998,18 @@
           "¡FOCUS COMPLETADO! Pudin exige su paga en sachets. 🍣";
       }
 
-      setState("dance");
-      playSound("maldad");
+      if (!sleepingFromZero) setState("dance");
+
       showToast("FOCUS COMPLETE // CAT APPROVED");
       setDialogue("¡Trabajo terminado! Exijo mi recompensa.");
+
+      showEventModal({
+        icon: "🍅",
+        eyebrow: "FOCUS PROTOCOL // COMPLETE",
+        title: "¡Sesión de foco completada!",
+        message:
+          "Buen trabajo, humano. Has terminado tu sesión de concentración. Pudin recomienda estirar las patas y considerar una recompensa en sachets."
+      });
 
     } else {
       if (message) {
@@ -875,6 +1019,19 @@
 
       showToast("BREAK COMPLETE // READY TO FOCUS");
       setDialogue("Descanso finalizado. Volvamos al trabajo, humano.");
+
+      showEventModal({
+        icon: modeLabel === "SHORT BREAK" ? "☕" : "🌙",
+        eyebrow: "REST PROTOCOL // COMPLETE",
+        title:
+          modeLabel === "SHORT BREAK"
+            ? "¡Pausa terminada!"
+            : "¡Descanso terminado!",
+        message:
+          modeLabel === "SHORT BREAK"
+            ? "Tu pausa ha terminado. Tómate un momento y, cuando estés listo, vuelve al foco. Pudin ha supervisado tu descanso."
+            : "Tu descanso ha terminado. Cuando estés listo, puedes iniciar otra sesión de foco. Pudin ha supervisado tu recuperación con profesionalismo felino."
+      });
     }
   }
 
